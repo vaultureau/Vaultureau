@@ -7,7 +7,7 @@ Static launch website for Vaulture, an Australian Pokémon TCG business.
 Replace these placeholders before launch:
 
 ```text
-FORM_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
+FORM_ENDPOINT=https://formspree.io/f/meeyyknp
 WHATNOT_URL=https://www.whatnot.com/en-AU/user/vaulture
 EBAY_URL=https://www.ebay.com.au/usr/vaultureau
 ```
@@ -89,10 +89,10 @@ The website currently publishes only `hello@vaulture.com.au` and `sell@vaulture.
 The collection enquiry form currently posts to:
 
 ```text
-https://formspree.io/f/YOUR_FORM_ID
+https://formspree.io/f/meeyyknp
 ```
 
-Replace `YOUR_FORM_ID` in `index.html` with the live Formspree endpoint. The form includes a honeypot field named `_gotcha` for basic spam mitigation.
+The form includes a honeypot field named `_gotcha` for basic spam mitigation.
 
 Photo uploads are intentionally not implemented in version 1 because GitHub Pages cannot process uploaded files by itself. Sellers can paste a share link to photos or inventory instead.
 
