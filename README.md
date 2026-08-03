@@ -8,8 +8,8 @@ Replace these placeholders before launch:
 
 ```text
 FORM_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
-WHATNOT_URL=YOUR_WHATNOT_URL
-EBAY_URL=YOUR_EBAY_URL
+WHATNOT_URL=https://www.whatnot.com/en-AU/user/vaulture
+EBAY_URL=https://www.ebay.com.au/usr/vaultureau
 ```
 
 Current public email addresses:
