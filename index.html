@@ -8,6 +8,7 @@
       name="description"
       content="Vaulture is an Australian Pokémon TCG business buying Pokémon card collections, singles, graded cards and sealed products, with marketplace selling through Whatnot and eBay."
     >
+    <meta name="format-detection" content="telephone=no">
     <link rel="canonical" href="https://vaulture.com.au/">
     <meta name="theme-color" content="#101813">
 
@@ -20,10 +21,20 @@
     >
     <meta property="og:url" content="https://vaulture.com.au/">
     <meta property="og:image" content="https://vaulture.com.au/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Premium trading card collection with sleeved cards, slabs and sealed boxes.">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vaulture | Australian Pokémon TCG Buying &amp; Selling">
+    <meta
+      name="twitter:description"
+      content="Sell Pokémon collections, singles, graded cards and sealed products to an Australian TCG specialist."
+    >
+    <meta name="twitter:image" content="https://vaulture.com.au/assets/images/og-image.jpg">
 
     <link rel="icon" type="image/png" href="assets/icons/favicon.png">
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    <link rel="preload" as="image" href="assets/images/collection-hero.jpg" fetchpriority="high">
     <link rel="stylesheet" href="styles/main.css">
 
     <script type="application/ld+json">
@@ -95,6 +106,7 @@
             <li>Australian operated</li>
             <li>Pokémon TCG focused</li>
             <li>Online nationwide</li>
+            <li>No obligation enquiries</li>
           </ul>
         </div>
       </section>
@@ -190,6 +202,16 @@
               online collection tracker.
             </p>
 
+            <div class="form-summary" aria-label="Information that helps Vaulture assess your collection">
+              <p>Helpful details</p>
+              <ul>
+                <li>Clear front/back photos</li>
+                <li>Rough item counts</li>
+                <li>Condition notes</li>
+                <li>Notable cards or sealed products</li>
+              </ul>
+            </div>
+
             <div class="honeypot" aria-hidden="true">
               <label for="company">Company</label>
               <input id="company" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
@@ -217,8 +239,8 @@
               </div>
             </fieldset>
 
-            <fieldset>
-              <legend>What are you selling?</legend>
+            <fieldset class="choice-fieldset" data-selling-group>
+              <legend>What are you selling? <span class="required-label">Choose at least one</span></legend>
               <div class="checkbox-grid">
                 <label><input type="checkbox" name="selling[]" value="Raw singles"> <span>Raw singles</span></label>
                 <label><input type="checkbox" name="selling[]" value="Graded cards / slabs"> <span>Graded cards / slabs</span></label>
@@ -228,6 +250,9 @@
                 <label><input type="checkbox" name="selling[]" value="Bulk"> <span>Bulk</span></label>
                 <label><input type="checkbox" name="selling[]" value="Other"> <span>Other</span></label>
               </div>
+              <p class="field-help validation-message" data-selling-error>
+                Select at least one category so Vaulture knows what to review.
+              </p>
             </fieldset>
 
             <fieldset>
@@ -302,14 +327,26 @@
             <article class="marketplace-card">
               <h3>Whatnot</h3>
               <p>Find live shows, singles, sealed products and Vaulture marketplace activity.</p>
-              <a class="text-link" href="YOUR_WHATNOT_URL" target="_blank" rel="noopener noreferrer">
+              <a
+                class="text-link"
+                href="YOUR_WHATNOT_URL"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Vaulture on Whatnot in a new tab"
+              >
                 Open Whatnot
               </a>
             </article>
             <article class="marketplace-card">
               <h3>eBay</h3>
               <p>Browse current Vaulture listings and available Pokémon TCG products.</p>
-              <a class="text-link" href="YOUR_EBAY_URL" target="_blank" rel="noopener noreferrer">
+              <a
+                class="text-link"
+                href="YOUR_EBAY_URL"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Vaulture on eBay in a new tab"
+              >
                 Open eBay
               </a>
             </article>
