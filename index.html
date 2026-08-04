@@ -9,10 +9,12 @@
       content="Vaulture is an Australian Pokémon TCG business buying Pokémon card collections, singles, graded cards and sealed products, with marketplace selling through Whatnot and eBay."
     >
     <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://vaulture.com.au/">
     <meta name="theme-color" content="#101813">
 
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_AU">
     <meta property="og:site_name" content="Vaulture">
     <meta property="og:title" content="Vaulture | Australian Pokémon TCG Buying &amp; Selling">
     <meta
@@ -44,16 +46,59 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Vaulture",
-        "url": "https://vaulture.com.au/",
-        "logo": "https://vaulture.com.au/assets/branding/vaulture-logo.png",
-        "email": "hello@vaulture.com.au",
-        "areaServed": {
-          "@type": "Country",
-          "name": "Australia"
-        },
-        "description": "Australian Pokémon TCG buying and selling business."
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://vaulture.com.au/#organization",
+            "name": "Vaulture",
+            "url": "https://vaulture.com.au/",
+            "logo": "https://vaulture.com.au/assets/branding/vaulture-logo.png",
+            "email": "hello@vaulture.com.au",
+            "sameAs": [
+              "https://www.whatnot.com/en-AU/user/vaulture",
+              "https://www.ebay.com.au/usr/vaultureau"
+            ],
+            "areaServed": {
+              "@type": "Country",
+              "name": "Australia"
+            },
+            "knowsAbout": [
+              "Pokemon TCG singles",
+              "graded Pokemon cards",
+              "sealed Pokemon products",
+              "Pokemon card collections"
+            ],
+            "description": "Australian Pokémon TCG buying and selling business."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://vaulture.com.au/#website",
+            "url": "https://vaulture.com.au/",
+            "name": "Vaulture",
+            "publisher": {
+              "@id": "https://vaulture.com.au/#organization"
+            },
+            "inLanguage": "en-AU"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://vaulture.com.au/#webpage",
+            "url": "https://vaulture.com.au/",
+            "name": "Vaulture | Australian Pokémon TCG Buying & Selling",
+            "description": "Vaulture is an Australian Pokémon TCG business buying Pokémon card collections, singles, graded cards and sealed products.",
+            "isPartOf": {
+              "@id": "https://vaulture.com.au/#website"
+            },
+            "about": {
+              "@id": "https://vaulture.com.au/#organization"
+            },
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "https://vaulture.com.au/assets/images/og-image.jpg"
+            },
+            "inLanguage": "en-AU"
+          }
+        ]
       }
     </script>
   </head>
@@ -166,6 +211,27 @@
               <h3>Bulk and larger lots</h3>
               <p>Bulk cards and wider holdings where approximate counts and photos can help assessment.</p>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light" aria-labelledby="sell-australia-title">
+        <div class="container split-layout">
+          <div>
+            <p class="eyebrow">Selling Pokémon Cards</p>
+            <h2 id="sell-australia-title">A dedicated selling guide for Australian collectors.</h2>
+          </div>
+          <div class="content-stack">
+            <p>
+              If you are comparing options for selling Pokémon cards in Australia, Vaulture has a focused collection
+              enquiry page with preparation tips, common seller questions and the details that help assess a binder,
+              slab lot, sealed product holding or complete collection.
+            </p>
+            <p>
+              The guide explains how to share photos, what condition notes matter and how to submit a no obligation
+              collection enquiry.
+            </p>
+            <a class="button button-primary" href="sell-pokemon-cards.html">Open The Selling Guide</a>
           </div>
         </div>
       </section>
