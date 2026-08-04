@@ -46,7 +46,11 @@ function focusScrollTarget(target) {
     target.setAttribute("tabindex", "-1");
   }
 
-  target.focus({ preventScroll: true });
+  try {
+    target.focus({ preventScroll: true });
+  } catch {
+    target.focus();
+  }
 
   if (!hadTabIndex) {
     target.addEventListener(
