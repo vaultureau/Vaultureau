@@ -24,6 +24,7 @@ sell@vaulture.com.au
 ```text
 /
 ├── index.html
+├── sell-pokemon-cards.html
 ├── privacy.html
 ├── 404.html
 ├── styles/main.css
@@ -95,6 +96,26 @@ https://formspree.io/f/meeyyknp
 The form includes a honeypot field named `_gotcha` for basic spam mitigation.
 
 Photo uploads are intentionally not implemented in version 1 because GitHub Pages cannot process uploaded files by itself. Sellers can paste a share link to photos or inventory instead.
+
+## SEO Workflow
+
+The dedicated seller landing page is:
+
+```text
+https://vaulture.com.au/sell-pokemon-cards.html
+```
+
+After pushing changes:
+
+1. Submit `https://vaulture.com.au/sitemap.xml` in Google Search Console.
+2. Use URL Inspection for `https://vaulture.com.au/` and `https://vaulture.com.au/sell-pokemon-cards.html`.
+3. Request indexing for both URLs.
+4. Add `https://vaulture.com.au/` to Vaulture's Whatnot, eBay and social profiles.
+5. Where possible, link directly to the sell page when discussing collection buying:
+
+```text
+https://vaulture.com.au/sell-pokemon-cards.html
+```
 
 ## Future Collection Acquisition System
 
