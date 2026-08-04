@@ -28,6 +28,10 @@ html {
   scroll-padding-top: calc(var(--header-height) + 18px);
 }
 
+section[id] {
+  scroll-margin-top: calc(var(--header-height) + 18px);
+}
+
 body {
   margin: 0;
   background: var(--color-cream);
@@ -1093,7 +1097,7 @@ input[type="checkbox"] {
 .seller-prep-layout,
 .trust-section-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+  grid-template-columns: minmax(360px, 0.82fr) minmax(560px, 1fr);
   gap: 54px;
   align-items: start;
 }
@@ -1340,6 +1344,10 @@ input[type="checkbox"] {
   gap: 16px;
 }
 
+.trust-section .trust-grid-premium {
+  grid-template-columns: repeat(2, minmax(240px, 1fr));
+}
+
 .trust-card {
   min-height: 210px;
   border: 1px solid rgba(16, 24, 19, 0.12);
@@ -1355,6 +1363,10 @@ input[type="checkbox"] {
 .trust-card p {
   margin-bottom: 0;
   color: var(--color-muted);
+}
+
+.trust-section .trust-grid-premium .trust-card {
+  min-height: 190px;
 }
 
 .process-list-light {
@@ -1688,6 +1700,10 @@ input[type="checkbox"] {
 
   .sell-proof-grid article {
     min-height: auto;
+  }
+
+  .trust-section .trust-grid-premium {
+    grid-template-columns: 1fr;
   }
 
   .process-list article {

@@ -8,7 +8,9 @@ const sellingCheckboxes = Array.from(document.querySelectorAll('input[name="sell
 const sectionLinks = primaryNav
   ? Array.from(primaryNav.querySelectorAll('a[href^="#"]'))
   : [];
+const anchorLinks = Array.from(document.querySelectorAll('a[href*="#"]'));
 let activeScrollAnimation = 0;
+let restoreScrollBehavior = null;
 
 yearNodes.forEach((node) => {
   node.textContent = String(new Date().getFullYear());
@@ -63,24 +65,36 @@ function focusScrollTarget(target) {
   }
 }
 
-function animateScrollTo(targetTop) {
+function animateScrollTo(targetTop, onComplete) {
   const startTop = window.scrollY;
   const distance = targetTop - startTop;
+  const root = document.documentElement;
+  const previousScrollBehavior = root.style.scrollBehavior;
 
-  if (Math.abs(distance) < 2) return;
+  if (Math.abs(distance) < 2) {
+    if (onComplete) onComplete();
+    return;
+  }
 
   if (activeScrollAnimation) {
     cancelAnimationFrame(activeScrollAnimation);
-  }
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    window.scrollTo(0, targetTop);
-    updateHeaderState();
-    return;
+    if (restoreScrollBehavior) restoreScrollBehavior();
   }
 
   const duration = Math.min(900, Math.max(460, Math.abs(distance) * 0.42));
   const startTime = performance.now();
+
+  root.style.scrollBehavior = "auto";
+  restoreScrollBehavior = () => {
+    root.style.scrollBehavior = previousScrollBehavior;
+    restoreScrollBehavior = null;
+  };
+
+  function finish() {
+    if (restoreScrollBehavior) restoreScrollBehavior();
+    activeScrollAnimation = 0;
+    if (onComplete) onComplete();
+  }
 
   function step(now) {
     const progress = Math.min((now - startTime) / duration, 1);
@@ -92,7 +106,7 @@ function animateScrollTo(targetTop) {
     if (progress < 1) {
       activeScrollAnimation = requestAnimationFrame(step);
     } else {
-      activeScrollAnimation = 0;
+      finish();
     }
   }
 
@@ -173,9 +187,8 @@ if (sellForm) {
   });
 }
 
-document.addEventListener("click", (event) => {
-  const clickedElement = event.target instanceof Element ? event.target : null;
-  const link = clickedElement ? clickedElement.closest('a[href*="#"]') : null;
+function handleAnchorClick(event) {
+  const link = event.currentTarget;
 
   if (!(link instanceof HTMLAnchorElement) || event.defaultPrevented) return;
 
@@ -191,8 +204,13 @@ document.addEventListener("click", (event) => {
   );
 
   history.pushState(null, "", link.hash);
-  animateScrollTo(targetTop);
-  focusScrollTarget(target);
+  animateScrollTo(targetTop, () => {
+    focusScrollTarget(target);
+  });
+}
+
+anchorLinks.forEach((link) => {
+  link.addEventListener("click", handleAnchorClick);
 });
 
 if (sectionLinks.length > 0 && "IntersectionObserver" in window) {
