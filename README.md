@@ -38,6 +38,14 @@ Add these repository secrets in GitHub before running the workflow:
 
 The refresh token must be a user token consented with the `sell.fulfillment.readonly` scope. The workflow can be run manually from GitHub Actions and also runs hourly.
 
+To exchange a temporary eBay OAuth `code=` URL for a refresh token locally, run:
+
+```bash
+python3 tools/exchange-ebay-code.py
+```
+
+The helper prompts for the Production App ID, Production Cert ID, RuName and full OAuth redirect URL. It prints the refresh token but does not save secrets.
+
 ## Project Structure
 
 ```text
@@ -51,6 +59,7 @@ The refresh token must be a user token consented with the `sell.fulfillment.read
 ├── styles/main.css
 ├── scripts/main.js
 ├── tools/fetch-ebay-sales-feed.mjs
+├── tools/exchange-ebay-code.py
 ├── .github/workflows/ebay-sales-feed.yml
 ├── assets/images/
 ├── assets/icons/
