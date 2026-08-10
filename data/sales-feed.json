@@ -1,15 +1,52 @@
 {
-  "updatedAt": null,
+  "updatedAt": "2026-08-10T06:05:21.481Z",
   "source": "ebay",
-  "status": "pending",
+  "status": "live",
   "privacy": "Buyer names, addresses, usernames, order IDs, prices and private order notes are never published in this feed.",
   "summary": {
-    "totalOrders": 0,
-    "totalItems": 0,
-    "last7Days": 0,
-    "last30Days": 0
+    "totalOrders": 2,
+    "totalItems": 2,
+    "last7Days": 1,
+    "last30Days": 1
   },
-  "recent": [],
-  "daily": [],
-  "weekly": []
+  "recent": [
+    {
+      "id": "79aec728f4f169",
+      "source": "eBay",
+      "title": "11x Pokemon TCG Cards Bulk Lot English 1 Holo + 2 Trainers - Lot 005",
+      "quantity": 1,
+      "soldAt": "2026-08-07T13:15:25.000Z"
+    },
+    {
+      "id": "5f64ac38faf199",
+      "source": "eBay",
+      "title": "🔥Pokémon TCG Charizard ex Sv03: Obsidian Flames 228/197 Holo Hyper Rare 9.5 OCE",
+      "quantity": 1,
+      "soldAt": "2026-06-06T00:55:38.000Z"
+    }
+  ],
+  "daily": [
+    {
+      "date": "2026-06-06",
+      "orders": 1,
+      "items": 1
+    },
+    {
+      "date": "2026-08-07",
+      "orders": 1,
+      "items": 1
+    }
+  ],
+  "weekly": [
+    {
+      "week": "2026-W23",
+      "orders": 1,
+      "items": 1
+    },
+    {
+      "week": "2026-W32",
+      "orders": 1,
+      "items": 1
+    }
+  ]
 }
