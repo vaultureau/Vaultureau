@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-10T08:29:16.266Z",
+  "updatedAt": "2026-08-10T08:45:56.207Z",
   "source": "eBay Feedback API",
   "status": "live",
   "privacy": "Only selected public seller feedback comments and public feedback images are published. Buyer usernames, user IDs, feedback IDs, listing IDs, order line item IDs, transaction IDs, prices and private account data are removed.",
@@ -16,84 +16,98 @@
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Can't fault the process, product or service. Definitely happy with the purchase.",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": [
+        "https://i.ebayimg.com/00/s/MTYwMFgxMjA0/z/U6sAAeSwPQVqMRru/$_1.JPG?set_id=8800005007"
+      ]
     },
     {
       "id": "2a7cea7dbf1835",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "All items recieved are in great conditions, safely packaged and has arrived on time.",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "b575245f5c2776",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Great seller, A++",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "bddb1188024661",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Great seller and good communication, fast delivery and product as described and promise. Much recommended!!",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "a65bdacab8c938",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Item arrived super fast and packed well ....10/10",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "08d8d139f58de5",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "The card came quickly and was in the described condition. The seller was also flexible on pricing. Much appreciated!",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "a82920e99d7fc3",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Great seller, shipped quickly",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "48c715fa2342d0",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "“Great seller! card arrived in excellent condition, exactly as described. Price was very fair, quality is top-notch, and the packaging was secure to keep it safe during shipping. Very hap...",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "aa739699956716",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Item as described quick postage thank you",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "d5b3f6feaff54b",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Easy, fast transaction. Packaging was great. Will use again",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "18eec27bdd94eb",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Arrived in good time and as described:)",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     },
     {
       "id": "64bc19269bc7ab",
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Great product, excellent seller",
-      "commentType": "positive"
+      "commentType": "positive",
+      "images": []
     }
   ]
 }
