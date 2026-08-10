@@ -211,17 +211,17 @@ function renderSalesChart(monthly) {
     return;
   }
 
-  const maxOrders = Math.max(...months.map((month) => Number(month.orders || 0)), 1);
+  const maxSales = Math.max(...months.map((month) => Number(month.sales || month.orders || 0)), 1);
   chart.style.setProperty("--chart-columns", String(Math.max(months.length, 6)));
   chart.innerHTML = months
     .map((month) => {
-      const orders = Number(month.orders || 0);
-      const height = Math.max(orders / maxOrders * 100, orders > 0 ? 8 : 0);
+      const sales = Number(month.sales || month.orders || 0);
+      const height = Math.max(sales / maxSales * 100, sales > 0 ? 8 : 0);
       const monthKey = String(month.month || "month");
       const label = formatMonthLabel(monthKey);
 
       return `
-        <div class="sales-chart-bar" style="--bar-height: ${height.toFixed(2)}" aria-label="${orders} orders in ${escapeHtml(label)}">
+        <div class="sales-chart-bar" style="--bar-height: ${height.toFixed(2)}" aria-label="${sales} sales in ${escapeHtml(label)}">
           <span></span>
           <small>${escapeHtml(label)}</small>
         </div>
@@ -275,10 +275,10 @@ async function loadSalesActivity() {
     const totalItemsNode = document.querySelector("[data-sales-total-items]");
     const updatedNode = document.querySelector("[data-sales-updated]");
     const activeMonths = Array.isArray(feed.monthly)
-      ? feed.monthly.filter((month) => Number(month.orders || 0) > 0).length
+      ? feed.monthly.filter((month) => Number(month.sales || month.orders || 0) > 0).length
       : 0;
 
-    if (totalOrdersNode) totalOrdersNode.textContent = formatNumber(summary.totalOrders);
+    if (totalOrdersNode) totalOrdersNode.textContent = formatNumber(summary.totalSales || summary.totalOrders);
     if (monthCountNode) monthCountNode.textContent = formatNumber(activeMonths);
     if (totalItemsNode) totalItemsNode.textContent = formatNumber(summary.totalItems);
 
