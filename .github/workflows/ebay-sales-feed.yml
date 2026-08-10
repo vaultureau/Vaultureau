@@ -31,7 +31,8 @@ jobs:
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           EBAY_REFRESH_TOKEN: ${{ secrets.EBAY_REFRESH_TOKEN }}
           EBAY_MARKETPLACE_ID: EBAY_AU
-          EBAY_DAYS_BACK: "730"
+          EBAY_API_DAYS_BACK: "90"
+          EBAY_HISTORY_WINDOW_DAYS: "730"
           EBAY_PAGE_LIMIT: "100"
           EBAY_MAX_PAGES: "25"
 

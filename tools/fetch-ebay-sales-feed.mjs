@@ -5,7 +5,8 @@ import path from "node:path";
 const OUTPUT_PATH = process.env.EBAY_ACTIVITY_OUTPUT || "data/sales-feed.json";
 const BACKFILL_PATH = process.env.EBAY_ACTIVITY_BACKFILL || "data/sales-backfill.json";
 const MARKETPLACE_ID = process.env.EBAY_MARKETPLACE_ID || "EBAY_AU";
-const DAYS_BACK = Number.parseInt(process.env.EBAY_DAYS_BACK || "730", 10);
+const API_DAYS_BACK = Number.parseInt(process.env.EBAY_API_DAYS_BACK || "90", 10);
+const HISTORY_WINDOW_DAYS = Number.parseInt(process.env.EBAY_HISTORY_WINDOW_DAYS || "730", 10);
 const PAGE_LIMIT = Math.min(Number.parseInt(process.env.EBAY_PAGE_LIMIT || "100", 10), 100);
 const MAX_PAGES = Math.max(Number.parseInt(process.env.EBAY_MAX_PAGES || "25", 10), 1);
 const RECENT_LIMIT = Math.max(Number.parseInt(process.env.EBAY_RECENT_LIMIT || "12", 10), 1);
@@ -152,7 +153,7 @@ function normaliseSales(sales) {
   const now = new Date();
   const last7Cutoff = new Date(now.getTime() - 7 * 86400000);
   const last30Cutoff = new Date(now.getTime() - 30 * 86400000);
-  const lookbackStart = new Date(now.getTime() - DAYS_BACK * 86400000);
+  const lookbackStart = new Date(now.getTime() - HISTORY_WINDOW_DAYS * 86400000);
   let earliestOrderDate = null;
   let latestOrderDate = null;
   let totalItems = 0;
@@ -208,7 +209,8 @@ function normaliseSales(sales) {
     status: "live",
     privacy: "Buyer names, addresses, usernames, order IDs, prices and private order notes are never published in this feed.",
     range: {
-      requestedDays: DAYS_BACK,
+      requestedDays: HISTORY_WINDOW_DAYS,
+      apiSyncedDays: API_DAYS_BACK,
       firstOrderDate: earliestOrderDate ? toIsoDate(earliestOrderDate) : null,
       latestOrderDate: latestOrderDate ? toIsoDate(latestOrderDate) : null
     },
@@ -258,7 +260,7 @@ async function refreshAccessToken() {
 async function fetchOrders(accessToken) {
   const orders = [];
   const endDate = new Date();
-  const startDate = new Date(endDate.getTime() - DAYS_BACK * 86400000);
+  const startDate = new Date(endDate.getTime() - API_DAYS_BACK * 86400000);
   const filter = `creationdate:[${startDate.toISOString()}..${endDate.toISOString()}]`;
 
   for (let page = 0; page < MAX_PAGES; page += 1) {

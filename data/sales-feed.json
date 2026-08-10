@@ -1,10 +1,11 @@
 {
-  "updatedAt": "2026-08-10T06:36:29.193Z",
+  "updatedAt": "2026-08-10T06:46:17.717Z",
   "source": "ebay",
   "status": "live",
   "privacy": "Buyer names, addresses, usernames, order IDs, prices and private order notes are never published in this feed.",
   "range": {
     "requestedDays": 730,
+    "apiSyncedDays": 90,
     "firstOrderDate": "2025-01-21",
     "latestOrderDate": "2025-12-20"
   },
