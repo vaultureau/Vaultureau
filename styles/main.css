@@ -852,12 +852,11 @@ input[type="checkbox"] {
 
 .sales-chart {
   display: grid;
-  grid-template-columns: repeat(var(--chart-columns, 12), minmax(34px, 1fr));
-  gap: 8px;
-  align-items: end;
-  min-height: 190px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
+  grid-template-columns: minmax(108px, 0.32fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  min-height: 212px;
+  overflow: hidden;
   border: 1px solid rgba(255, 250, 240, 0.12);
   border-radius: var(--radius-md);
   background:
@@ -866,31 +865,84 @@ input[type="checkbox"] {
   padding: 18px;
 }
 
+.sales-chart-feature {
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  min-width: 0;
+  border-right: 1px solid rgba(255, 250, 240, 0.1);
+  padding-right: 14px;
+}
+
+.sales-chart-feature span {
+  color: var(--color-copper);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sales-chart-feature strong {
+  color: var(--color-paper);
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  line-height: 0.92;
+}
+
+.sales-chart-feature p {
+  color: rgba(255, 250, 240, 0.64);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.sales-chart-bars {
+  display: grid;
+  grid-template-columns: repeat(var(--chart-columns, 4), minmax(34px, 1fr));
+  gap: 8px;
+  align-items: end;
+  min-width: 0;
+  min-height: 174px;
+}
+
 .sales-chart-bar {
   display: grid;
+  grid-template-rows: auto 1fr auto;
   align-content: end;
   gap: 8px;
   min-width: 0;
-  height: 150px;
+  height: 174px;
+}
+
+.sales-chart-bar strong {
+  overflow: hidden;
+  color: var(--color-paper);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sales-chart-bar span {
   display: block;
-  min-height: 6px;
-  height: max(6px, calc(var(--bar-height, 0) * 1%));
-  border-radius: 999px 999px 3px 3px;
-  background: linear-gradient(180deg, var(--color-lime), rgba(186, 223, 72, 0.46));
-  box-shadow: 0 0 18px rgba(220, 248, 106, 0.16);
+  align-self: end;
+  min-height: 12px;
+  height: max(12px, calc(var(--bar-height, 0) * 1%));
+  border-radius: 10px 10px 4px 4px;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.22), transparent 34%),
+    linear-gradient(180deg, var(--color-lime), rgba(186, 223, 72, 0.58));
+  box-shadow: 0 0 20px rgba(220, 248, 106, 0.2);
 }
 
 .sales-chart-bar small {
   display: block;
   overflow: hidden;
   color: rgba(255, 250, 240, 0.55);
-  font-size: 0.68rem;
-  font-weight: 780;
+  font-size: 0.62rem;
+  font-weight: 850;
   text-align: center;
   text-overflow: ellipsis;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -2000,6 +2052,41 @@ input[type="checkbox"] {
   .buy-card,
   .sell-timeline article {
     min-height: auto;
+  }
+
+  .sales-chart {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .sales-chart-feature {
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 250, 240, 0.1);
+    padding-right: 0;
+    padding-bottom: 14px;
+  }
+
+  .sales-chart-feature span,
+  .sales-chart-feature p {
+    grid-column: 1 / -1;
+  }
+
+  .sales-chart-feature strong {
+    font-size: 3rem;
+  }
+
+  .sales-chart-bars {
+    min-height: 150px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-bottom: 2px;
+  }
+
+  .sales-chart-bar {
+    min-width: 38px;
+    height: 150px;
   }
 
   .buy-card-featured {

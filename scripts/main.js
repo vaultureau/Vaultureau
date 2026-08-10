@@ -172,29 +172,44 @@ function renderSalesChart(monthly) {
   const chart = document.querySelector("[data-sales-chart]");
   if (!chart) return;
 
-  const months = Array.isArray(monthly) ? monthly.slice(-24) : [];
+  const activePeriods = Array.isArray(monthly)
+    ? monthly
+      .map((period) => Number(period.sales || period.orders || 0))
+      .filter((sales) => sales > 0)
+      .slice(-8)
+    : [];
 
-  if (months.length === 0) {
-    chart.innerHTML = '<p class="activity-empty">Waiting for the first eBay sync.</p>';
+  if (activePeriods.length === 0) {
+    chart.innerHTML = '<p class="activity-empty">Waiting for the marketplace feed.</p>';
     return;
   }
 
-  const maxSales = Math.max(...months.map((month) => Number(month.sales || month.orders || 0)), 1);
-  chart.style.setProperty("--chart-columns", String(Math.max(months.length, 6)));
-  chart.innerHTML = months
-    .map((month) => {
-      const sales = Number(month.sales || month.orders || 0);
-      const height = Math.max(sales / maxSales * 100, sales > 0 ? 8 : 0);
-      const label = sales > 0 ? `${formatNumber(sales)} sold` : "";
+  const maxSales = Math.max(...activePeriods, 1);
+  const bars = activePeriods
+    .map((sales) => {
+      const height = Math.max(Math.sqrt(sales / maxSales) * 100, 14);
 
       return `
         <div class="sales-chart-bar" style="--bar-height: ${height.toFixed(2)}" aria-label="${sales} sales recorded">
+          <strong>${escapeHtml(formatNumber(sales))}</strong>
           <span></span>
-          <small>${escapeHtml(label)}</small>
+          <small>sold</small>
         </div>
       `;
     })
     .join("");
+
+  chart.style.setProperty("--chart-columns", String(Math.max(activePeriods.length, 4)));
+  chart.innerHTML = `
+    <div class="sales-chart-feature">
+      <span>Peak activity</span>
+      <strong>${escapeHtml(formatNumber(maxSales))}</strong>
+      <p>sales in one active period</p>
+    </div>
+    <div class="sales-chart-bars">
+      ${bars}
+    </div>
+  `;
 }
 
 function renderRecentSales(recent) {
