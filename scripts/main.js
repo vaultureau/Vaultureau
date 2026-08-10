@@ -6,7 +6,9 @@ const sellForm = document.querySelector(".sell-form");
 const sellingGroup = document.querySelector("[data-selling-group]");
 const sellingCheckboxes = Array.from(document.querySelectorAll('input[name="selling[]"]'));
 const salesActivity = document.querySelector("[data-sales-activity]");
+const testimonialsSection = document.querySelector("[data-testimonials-section]");
 const RECENT_ACTIVITY_VISIBLE_LIMIT = 8;
+const TESTIMONIAL_VISIBLE_LIMIT = 6;
 const sectionLinks = primaryNav
   ? Array.from(primaryNav.querySelectorAll('a[href^="#"]'))
   : [];
@@ -243,6 +245,64 @@ function renderRecentSales(recent) {
     .join("");
 }
 
+function renderTestimonials(feed) {
+  if (!testimonialsSection) return;
+
+  const testimonialsList = testimonialsSection.querySelector("[data-testimonials-list]");
+  const totalNode = testimonialsSection.querySelector("[data-testimonials-total]");
+  const scoreNode = testimonialsSection.querySelector("[data-testimonials-score]");
+  const sourceNode = testimonialsSection.querySelector("[data-testimonials-source]");
+  const testimonials = Array.isArray(feed?.testimonials)
+    ? feed.testimonials
+      .filter((testimonial) => testimonial && testimonial.comment)
+      .slice(0, TESTIMONIAL_VISIBLE_LIMIT)
+    : [];
+
+  if (testimonials.length === 0) {
+    testimonialsSection.hidden = true;
+    return;
+  }
+
+  const summary = feed.summary || {};
+  const totalSynced = Number(summary.availableFeedback || summary.totalSynced || testimonials.length);
+  const feedbackScore = Number(summary.feedbackScore);
+
+  testimonialsSection.hidden = false;
+
+  if (totalNode) totalNode.textContent = formatNumber(totalSynced);
+  if (scoreNode) {
+    scoreNode.textContent = Number.isFinite(feedbackScore)
+      ? formatNumber(feedbackScore)
+      : "Positive";
+  }
+  if (sourceNode) sourceNode.textContent = "eBay";
+
+  if (!testimonialsList) return;
+
+  testimonialsList.innerHTML = testimonials
+    .map((testimonial) => `
+      <article class="testimonial-card">
+        <span>${escapeHtml(testimonial.label || "Verified eBay buyer")}</span>
+        <blockquote>${escapeHtml(testimonial.comment)}</blockquote>
+        <p>Public positive seller feedback through ${escapeHtml(testimonial.source || "eBay")}.</p>
+      </article>
+    `)
+    .join("");
+}
+
+async function loadTestimonials() {
+  if (!testimonialsSection) return;
+
+  try {
+    const response = await fetch("data/testimonials.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Testimonials feed unavailable.");
+
+    renderTestimonials(await response.json());
+  } catch {
+    testimonialsSection.hidden = true;
+  }
+}
+
 async function loadSalesActivity() {
   if (!salesActivity) return;
 
@@ -342,6 +402,7 @@ anchorLinks.forEach((link) => {
 });
 
 loadSalesActivity();
+loadTestimonials();
 
 if (sectionLinks.length > 0 && "IntersectionObserver" in window) {
   const sectionMap = new Map(

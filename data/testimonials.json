@@ -1,0 +1,13 @@
+{
+  "updatedAt": null,
+  "source": "eBay Feedback API",
+  "status": "pending",
+  "privacy": "Only positive public seller feedback comments are published. Buyer usernames, user IDs, feedback IDs, listing IDs, order line item IDs, transaction IDs, prices and private account data are removed.",
+  "summary": {
+    "totalSynced": 0,
+    "positiveSynced": 0,
+    "availableFeedback": 0,
+    "feedbackScore": null
+  },
+  "testimonials": []
+}

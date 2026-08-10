@@ -49,6 +49,32 @@ python3 tools/exchange-ebay-code.py
 
 The helper prompts for the Production App ID, Production Cert ID, RuName and full OAuth redirect URL. It prints the refresh token but does not save secrets.
 
+## eBay Testimonials
+
+The homepage feedback section reads from `data/testimonials.json`. A separate GitHub Action can update that file from eBay's Feedback API and only publishes privacy-safe testimonials:
+
+- positive seller feedback only
+- no buyer usernames
+- no user IDs
+- no feedback IDs
+- no listing IDs
+- no order line item IDs
+- no transaction IDs
+- no prices
+- no private account data
+
+Add this optional repository secret if the existing order token was not consented with feedback access:
+
+- `EBAY_FEEDBACK_REFRESH_TOKEN`
+
+If this secret is not set, the testimonials workflow falls back to `EBAY_REFRESH_TOKEN`. The refresh token used by the testimonials workflow must be consented with:
+
+```text
+https://api.ebay.com/oauth/api_scope/commerce.feedback.readonly
+```
+
+The workflow can be run manually from GitHub Actions and also runs every six hours. If the workflow fails with an OAuth permission error, generate a fresh Production user token with the feedback readonly scope and save it as `EBAY_FEEDBACK_REFRESH_TOKEN`.
+
 To import an eBay orders report CSV as an anonymised historical backfill, run:
 
 ```bash
@@ -76,12 +102,15 @@ Only item titles, quantities, sale timestamps and marketplace source labels are 
 ├── 404.html
 ├── data/sales-feed.json
 ├── data/sales-backfill.json
+├── data/testimonials.json
 ├── styles/main.css
 ├── scripts/main.js
 ├── tools/fetch-ebay-sales-feed.mjs
+├── tools/fetch-ebay-feedback-feed.mjs
 ├── tools/exchange-ebay-code.py
 ├── tools/import-ebay-orders-report.py
 ├── .github/workflows/ebay-sales-feed.yml
+├── .github/workflows/ebay-feedback-feed.yml
 ├── assets/images/
 ├── assets/icons/
 ├── assets/branding/

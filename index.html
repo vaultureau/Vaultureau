@@ -41,7 +41,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-solid.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="preload" as="image" href="assets/images/collection-hero.jpg" fetchpriority="high">
-    <link rel="stylesheet" href="styles/main.css?v=20260810-chart-redesign">
+    <link rel="stylesheet" href="styles/main.css?v=20260810-feedback">
 
     <script type="application/ld+json">
       {
@@ -472,6 +472,41 @@
         </div>
       </section>
 
+      <section
+        class="section testimonials-section"
+        id="feedback"
+        aria-labelledby="feedback-title"
+        data-testimonials-section
+        hidden
+      >
+        <div class="container testimonials-layout">
+          <div class="testimonials-copy">
+            <p class="eyebrow">Buyer Feedback</p>
+            <h2 id="feedback-title">Real marketplace feedback, shown without buyer details.</h2>
+            <p>
+              Vaulture can publish positive public seller feedback from eBay while keeping buyer usernames,
+              transaction details and private account information off the website.
+            </p>
+            <div class="testimonial-stats" aria-label="Vaulture eBay feedback summary">
+              <article>
+                <span data-testimonials-total>0</span>
+                <p>Feedback comments available</p>
+              </article>
+              <article>
+                <span data-testimonials-score>Positive</span>
+                <p>Public seller feedback</p>
+              </article>
+              <article>
+                <span data-testimonials-source>eBay</span>
+                <p>Marketplace source</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="testimonial-grid" data-testimonials-list aria-live="polite"></div>
+        </div>
+      </section>
+
       <section class="section contact-section" id="contact" aria-labelledby="contact-title">
         <div class="container contact-panel">
           <div>
@@ -527,6 +562,6 @@
       </div>
     </footer>
 
-    <script src="scripts/main.js?v=20260810-chart-redesign" defer></script>
+    <script src="scripts/main.js?v=20260810-feedback" defer></script>
   </body>
 </html>

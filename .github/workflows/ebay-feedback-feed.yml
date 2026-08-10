@@ -1,0 +1,59 @@
+name: Update eBay testimonials
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "43 */6 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/ebay-feedback-feed.yml"
+      - "tools/fetch-ebay-feedback-feed.mjs"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ebay-feedback-feed
+  cancel-in-progress: false
+
+jobs:
+  update-feedback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch eBay feedback and publish anonymised testimonials
+        run: node tools/fetch-ebay-feedback-feed.mjs
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EBAY_REFRESH_TOKEN: ${{ secrets.EBAY_REFRESH_TOKEN }}
+          EBAY_FEEDBACK_REFRESH_TOKEN: ${{ secrets.EBAY_FEEDBACK_REFRESH_TOKEN }}
+          EBAY_FEEDBACK_USER_ID: vaultureau
+          EBAY_MARKETPLACE_ID: EBAY_AU
+          EBAY_FEEDBACK_PAGE_LIMIT: "25"
+          EBAY_FEEDBACK_MAX_PAGES: "4"
+          EBAY_TESTIMONIAL_LIMIT: "12"
+
+      - name: Commit updated testimonials
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/testimonials.json
+          if git diff --cached --quiet; then
+            echo "No testimonial changes to commit."
+          else
+            git commit -m "Update eBay testimonials"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
