@@ -6,6 +6,7 @@ const sellForm = document.querySelector(".sell-form");
 const sellingGroup = document.querySelector("[data-selling-group]");
 const sellingCheckboxes = Array.from(document.querySelectorAll('input[name="selling[]"]'));
 const salesActivity = document.querySelector("[data-sales-activity]");
+const testimonialCarousel = document.querySelector("[data-testimonial-carousel]");
 const testimonialsSection = document.querySelector("[data-testimonials-section]");
 const RECENT_ACTIVITY_VISIBLE_LIMIT = 8;
 const TESTIMONIAL_VISIBLE_LIMIT = 6;
@@ -15,6 +16,8 @@ const sectionLinks = primaryNav
 const anchorLinks = Array.from(document.querySelectorAll('a[href*="#"]'));
 let activeScrollAnimation = 0;
 let restoreScrollBehavior = null;
+let testimonialCarouselIndex = 0;
+let testimonialCarouselCount = 0;
 
 yearNodes.forEach((node) => {
   node.textContent = String(new Date().getFullYear());
@@ -170,6 +173,175 @@ function escapeHtml(value) {
   });
 }
 
+function getRatingMeta(commentType) {
+  const rating = String(commentType || "positive").toLowerCase();
+
+  if (rating === "negative") {
+    return {
+      className: "negative",
+      icon: "-",
+      label: "Negative"
+    };
+  }
+
+  if (rating === "neutral") {
+    return {
+      className: "neutral",
+      icon: "•",
+      label: "Neutral"
+    };
+  }
+
+  return {
+    className: "positive",
+    icon: "+",
+    label: "Positive"
+  };
+}
+
+function getSafeImageUrls(images) {
+  if (!Array.isArray(images)) return [];
+
+  return images
+    .map((imageUrl) => {
+      try {
+        const url = new URL(String(imageUrl || ""), window.location.href);
+        return ["http:", "https:"].includes(url.protocol) ? url.toString() : "";
+      } catch {
+        return "";
+      }
+    })
+    .filter(Boolean)
+    .slice(0, 3);
+}
+
+function getTestimonialCardMarkup(testimonial, extraClassName = "") {
+  const rating = getRatingMeta(testimonial.commentType);
+  const images = getSafeImageUrls(testimonial.images);
+  const imagesMarkup = images.length > 0
+    ? `
+      <div class="testimonial-images" aria-label="Public eBay feedback images">
+        ${images
+          .map((imageUrl) => `
+            <img
+              src="${escapeHtml(imageUrl)}"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              referrerpolicy="no-referrer"
+            >
+          `)
+          .join("")}
+      </div>
+    `
+    : "";
+
+  return `
+    <article class="testimonial-card${extraClassName ? ` ${extraClassName}` : ""}">
+      <div class="testimonial-card-header">
+        <span>${escapeHtml(testimonial.label || "Verified eBay buyer")}</span>
+        <strong class="testimonial-rating testimonial-rating-${rating.className}" aria-label="${rating.label} eBay feedback">
+          <b aria-hidden="true">${rating.icon}</b>
+          ${rating.label}
+        </strong>
+      </div>
+      ${imagesMarkup}
+      <blockquote>${escapeHtml(testimonial.comment)}</blockquote>
+      <p>Public ${rating.label.toLowerCase()} seller feedback through ${escapeHtml(testimonial.source || "eBay")}.</p>
+    </article>
+  `;
+}
+
+function updateTestimonialCarousel() {
+  if (!testimonialCarousel || testimonialCarouselCount === 0) return;
+
+  const track = testimonialCarousel.querySelector("[data-testimonial-track]");
+  const dots = Array.from(testimonialCarousel.querySelectorAll("[data-testimonial-dot]"));
+  const prevButton = testimonialCarousel.querySelector("[data-testimonial-prev]");
+  const nextButton = testimonialCarousel.querySelector("[data-testimonial-next]");
+
+  if (track) {
+    track.style.setProperty("--testimonial-index", String(testimonialCarouselIndex));
+  }
+
+  dots.forEach((dot, index) => {
+    const isActive = index === testimonialCarouselIndex;
+    dot.classList.toggle("is-active", isActive);
+    dot.setAttribute("aria-current", isActive ? "true" : "false");
+  });
+
+  if (prevButton) prevButton.disabled = testimonialCarouselCount < 2;
+  if (nextButton) nextButton.disabled = testimonialCarouselCount < 2;
+}
+
+function moveTestimonialCarousel(direction) {
+  if (testimonialCarouselCount < 2) return;
+
+  testimonialCarouselIndex =
+    (testimonialCarouselIndex + direction + testimonialCarouselCount) % testimonialCarouselCount;
+  updateTestimonialCarousel();
+}
+
+function renderTestimonialCarousel(testimonials) {
+  if (!testimonialCarousel) return;
+
+  const track = testimonialCarousel.querySelector("[data-testimonial-track]");
+  const dots = testimonialCarousel.querySelector("[data-testimonial-dots]");
+  const prevButton = testimonialCarousel.querySelector("[data-testimonial-prev]");
+  const nextButton = testimonialCarousel.querySelector("[data-testimonial-next]");
+
+  if (!track || testimonials.length === 0) {
+    testimonialCarousel.hidden = true;
+    return;
+  }
+
+  testimonialCarousel.hidden = false;
+  testimonialCarouselCount = testimonials.length;
+  testimonialCarouselIndex = Math.min(testimonialCarouselIndex, testimonialCarouselCount - 1);
+  track.style.setProperty("--testimonial-count", String(testimonialCarouselCount));
+  track.innerHTML = testimonials
+    .map((testimonial) => getTestimonialCardMarkup(testimonial, "testimonial-card-carousel"))
+    .join("");
+
+  if (dots) {
+    dots.innerHTML = testimonials
+      .map((_, index) => `
+        <button
+          type="button"
+          aria-label="Show testimonial ${index + 1}"
+          data-testimonial-dot
+          data-testimonial-index="${index}"
+        ></button>
+      `)
+      .join("");
+  }
+
+  if (prevButton && !prevButton.dataset.carouselBound) {
+    prevButton.addEventListener("click", () => moveTestimonialCarousel(-1));
+    prevButton.dataset.carouselBound = "true";
+  }
+
+  if (nextButton && !nextButton.dataset.carouselBound) {
+    nextButton.addEventListener("click", () => moveTestimonialCarousel(1));
+    nextButton.dataset.carouselBound = "true";
+  }
+
+  if (dots && !dots.dataset.carouselBound) {
+    dots.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) return;
+
+      const dot = event.target.closest("[data-testimonial-dot]");
+      if (!dot) return;
+
+      testimonialCarouselIndex = Number(dot.dataset.testimonialIndex || 0);
+      updateTestimonialCarousel();
+    });
+    dots.dataset.carouselBound = "true";
+  }
+
+  updateTestimonialCarousel();
+}
+
 function renderSalesChart(monthly) {
   const chart = document.querySelector("[data-sales-chart]");
   if (!chart) return;
@@ -260,6 +432,7 @@ function renderTestimonials(feed) {
 
   if (testimonials.length === 0) {
     testimonialsSection.hidden = true;
+    if (testimonialCarousel) testimonialCarousel.hidden = true;
     return;
   }
 
@@ -277,16 +450,12 @@ function renderTestimonials(feed) {
   }
   if (sourceNode) sourceNode.textContent = "eBay";
 
+  renderTestimonialCarousel(testimonials);
+
   if (!testimonialsList) return;
 
   testimonialsList.innerHTML = testimonials
-    .map((testimonial) => `
-      <article class="testimonial-card">
-        <span>${escapeHtml(testimonial.label || "Verified eBay buyer")}</span>
-        <blockquote>${escapeHtml(testimonial.comment)}</blockquote>
-        <p>Public positive seller feedback through ${escapeHtml(testimonial.source || "eBay")}.</p>
-      </article>
-    `)
+    .map((testimonial) => getTestimonialCardMarkup(testimonial))
     .join("");
 }
 
@@ -300,6 +469,7 @@ async function loadTestimonials() {
     renderTestimonials(await response.json());
   } catch {
     testimonialsSection.hidden = true;
+    if (testimonialCarousel) testimonialCarousel.hidden = true;
   }
 }
 

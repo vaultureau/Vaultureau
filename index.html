@@ -41,7 +41,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-solid.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="preload" as="image" href="assets/images/collection-hero.jpg" fetchpriority="high">
-    <link rel="stylesheet" href="styles/main.css?v=20260810-feedback">
+    <link rel="stylesheet" href="styles/main.css?v=20260810-testimonial-carousel">
 
     <script type="application/ld+json">
       {
@@ -158,6 +158,46 @@
             <li>Online nationwide</li>
             <li>No obligation enquiries</li>
           </ul>
+        </div>
+      </section>
+
+      <section
+        class="testimonial-carousel-section"
+        aria-labelledby="testimonial-carousel-title"
+        data-testimonial-carousel
+        hidden
+      >
+        <div class="container testimonial-carousel-panel">
+          <div class="testimonial-carousel-copy">
+            <p class="eyebrow">Marketplace Proof</p>
+            <h2 id="testimonial-carousel-title">Recent buyer feedback from eBay.</h2>
+          </div>
+
+          <div class="testimonial-carousel" aria-roledescription="carousel">
+            <button
+              class="testimonial-carousel-button"
+              type="button"
+              aria-label="Previous testimonial"
+              data-testimonial-prev
+            >
+              <span aria-hidden="true">&lsaquo;</span>
+            </button>
+
+            <div class="testimonial-carousel-frame">
+              <div class="testimonial-carousel-track" data-testimonial-track aria-live="polite"></div>
+            </div>
+
+            <button
+              class="testimonial-carousel-button"
+              type="button"
+              aria-label="Next testimonial"
+              data-testimonial-next
+            >
+              <span aria-hidden="true">&rsaquo;</span>
+            </button>
+
+            <div class="testimonial-carousel-dots" data-testimonial-dots aria-label="Choose testimonial"></div>
+          </div>
         </div>
       </section>
 
@@ -562,6 +602,6 @@
       </div>
     </footer>
 
-    <script src="scripts/main.js?v=20260810-feedback" defer></script>
+    <script src="scripts/main.js?v=20260810-testimonial-carousel" defer></script>
   </body>
 </html>

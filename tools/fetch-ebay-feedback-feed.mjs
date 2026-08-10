@@ -8,6 +8,11 @@ const USER_ID = process.env.EBAY_FEEDBACK_USER_ID || "vaultureau";
 const PAGE_LIMIT = Math.min(Number.parseInt(process.env.EBAY_FEEDBACK_PAGE_LIMIT || "25", 10), 200);
 const MAX_PAGES = Math.max(Number.parseInt(process.env.EBAY_FEEDBACK_MAX_PAGES || "4", 10), 1);
 const TESTIMONIAL_LIMIT = Math.max(Number.parseInt(process.env.EBAY_TESTIMONIAL_LIMIT || "12", 10), 1);
+const REVIEW_IMAGE_LIMIT = Math.max(Number.parseInt(process.env.EBAY_REVIEW_IMAGE_LIMIT || "3", 10), 0);
+const COMMENT_TYPES = (process.env.EBAY_FEEDBACK_COMMENT_TYPES || "POSITIVE")
+  .split(",")
+  .map((type) => type.trim().toUpperCase())
+  .filter(Boolean);
 const SCOPE = process.env.EBAY_FEEDBACK_SCOPE || "https://api.ebay.com/oauth/api_scope/commerce.feedback";
 const TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token";
 const FEEDBACK_URL = "https://api.ebay.com/commerce/feedback/v1/feedback";
@@ -89,6 +94,49 @@ function getFeedbackScore(feedback) {
   return Number.isFinite(score) ? score : null;
 }
 
+function normaliseImageUrl(value) {
+  const imageUrl = typeof value === "string"
+    ? value
+    : firstString(value?.imageUrl, value?.url, value?.src, value?.thumbnailUrl);
+
+  if (!imageUrl) return "";
+
+  try {
+    const url = new URL(imageUrl);
+    return ["http:", "https:"].includes(url.protocol) ? url.toString() : "";
+  } catch {
+    return "";
+  }
+}
+
+function getFeedbackImages(feedback) {
+  const imageSources = [
+    feedback.images,
+    feedback.feedbackImages,
+    feedback.feedbackComment?.images,
+    feedback.feedbackComment?.image,
+    feedback.feedbackComment?.imageUrl
+  ];
+  const imageUrls = [];
+  const seen = new Set();
+
+  for (const source of imageSources) {
+    const values = Array.isArray(source) ? source : [source];
+
+    for (const value of values) {
+      const imageUrl = normaliseImageUrl(value);
+      if (!imageUrl || seen.has(imageUrl)) continue;
+
+      seen.add(imageUrl);
+      imageUrls.push(imageUrl);
+
+      if (imageUrls.length >= REVIEW_IMAGE_LIMIT) return imageUrls;
+    }
+  }
+
+  return imageUrls;
+}
+
 function getFeedbackArray(payload) {
   const candidates = [
     payload.feedback,
@@ -121,7 +169,7 @@ function normaliseFeedbackItems(items, payloadTotal) {
   for (const feedback of items) {
     const commentType = getCommentType(feedback);
 
-    if (commentType && commentType !== "POSITIVE") continue;
+    if (commentType && COMMENT_TYPES.length > 0 && !COMMENT_TYPES.includes(commentType)) continue;
     if (feedback.automatedFeedback === true) continue;
 
     const comment = clampComment(getComment(feedback));
@@ -141,7 +189,8 @@ function normaliseFeedbackItems(items, payloadTotal) {
       source: "eBay",
       label: "Verified eBay buyer",
       comment,
-      commentType: "positive"
+      commentType: commentType ? commentType.toLowerCase() : "positive",
+      images: getFeedbackImages(feedback)
     });
 
     if (testimonials.length >= TESTIMONIAL_LIMIT) break;
@@ -151,10 +200,11 @@ function normaliseFeedbackItems(items, payloadTotal) {
     updatedAt: new Date().toISOString(),
     source: "eBay Feedback API",
     status: testimonials.length > 0 ? "live" : "empty",
-    privacy: "Only positive public seller feedback comments are published. Buyer usernames, user IDs, feedback IDs, listing IDs, order line item IDs, transaction IDs, prices and private account data are removed.",
+    privacy: "Only selected public seller feedback comments and public feedback images are published. Buyer usernames, user IDs, feedback IDs, listing IDs, order line item IDs, transaction IDs, prices and private account data are removed.",
     summary: {
       totalSynced: testimonials.length,
-      positiveSynced: testimonials.length,
+      positiveSynced: testimonials.filter((testimonial) => testimonial.commentType === "positive").length,
+      negativeSynced: testimonials.filter((testimonial) => testimonial.commentType === "negative").length,
       availableFeedback: payloadTotal || testimonials.length,
       feedbackScore
     },
@@ -199,7 +249,10 @@ async function fetchFeedback(accessToken) {
     const url = new URL(FEEDBACK_URL);
     url.searchParams.set("user_id", USER_ID);
     url.searchParams.set("feedback_type", "FEEDBACK_RECEIVED");
-    url.searchParams.set("filter", "commentType:POSITIVE,role:SELLER,includeAutomatedFeedback:false");
+    url.searchParams.set(
+      "filter",
+      `commentType:${COMMENT_TYPES.join("|") || "POSITIVE"},role:SELLER,includeAutomatedFeedback:false`
+    );
     url.searchParams.set("limit", String(PAGE_LIMIT));
     url.searchParams.set("offset", String(page * PAGE_LIMIT));
     url.searchParams.set("sort", "TIME");

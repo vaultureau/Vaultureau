@@ -398,6 +398,137 @@ h3 {
   font-weight: 750;
 }
 
+.testimonial-carousel-section {
+  position: relative;
+  z-index: 2;
+  margin-top: -92px;
+  border-bottom: 1px solid rgba(255, 250, 240, 0.1);
+  background:
+    linear-gradient(90deg, rgba(24, 53, 39, 0.96), rgba(7, 19, 15, 1)),
+    var(--color-forest-deep);
+  color: rgba(255, 250, 240, 0.78);
+  padding-block: 28px;
+}
+
+.testimonial-carousel-panel {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.42fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.testimonial-carousel-copy .eyebrow {
+  color: var(--color-lime);
+  margin-bottom: 10px;
+}
+
+.testimonial-carousel-copy h2 {
+  max-width: 360px;
+  margin-bottom: 0;
+  color: var(--color-paper);
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+}
+
+.testimonial-carousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "prev frame next"
+    "dots dots dots";
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.testimonial-carousel-frame {
+  grid-area: frame;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.testimonial-carousel-track {
+  display: flex;
+  width: 100%;
+  transform: translateX(calc(var(--testimonial-index, 0) * -100%));
+  transition: transform 260ms ease;
+}
+
+.testimonial-card-carousel {
+  flex: 0 0 100%;
+  min-height: 188px;
+  box-shadow: none;
+}
+
+.testimonial-card-carousel .testimonial-images {
+  grid-template-columns: repeat(3, 76px);
+  justify-content: start;
+}
+
+.testimonial-card-carousel .testimonial-images img {
+  width: 76px;
+}
+
+.testimonial-carousel-button {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(220, 248, 106, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 250, 240, 0.06);
+  color: var(--color-paper);
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.testimonial-carousel-button:first-of-type {
+  grid-area: prev;
+}
+
+.testimonial-carousel-button:last-of-type {
+  grid-area: next;
+}
+
+.testimonial-carousel-button span {
+  display: block;
+  font-size: 1.8rem;
+  line-height: 0.8;
+  transform: translateY(-1px);
+}
+
+.testimonial-carousel-button:hover:not(:disabled) {
+  border-color: rgba(220, 248, 106, 0.55);
+  background: rgba(220, 248, 106, 0.12);
+  transform: translateY(-1px);
+}
+
+.testimonial-carousel-button:disabled {
+  cursor: default;
+  opacity: 0.42;
+}
+
+.testimonial-carousel-dots {
+  grid-area: dots;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  min-height: 14px;
+}
+
+.testimonial-carousel-dots button {
+  width: 24px;
+  height: 7px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.24);
+  padding: 0;
+  transition: background 160ms ease, width 160ms ease;
+}
+
+.testimonial-carousel-dots button.is-active {
+  width: 34px;
+  background: var(--color-lime);
+}
+
 .section {
   padding-block: 92px;
 }
@@ -1069,7 +1200,14 @@ input[type="checkbox"] {
   box-shadow: 0 18px 42px rgba(16, 24, 19, 0.08);
 }
 
-.testimonial-card span {
+.testimonial-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.testimonial-card-header > span {
   width: fit-content;
   border: 1px solid rgba(24, 53, 39, 0.14);
   border-radius: 999px;
@@ -1079,6 +1217,74 @@ input[type="checkbox"] {
   font-size: 0.72rem;
   font-weight: 850;
   text-transform: uppercase;
+}
+
+.testimonial-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  border: 1px solid rgba(24, 53, 39, 0.14);
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.testimonial-rating b {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: var(--color-white);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.testimonial-rating-positive {
+  background: rgba(24, 53, 39, 0.06);
+  color: var(--color-forest);
+}
+
+.testimonial-rating-positive b {
+  background: var(--color-forest);
+}
+
+.testimonial-rating-neutral {
+  background: rgba(107, 111, 104, 0.08);
+  color: var(--color-muted);
+}
+
+.testimonial-rating-neutral b {
+  background: var(--color-muted);
+}
+
+.testimonial-rating-negative {
+  background: rgba(138, 58, 40, 0.08);
+  color: #8a3a28;
+}
+
+.testimonial-rating-negative b {
+  background: #8a3a28;
+}
+
+.testimonial-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(76px, 1fr));
+  gap: 8px;
+}
+
+.testimonial-images img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(16, 24, 19, 0.1);
+  border-radius: var(--radius-sm);
+  background: rgba(16, 24, 19, 0.06);
+  object-fit: cover;
 }
 
 .testimonial-card blockquote {
@@ -1940,6 +2146,14 @@ input[type="checkbox"] {
     background-position: 62% center;
   }
 
+  .testimonial-carousel-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-carousel-copy h2 {
+    max-width: 620px;
+  }
+
   .sell-hero-grid {
     grid-template-columns: 1fr;
     min-height: auto;
@@ -2135,6 +2349,37 @@ input[type="checkbox"] {
     padding-block: 64px;
   }
 
+  .testimonial-carousel-section {
+    margin-top: -56px;
+    padding-block: 24px;
+  }
+
+  .testimonial-carousel-panel {
+    gap: 20px;
+  }
+
+  .testimonial-carousel {
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+    gap: 8px;
+  }
+
+  .testimonial-carousel-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .testimonial-card-carousel {
+    padding: 18px;
+  }
+
+  .testimonial-card-carousel .testimonial-images {
+    grid-template-columns: repeat(3, 58px);
+  }
+
+  .testimonial-card-carousel .testimonial-images img {
+    width: 58px;
+  }
+
   .category-grid,
   .marketplace-grid,
   .activity-summary,
@@ -2174,6 +2419,11 @@ input[type="checkbox"] {
   .testimonial-card,
   .testimonial-stats article {
     min-height: auto;
+  }
+
+  .testimonial-card-header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .sales-chart {

@@ -42,9 +42,11 @@ jobs:
           EBAY_FEEDBACK_SCOPE: https://api.ebay.com/oauth/api_scope/commerce.feedback
           EBAY_FEEDBACK_USER_ID: vaultureau
           EBAY_MARKETPLACE_ID: EBAY_AU
+          EBAY_FEEDBACK_COMMENT_TYPES: POSITIVE
           EBAY_FEEDBACK_PAGE_LIMIT: "25"
           EBAY_FEEDBACK_MAX_PAGES: "4"
           EBAY_TESTIMONIAL_LIMIT: "12"
+          EBAY_REVIEW_IMAGE_LIMIT: "3"
 
       - name: Commit updated testimonials
         run: |

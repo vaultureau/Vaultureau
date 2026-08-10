@@ -54,6 +54,8 @@ The helper prompts for the Production App ID, Production Cert ID, RuName and ful
 The homepage feedback section reads from `data/testimonials.json`. A separate GitHub Action can update that file from eBay's Feedback API and only publishes privacy-safe testimonials:
 
 - positive seller feedback only
+- rating badges for positive, neutral or negative feedback types if they are ever included
+- public eBay feedback images when eBay provides them
 - no buyer usernames
 - no user IDs
 - no feedback IDs
@@ -74,6 +76,8 @@ https://api.ebay.com/oauth/api_scope/commerce.feedback
 ```
 
 The workflow can be run manually from GitHub Actions and also runs every six hours. If the workflow fails with an OAuth permission error, generate a fresh Production user token with the feedback scope and save it as `EBAY_FEEDBACK_REFRESH_TOKEN`.
+
+The live workflow intentionally requests `EBAY_FEEDBACK_COMMENT_TYPES=POSITIVE` so the homepage stays trust-focused. The front end can display neutral or negative badges if those feedback types are ever enabled later.
 
 To import an eBay orders report CSV as an anonymised historical backfill, run:
 
