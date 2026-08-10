@@ -36,7 +36,7 @@ Add these repository secrets in GitHub before running the workflow:
 - `EBAY_CLIENT_SECRET`
 - `EBAY_REFRESH_TOKEN`
 
-The refresh token must be a user token consented with the `sell.fulfillment.readonly` scope. The workflow can be run manually from GitHub Actions and also runs hourly.
+The refresh token must be a user token consented with the `sell.fulfillment.readonly` scope. The workflow can be run manually from GitHub Actions and also runs hourly. The workflow requests up to 730 days of available eBay order history, then publishes a 24-month anonymised monthly chart plus recent anonymised sale cards.
 
 To exchange a temporary eBay OAuth `code=` URL for a refresh token locally, run:
 

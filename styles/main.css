@@ -852,10 +852,12 @@ input[type="checkbox"] {
 
 .sales-chart {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--chart-columns, 12), minmax(34px, 1fr));
   gap: 8px;
   align-items: end;
   min-height: 190px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
   border: 1px solid rgba(255, 250, 240, 0.12);
   border-radius: var(--radius-md);
   background:

@@ -3,6 +3,11 @@
   "source": "ebay",
   "status": "live",
   "privacy": "Buyer names, addresses, usernames, order IDs, prices and private order notes are never published in this feed.",
+  "range": {
+    "requestedDays": 730,
+    "firstOrderDate": "2026-06-06",
+    "latestOrderDate": "2026-08-07"
+  },
   "summary": {
     "totalOrders": 2,
     "totalItems": 2,
@@ -45,6 +50,23 @@
     },
     {
       "week": "2026-W32",
+      "orders": 1,
+      "items": 1
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2026-06",
+      "orders": 1,
+      "items": 1
+    },
+    {
+      "month": "2026-07",
+      "orders": 0,
+      "items": 0
+    },
+    {
+      "month": "2026-08",
       "orders": 1,
       "items": 1
     }

@@ -4,9 +4,9 @@ import path from "node:path";
 
 const OUTPUT_PATH = process.env.EBAY_ACTIVITY_OUTPUT || "data/sales-feed.json";
 const MARKETPLACE_ID = process.env.EBAY_MARKETPLACE_ID || "EBAY_AU";
-const DAYS_BACK = Number.parseInt(process.env.EBAY_DAYS_BACK || "90", 10);
-const PAGE_LIMIT = Math.min(Number.parseInt(process.env.EBAY_PAGE_LIMIT || "50", 10), 100);
-const MAX_PAGES = Math.max(Number.parseInt(process.env.EBAY_MAX_PAGES || "6", 10), 1);
+const DAYS_BACK = Number.parseInt(process.env.EBAY_DAYS_BACK || "730", 10);
+const PAGE_LIMIT = Math.min(Number.parseInt(process.env.EBAY_PAGE_LIMIT || "100", 10), 100);
+const MAX_PAGES = Math.max(Number.parseInt(process.env.EBAY_MAX_PAGES || "25", 10), 1);
 const RECENT_LIMIT = Math.max(Number.parseInt(process.env.EBAY_RECENT_LIMIT || "12", 10), 1);
 const SCOPE = process.env.EBAY_OAUTH_SCOPE || "https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly";
 const TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token";
@@ -31,6 +31,10 @@ function getWeekKey(date) {
   const yearStart = new Date(Date.UTC(utcDate.getUTCFullYear(), 0, 1));
   const weekNumber = Math.ceil(((utcDate - yearStart) / 86400000 + 1) / 7);
   return `${utcDate.getUTCFullYear()}-W${String(weekNumber).padStart(2, "0")}`;
+}
+
+function getMonthKey(date) {
+  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}`;
 }
 
 function clampTitle(title) {
@@ -62,6 +66,20 @@ function lineItemQuantity(lineItem) {
   return Number.isFinite(quantity) && quantity > 0 ? quantity : 1;
 }
 
+function buildMonthRange(startDate, endDate, monthMap) {
+  const months = [];
+  const cursor = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1));
+  const end = new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), 1));
+
+  while (cursor <= end) {
+    const month = getMonthKey(cursor);
+    months.push(monthMap.get(month) || { month, orders: 0, items: 0 });
+    cursor.setUTCMonth(cursor.getUTCMonth() + 1);
+  }
+
+  return months.slice(-24);
+}
+
 function normaliseOrders(orders) {
   const visibleOrders = orders
     .filter(isVisibleSale)
@@ -70,9 +88,13 @@ function normaliseOrders(orders) {
   const recent = [];
   const dayMap = new Map();
   const weekMap = new Map();
+  const monthMap = new Map();
   const now = new Date();
   const last7Cutoff = new Date(now.getTime() - 7 * 86400000);
   const last30Cutoff = new Date(now.getTime() - 30 * 86400000);
+  const lookbackStart = new Date(now.getTime() - DAYS_BACK * 86400000);
+  let earliestOrderDate = null;
+  let latestOrderDate = null;
   let totalItems = 0;
   let last7Days = 0;
   let last30Days = 0;
@@ -81,8 +103,12 @@ function normaliseOrders(orders) {
     const soldAt = new Date(order.creationDate || order.createdAt || order.updatedAt || Date.now());
     const dateKey = toIsoDate(soldAt);
     const weekKey = getWeekKey(soldAt);
+    const monthKey = getMonthKey(soldAt);
     const lineItems = Array.isArray(order.lineItems) && order.lineItems.length > 0 ? order.lineItems : [{}];
     const orderItems = lineItems.reduce((total, lineItem) => total + lineItemQuantity(lineItem), 0);
+
+    if (!earliestOrderDate || soldAt < earliestOrderDate) earliestOrderDate = soldAt;
+    if (!latestOrderDate || soldAt > latestOrderDate) latestOrderDate = soldAt;
 
     totalItems += orderItems;
     if (soldAt >= last7Cutoff) last7Days += 1;
@@ -97,6 +123,11 @@ function normaliseOrders(orders) {
     weekEntry.orders += 1;
     weekEntry.items += orderItems;
     weekMap.set(weekKey, weekEntry);
+
+    const monthEntry = monthMap.get(monthKey) || { month: monthKey, orders: 0, items: 0 };
+    monthEntry.orders += 1;
+    monthEntry.items += orderItems;
+    monthMap.set(monthKey, monthEntry);
 
     for (const lineItem of lineItems) {
       if (recent.length >= RECENT_LIMIT) break;
@@ -117,6 +148,11 @@ function normaliseOrders(orders) {
     source: "ebay",
     status: "live",
     privacy: "Buyer names, addresses, usernames, order IDs, prices and private order notes are never published in this feed.",
+    range: {
+      requestedDays: DAYS_BACK,
+      firstOrderDate: earliestOrderDate ? toIsoDate(earliestOrderDate) : null,
+      latestOrderDate: latestOrderDate ? toIsoDate(latestOrderDate) : null
+    },
     summary: {
       totalOrders: visibleOrders.length,
       totalItems,
@@ -125,7 +161,8 @@ function normaliseOrders(orders) {
     },
     recent,
     daily: Array.from(dayMap.values()).sort((a, b) => a.date.localeCompare(b.date)).slice(-30),
-    weekly: Array.from(weekMap.values()).sort((a, b) => a.week.localeCompare(b.week)).slice(-12)
+    weekly: Array.from(weekMap.values()).sort((a, b) => a.week.localeCompare(b.week)).slice(-12),
+    monthly: buildMonthRange(earliestOrderDate || lookbackStart, now, monthMap)
   };
 }
 

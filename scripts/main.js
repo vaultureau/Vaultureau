@@ -190,27 +190,38 @@ function formatRelativeTime(dateValue) {
   return "recently";
 }
 
-function renderSalesChart(weekly) {
+function formatMonthLabel(monthValue) {
+  const [year, month] = String(monthValue || "").split("-").map(Number);
+  if (!year || !month) return "Month";
+
+  return new Intl.DateTimeFormat("en-AU", {
+    month: "short",
+    year: "2-digit",
+  }).format(new Date(Date.UTC(year, month - 1, 1)));
+}
+
+function renderSalesChart(monthly) {
   const chart = document.querySelector("[data-sales-chart]");
   if (!chart) return;
 
-  const weeks = Array.isArray(weekly) ? weekly.slice(-12) : [];
+  const months = Array.isArray(monthly) ? monthly.slice(-24) : [];
 
-  if (weeks.length === 0) {
+  if (months.length === 0) {
     chart.innerHTML = '<p class="activity-empty">Waiting for the first eBay sync.</p>';
     return;
   }
 
-  const maxOrders = Math.max(...weeks.map((week) => Number(week.orders || 0)), 1);
-  chart.innerHTML = weeks
-    .map((week) => {
-      const orders = Number(week.orders || 0);
+  const maxOrders = Math.max(...months.map((month) => Number(month.orders || 0)), 1);
+  chart.style.setProperty("--chart-columns", String(Math.max(months.length, 6)));
+  chart.innerHTML = months
+    .map((month) => {
+      const orders = Number(month.orders || 0);
       const height = Math.max(orders / maxOrders * 100, orders > 0 ? 8 : 0);
-      const weekLabel = String(week.week || "week");
-      const label = weekLabel.replace(/^\d{4}-/, "");
+      const monthKey = String(month.month || "month");
+      const label = formatMonthLabel(monthKey);
 
       return `
-        <div class="sales-chart-bar" style="--bar-height: ${height.toFixed(2)}" aria-label="${orders} orders in ${escapeHtml(weekLabel)}">
+        <div class="sales-chart-bar" style="--bar-height: ${height.toFixed(2)}" aria-label="${orders} orders in ${escapeHtml(label)}">
           <span></span>
           <small>${escapeHtml(label)}</small>
         </div>
@@ -260,19 +271,24 @@ async function loadSalesActivity() {
     const feed = await response.json();
     const summary = feed.summary || {};
     const totalOrdersNode = document.querySelector("[data-sales-total-orders]");
-    const last30Node = document.querySelector("[data-sales-last-30]");
+    const monthCountNode = document.querySelector("[data-sales-month-count]");
     const totalItemsNode = document.querySelector("[data-sales-total-items]");
     const updatedNode = document.querySelector("[data-sales-updated]");
+    const activeMonths = Array.isArray(feed.monthly)
+      ? feed.monthly.filter((month) => Number(month.orders || 0) > 0).length
+      : 0;
 
     if (totalOrdersNode) totalOrdersNode.textContent = formatNumber(summary.totalOrders);
-    if (last30Node) last30Node.textContent = formatNumber(summary.last30Days);
+    if (monthCountNode) monthCountNode.textContent = formatNumber(activeMonths);
     if (totalItemsNode) totalItemsNode.textContent = formatNumber(summary.totalItems);
 
     if (updatedNode && feed.updatedAt) {
-      updatedNode.textContent = `Updated ${formatRelativeTime(feed.updatedAt)}. Buyer details and order information stay private.`;
+      const rangeDays = feed.range?.requestedDays;
+      const rangeLabel = rangeDays ? ` Synced from the available eBay history window of up to ${formatNumber(rangeDays)} days.` : "";
+      updatedNode.textContent = `Updated ${formatRelativeTime(feed.updatedAt)}.${rangeLabel} Buyer details and order information stay private.`;
     }
 
-    renderSalesChart(feed.weekly);
+    renderSalesChart(feed.monthly || feed.weekly);
     renderRecentSales(feed.recent);
   } catch {
     renderSalesChart([]);
