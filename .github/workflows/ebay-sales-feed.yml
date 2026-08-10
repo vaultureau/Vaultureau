@@ -1,9 +1,16 @@
-name: Update eBay sales activity
+name: Update marketplace sales activity
 
 on:
   workflow_dispatch:
   schedule:
     - cron: "17 * * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/ebay-sales-feed.yml"
+      - "tools/fetch-ebay-sales-feed.mjs"
+      - "data/sales-backfill.json"
 
 permissions:
   contents: write
@@ -18,6 +25,8 @@ jobs:
     steps:
       - name: Check out site
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -41,5 +50,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/sales-feed.json
-          git diff --cached --quiet || git commit -m "Update eBay sales activity"
-          git push
+          if git diff --cached --quiet; then
+            echo "No feed changes to commit."
+          else
+            git commit -m "Update marketplace sales activity"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
