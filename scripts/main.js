@@ -6,6 +6,7 @@ const sellForm = document.querySelector(".sell-form");
 const sellingGroup = document.querySelector("[data-selling-group]");
 const sellingCheckboxes = Array.from(document.querySelectorAll('input[name="selling[]"]'));
 const salesActivity = document.querySelector("[data-sales-activity]");
+const RECENT_ACTIVITY_VISIBLE_LIMIT = 8;
 const sectionLinks = primaryNav
   ? Array.from(primaryNav.querySelectorAll('a[href^="#"]'))
   : [];
@@ -167,39 +168,6 @@ function escapeHtml(value) {
   });
 }
 
-function formatRelativeTime(dateValue) {
-  const date = new Date(dateValue);
-  const diffMs = date.getTime() - Date.now();
-  const units = [
-    ["year", 31536000000],
-    ["month", 2592000000],
-    ["week", 604800000],
-    ["day", 86400000],
-    ["hour", 3600000],
-    ["minute", 60000],
-  ];
-
-  if (Number.isNaN(date.getTime())) return "recently";
-
-  for (const [unit, ms] of units) {
-    if (Math.abs(diffMs) >= ms || unit === "minute") {
-      return new Intl.RelativeTimeFormat("en-AU", { numeric: "auto" }).format(Math.round(diffMs / ms), unit);
-    }
-  }
-
-  return "recently";
-}
-
-function formatMonthLabel(monthValue) {
-  const [year, month] = String(monthValue || "").split("-").map(Number);
-  if (!year || !month) return "Month";
-
-  return new Intl.DateTimeFormat("en-AU", {
-    month: "short",
-    year: "2-digit",
-  }).format(new Date(Date.UTC(year, month - 1, 1)));
-}
-
 function renderSalesChart(monthly) {
   const chart = document.querySelector("[data-sales-chart]");
   if (!chart) return;
@@ -217,11 +185,10 @@ function renderSalesChart(monthly) {
     .map((month) => {
       const sales = Number(month.sales || month.orders || 0);
       const height = Math.max(sales / maxSales * 100, sales > 0 ? 8 : 0);
-      const monthKey = String(month.month || "month");
-      const label = formatMonthLabel(monthKey);
+      const label = sales > 0 ? `${formatNumber(sales)} sold` : "";
 
       return `
-        <div class="sales-chart-bar" style="--bar-height: ${height.toFixed(2)}" aria-label="${sales} sales in ${escapeHtml(label)}">
+        <div class="sales-chart-bar" style="--bar-height: ${height.toFixed(2)}" aria-label="${sales} sales recorded">
           <span></span>
           <small>${escapeHtml(label)}</small>
         </div>
@@ -234,7 +201,7 @@ function renderRecentSales(recent) {
   const feed = document.querySelector("[data-sales-feed]");
   if (!feed) return;
 
-  const sales = Array.isArray(recent) ? recent.slice(0, 6) : [];
+  const sales = Array.isArray(recent) ? recent.slice(0, RECENT_ACTIVITY_VISIBLE_LIMIT) : [];
 
   if (sales.length === 0) {
     feed.innerHTML = `
@@ -252,7 +219,7 @@ function renderRecentSales(recent) {
 
       return `
         <article class="recent-sale-card">
-          <span>Anonymous buyer - ${formatRelativeTime(sale.soldAt)}</span>
+          <span>Anonymous purchase</span>
           <strong>${escapeHtml(sale.title || "a Vaulture eBay item")}</strong>
           <p>${quantityLabel} purchased through ${escapeHtml(sale.source || "eBay")}.</p>
         </article>
@@ -274,18 +241,16 @@ async function loadSalesActivity() {
     const monthCountNode = document.querySelector("[data-sales-month-count]");
     const totalItemsNode = document.querySelector("[data-sales-total-items]");
     const updatedNode = document.querySelector("[data-sales-updated]");
-    const activeMonths = Array.isArray(feed.monthly)
-      ? feed.monthly.filter((month) => Number(month.sales || month.orders || 0) > 0).length
+    const activityCards = Array.isArray(feed.recent)
+      ? Math.min(feed.recent.length, RECENT_ACTIVITY_VISIBLE_LIMIT)
       : 0;
 
     if (totalOrdersNode) totalOrdersNode.textContent = formatNumber(summary.totalSales || summary.totalOrders);
-    if (monthCountNode) monthCountNode.textContent = formatNumber(activeMonths);
+    if (monthCountNode) monthCountNode.textContent = formatNumber(activityCards);
     if (totalItemsNode) totalItemsNode.textContent = formatNumber(summary.totalItems);
 
-    if (updatedNode && feed.updatedAt) {
-      const rangeDays = feed.range?.requestedDays;
-      const rangeLabel = rangeDays ? ` Synced from the available eBay history window of up to ${formatNumber(rangeDays)} days.` : "";
-      updatedNode.textContent = `Updated ${formatRelativeTime(feed.updatedAt)}.${rangeLabel} Buyer details and order information stay private.`;
+    if (updatedNode) {
+      updatedNode.textContent = "Buyer details and order information stay private.";
     }
 
     renderSalesChart(feed.monthly || feed.weekly);
