@@ -98,6 +98,36 @@ def import_sales(path):
     return sales
 
 
+def load_existing_sales():
+    if not OUTPUT_PATH.exists():
+        return []
+
+    payload = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
+    return payload.get("sales") or []
+
+
+def merge_sales(sales):
+    merged = {}
+
+    for sale in sales:
+        key = sale.get("dedupeKey") or "|".join([
+            sale.get("source", ""),
+            sale.get("soldAt", ""),
+            sale.get("title", ""),
+            str(sale.get("quantity") or 1),
+        ])
+        merged[key] = {
+            "id": sale.get("id") or anonymised_id([key]),
+            "source": sale.get("source") or "Marketplace",
+            "title": clamp_title(sale.get("title")),
+            "quantity": parse_quantity(sale.get("quantity")),
+            "soldAt": sale.get("soldAt"),
+            **({"dedupeKey": sale["dedupeKey"]} if sale.get("dedupeKey") else {}),
+        }
+
+    return sorted(merged.values(), key=lambda sale: sale["soldAt"], reverse=True)
+
+
 def main():
     if len(sys.argv) != 2:
         print("Usage: python3 tools/import-ebay-orders-report.py /path/to/eBay-orders-report.csv")
@@ -105,16 +135,17 @@ def main():
 
     report_path = Path(sys.argv[1]).expanduser()
     sales = import_sales(report_path)
+    merged_sales = merge_sales([*load_existing_sales(), *sales])
     payload = {
-        "source": "ebay-orders-report",
+        "source": "marketplace-imports",
         "importedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
-        "privacy": "Imported from an eBay orders report with buyer names, usernames, addresses, emails, order IDs, prices and tracking data removed.",
-        "sales": sales,
+        "privacy": "Imported from marketplace exports with buyer names, usernames, addresses, emails, seller IDs, order IDs, prices, fees, payment details and tracking data removed.",
+        "sales": merged_sales,
     }
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(f"{json.dumps(payload, indent=2, ensure_ascii=False)}\n", encoding="utf-8")
-    print(f"Wrote {len(sales)} anonymised sale records to {OUTPUT_PATH}")
+    print(f"Wrote {len(merged_sales)} anonymised sale records to {OUTPUT_PATH} ({len(sales)} eBay rows imported)")
     return 0
 
 

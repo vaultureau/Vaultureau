@@ -205,9 +205,9 @@ function normaliseSales(sales) {
 
   return {
     updatedAt: now.toISOString(),
-    source: "ebay",
+    source: "marketplaces",
     status: "live",
-    privacy: "Buyer names, addresses, usernames, order IDs, prices and private order notes are never published in this feed.",
+    privacy: "Buyer names, addresses, usernames, seller IDs, order IDs, shipment IDs, prices, fees and private order notes are never published in this feed.",
     range: {
       requestedDays: HISTORY_WINDOW_DAYS,
       apiSyncedDays: API_DAYS_BACK,
@@ -326,7 +326,7 @@ async function main() {
   const apiSales = orders.filter(isVisibleSale).flatMap(orderToSales);
 
   await writeFeed(normaliseSales([...backfillSales, ...apiSales]));
-  console.log(`Wrote anonymised eBay sales feed to ${OUTPUT_PATH}`);
+  console.log(`Wrote anonymised marketplace sales feed to ${OUTPUT_PATH}`);
 }
 
 main().catch((error) => {

@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-10T06:49:45.742Z",
-  "source": "ebay",
+  "updatedAt": "2026-08-10T07:36:22.001Z",
+  "source": "marketplaces",
   "status": "live",
-  "privacy": "Buyer names, addresses, usernames, order IDs, prices and private order notes are never published in this feed.",
+  "privacy": "Buyer names, addresses, usernames, seller IDs, order IDs, shipment IDs, prices, fees and private order notes are never published in this feed.",
   "range": {
     "requestedDays": 730,
     "apiSyncedDays": 90,
@@ -10,9 +10,9 @@
     "latestOrderDate": "2026-08-07"
   },
   "summary": {
-    "totalOrders": 46,
-    "totalSales": 46,
-    "totalItems": 49,
+    "totalOrders": 816,
+    "totalSales": 816,
+    "totalItems": 819,
     "last7Days": 1,
     "last30Days": 1
   },
@@ -53,127 +53,67 @@
       "soldAt": "2025-11-17T12:00:00.000Z"
     },
     {
-      "id": "0d809342644e30",
-      "source": "eBay",
-      "title": "🍃🦊 Leafeon GX – 157/156 – Rainbow Rare – Pokémon TCG SM Ultra Prism",
+      "id": "4870f9a5fa39f4",
+      "source": "Whatnot",
+      "title": "Black Bolt Booster Pack #5",
       "quantity": 1,
-      "soldAt": "2025-10-19T12:00:00.000Z"
+      "soldAt": "2025-11-02T10:52:05.000Z"
     },
     {
-      "id": "bfda595164a282",
-      "source": "eBay",
-      "title": "🌊🐺 Greninja & Zoroark GX – 107/214 – Pokémon TCG SM Unbroken Bonds",
+      "id": "e2e9067a253434",
+      "source": "Whatnot",
+      "title": "Black Bolt Booster Pack #4",
       "quantity": 1,
-      "soldAt": "2025-10-13T12:00:00.000Z"
+      "soldAt": "2025-11-02T10:50:05.000Z"
     },
     {
-      "id": "2afa7d4fe52873",
-      "source": "eBay",
-      "title": "⚡🎀 Elesa’s Sparkle – 147/159 – Full Art Trainer – Pokémon TCG Fusion Strike",
+      "id": "1a638c557c0470",
+      "source": "Whatnot",
+      "title": "Black Bolt Booster Pack #3",
       "quantity": 1,
-      "soldAt": "2025-09-26T12:00:00.000Z"
+      "soldAt": "2025-11-02T10:47:56.000Z"
     },
     {
-      "id": "038b82848a8ca9",
-      "source": "eBay",
-      "title": "🌊🐺 Greninja & Zoroark GX – 107/214 – Pokémon TCG SM Unbroken Bonds",
+      "id": "8343a0c13712d2",
+      "source": "Whatnot",
+      "title": "Black Bolt Booster Pack #2",
       "quantity": 1,
-      "soldAt": "2025-09-25T12:00:00.000Z"
+      "soldAt": "2025-11-02T10:45:11.000Z"
     },
     {
-      "id": "84aa38c587bb8e",
-      "source": "eBay",
-      "title": "Pokemon TCG Sun & Moon Guardians Rising Sylveon GX 92/145 – Ultra Rare Holo NM",
+      "id": "9b7091d368f711",
+      "source": "Whatnot",
+      "title": "Black Bolt Booster Pack #1",
       "quantity": 1,
-      "soldAt": "2025-09-23T12:00:00.000Z"
+      "soldAt": "2025-11-02T10:42:57.000Z"
     },
     {
-      "id": "edb6ec78d74eb7",
-      "source": "eBay",
-      "title": "📖👓 N – 105a/124 – Full Art Trainer – Pokémon TCG XY Promo Collection",
+      "id": "3f463fc1a38c3c",
+      "source": "Whatnot",
+      "title": "Card on Screen #18",
       "quantity": 1,
-      "soldAt": "2025-09-22T12:00:00.000Z"
+      "soldAt": "2025-11-02T10:39:27.000Z"
     },
     {
-      "id": "4a5f06b77ce6f4",
-      "source": "eBay",
-      "title": "💖🌸 Gardevoir & Sylveon GX – 130/214 – Tag Team – Pokémon TCG SM Unbroken Bonds",
+      "id": "05c1c2d5615f61",
+      "source": "Whatnot",
+      "title": "Reshiram V 172/195",
       "quantity": 1,
-      "soldAt": "2025-09-21T12:00:00.000Z"
+      "soldAt": "2025-11-02T10:20:33.000Z"
     }
   ],
   "daily": [
     {
-      "date": "2025-08-15",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
+      "date": "2025-08-30",
+      "sales": 53,
+      "orders": 53,
+      "items": 53
     },
     {
-      "date": "2025-08-16",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-18",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-19",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-20",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
-    },
-    {
-      "date": "2025-08-21",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-22",
-      "sales": 5,
-      "orders": 5,
-      "items": 5
-    },
-    {
-      "date": "2025-08-23",
-      "sales": 5,
-      "orders": 5,
-      "items": 5
-    },
-    {
-      "date": "2025-08-24",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-25",
-      "sales": 4,
-      "orders": 4,
-      "items": 4
-    },
-    {
-      "date": "2025-08-26",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
-    },
-    {
-      "date": "2025-08-28",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
+      "date": "2025-08-31",
+      "sales": 15,
+      "orders": 15,
+      "items": 15
     },
     {
       "date": "2025-09-02",
@@ -189,9 +129,15 @@
     },
     {
       "date": "2025-09-06",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
+      "sales": 55,
+      "orders": 55,
+      "items": 55
+    },
+    {
+      "date": "2025-09-07",
+      "sales": 50,
+      "orders": 50,
+      "items": 50
     },
     {
       "date": "2025-09-08",
@@ -201,15 +147,39 @@
     },
     {
       "date": "2025-09-12",
-      "sales": 1,
-      "orders": 1,
-      "items": 3
+      "sales": 12,
+      "orders": 12,
+      "items": 14
     },
     {
       "date": "2025-09-13",
       "sales": 1,
       "orders": 1,
       "items": 1
+    },
+    {
+      "date": "2025-09-14",
+      "sales": 18,
+      "orders": 18,
+      "items": 18
+    },
+    {
+      "date": "2025-09-18",
+      "sales": 13,
+      "orders": 13,
+      "items": 13
+    },
+    {
+      "date": "2025-09-19",
+      "sales": 18,
+      "orders": 18,
+      "items": 18
+    },
+    {
+      "date": "2025-09-20",
+      "sales": 15,
+      "orders": 15,
+      "items": 15
     },
     {
       "date": "2025-09-21",
@@ -254,6 +224,36 @@
       "items": 1
     },
     {
+      "date": "2025-10-23",
+      "sales": 83,
+      "orders": 83,
+      "items": 83
+    },
+    {
+      "date": "2025-10-25",
+      "sales": 96,
+      "orders": 96,
+      "items": 96
+    },
+    {
+      "date": "2025-10-26",
+      "sales": 88,
+      "orders": 88,
+      "items": 88
+    },
+    {
+      "date": "2025-10-30",
+      "sales": 70,
+      "orders": 70,
+      "items": 70
+    },
+    {
+      "date": "2025-11-02",
+      "sales": 24,
+      "orders": 24,
+      "items": 24
+    },
+    {
       "date": "2025-11-17",
       "sales": 1,
       "orders": 1,
@@ -286,34 +286,22 @@
   ],
   "weekly": [
     {
-      "week": "2025-W34",
-      "sales": 16,
-      "orders": 16,
-      "items": 16
-    },
-    {
-      "week": "2025-W35",
-      "sales": 8,
-      "orders": 8,
-      "items": 8
-    },
-    {
       "week": "2025-W36",
-      "sales": 3,
-      "orders": 3,
-      "items": 3
+      "sales": 107,
+      "orders": 107,
+      "items": 107
     },
     {
       "week": "2025-W37",
-      "sales": 3,
-      "orders": 3,
-      "items": 5
+      "sales": 32,
+      "orders": 32,
+      "items": 34
     },
     {
       "week": "2025-W38",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
+      "sales": 47,
+      "orders": 47,
+      "items": 47
     },
     {
       "week": "2025-W39",
@@ -326,6 +314,18 @@
       "sales": 2,
       "orders": 2,
       "items": 2
+    },
+    {
+      "week": "2025-W43",
+      "sales": 267,
+      "orders": 267,
+      "items": 267
+    },
+    {
+      "week": "2025-W44",
+      "sales": 94,
+      "orders": 94,
+      "items": 94
     },
     {
       "week": "2025-W47",
@@ -397,27 +397,27 @@
     },
     {
       "month": "2025-08",
-      "sales": 27,
-      "orders": 27,
-      "items": 28
+      "sales": 257,
+      "orders": 257,
+      "items": 258
     },
     {
       "month": "2025-09",
-      "sales": 11,
-      "orders": 11,
-      "items": 13
+      "sales": 190,
+      "orders": 190,
+      "items": 192
     },
     {
       "month": "2025-10",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
+      "sales": 339,
+      "orders": 339,
+      "items": 339
     },
     {
       "month": "2025-11",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
+      "sales": 25,
+      "orders": 25,
+      "items": 25
     },
     {
       "month": "2025-12",

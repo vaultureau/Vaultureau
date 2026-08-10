@@ -20,15 +20,18 @@ sell@vaulture.com.au
 support@vaulture.com.au
 ```
 
-## eBay Sales Activity
+## Marketplace Sales Activity
 
-The homepage activity widget reads from `data/sales-feed.json`. A GitHub Action updates that file from eBay's Fulfillment API and only publishes anonymised activity:
+The homepage activity widget reads from `data/sales-feed.json`. A GitHub Action updates that file from eBay's Fulfillment API, merges it with anonymised marketplace CSV backfills and only publishes privacy-safe activity:
 
 - no buyer names
 - no buyer usernames
 - no addresses
+- no seller IDs
 - no order IDs
+- no shipment IDs
 - no prices
+- no fees
 
 Add these repository secrets in GitHub before running the workflow:
 
@@ -53,7 +56,14 @@ python3 tools/import-ebay-orders-report.py /path/to/eBay-orders-report.csv
 EBAY_ACTIVITY_SKIP_API=1 node tools/fetch-ebay-sales-feed.mjs
 ```
 
-Only item titles, quantities and sale dates are written to `data/sales-backfill.json`; buyer, address, order, price, payment and tracking fields are discarded. The hourly workflow merges this backfill with new API orders.
+To import one or more Whatnot earnings CSVs as anonymised historical backfill, run:
+
+```bash
+python3 tools/import-whatnot-earnings.py /path/to/*_earnings.csv
+EBAY_ACTIVITY_SKIP_API=1 node tools/fetch-ebay-sales-feed.mjs
+```
+
+Only item titles, quantities, sale timestamps and marketplace source labels are written to `data/sales-backfill.json`; buyer, address, seller, order, shipment, price, fee, payment and tracking fields are discarded. The hourly workflow merges this backfill with new API orders.
 
 ## Project Structure
 

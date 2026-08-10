@@ -2,3 +2,5 @@
 pokemon-arbitrage/
 __pycache__/
 *.pyc
+*_earnings.csv
+eBay-OrdersReport-*.csv
