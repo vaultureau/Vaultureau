@@ -207,7 +207,7 @@ function renderRecentSales(recent) {
     feed.innerHTML = `
       <article class="activity-empty-card">
         <span>Sync ready</span>
-        <p>Anonymous purchase updates will appear here after GitHub Actions pulls your eBay orders.</p>
+        <p>Anonymous purchase updates will appear here after the eBay feed refreshes.</p>
       </article>
     `;
     return;
