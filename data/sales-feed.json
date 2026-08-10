@@ -1,458 +1,64 @@
 {
-  "updatedAt": "2026-08-10T06:36:29.193Z",
+  "updatedAt": "2026-08-10T06:05:21.481Z",
   "source": "ebay",
   "status": "live",
   "privacy": "Buyer names, addresses, usernames, order IDs, prices and private order notes are never published in this feed.",
   "range": {
     "requestedDays": 730,
-    "firstOrderDate": "2025-01-21",
-    "latestOrderDate": "2025-12-20"
+    "firstOrderDate": "2026-06-06",
+    "latestOrderDate": "2026-08-07"
   },
   "summary": {
-    "totalOrders": 44,
-    "totalSales": 44,
-    "totalItems": 47,
-    "last7Days": 0,
-    "last30Days": 0
+    "totalOrders": 2,
+    "totalItems": 2,
+    "last7Days": 1,
+    "last30Days": 1
   },
   "recent": [
     {
-      "id": "b7d2cd0b2c1408",
+      "id": "79aec728f4f169",
       "source": "eBay",
-      "title": "Pokemon - Phantasmal Flames - Oricorio Ex 024 - Black Star Promo - NM/M",
+      "title": "11x Pokemon TCG Cards Bulk Lot English 1 Holo + 2 Trainers - Lot 005",
       "quantity": 1,
-      "soldAt": "2025-12-20T12:00:00.000Z"
+      "soldAt": "2026-08-07T13:15:25.000Z"
     },
     {
-      "id": "61752efb3f21ba",
+      "id": "5f64ac38faf199",
       "source": "eBay",
-      "title": "Pokemon Phantasmal Flames - Mega Charizard X ex MEP 023 Black Star Promo",
+      "title": "🔥Pokémon TCG Charizard ex Sv03: Obsidian Flames 228/197 Holo Hyper Rare 9.5 OCE",
       "quantity": 1,
-      "soldAt": "2025-12-10T12:00:00.000Z"
-    },
-    {
-      "id": "535350dda729a0",
-      "source": "eBay",
-      "title": "Pokemon Phantasmal Flames English Mega Charizard ex SIR 125/094",
-      "quantity": 1,
-      "soldAt": "2025-11-17T12:00:00.000Z"
-    },
-    {
-      "id": "0d809342644e30",
-      "source": "eBay",
-      "title": "🍃🦊 Leafeon GX – 157/156 – Rainbow Rare – Pokémon TCG SM Ultra Prism",
-      "quantity": 1,
-      "soldAt": "2025-10-19T12:00:00.000Z"
-    },
-    {
-      "id": "bfda595164a282",
-      "source": "eBay",
-      "title": "🌊🐺 Greninja & Zoroark GX – 107/214 – Pokémon TCG SM Unbroken Bonds",
-      "quantity": 1,
-      "soldAt": "2025-10-13T12:00:00.000Z"
-    },
-    {
-      "id": "2afa7d4fe52873",
-      "source": "eBay",
-      "title": "⚡🎀 Elesa’s Sparkle – 147/159 – Full Art Trainer – Pokémon TCG Fusion Strike",
-      "quantity": 1,
-      "soldAt": "2025-09-26T12:00:00.000Z"
-    },
-    {
-      "id": "038b82848a8ca9",
-      "source": "eBay",
-      "title": "🌊🐺 Greninja & Zoroark GX – 107/214 – Pokémon TCG SM Unbroken Bonds",
-      "quantity": 1,
-      "soldAt": "2025-09-25T12:00:00.000Z"
-    },
-    {
-      "id": "84aa38c587bb8e",
-      "source": "eBay",
-      "title": "Pokemon TCG Sun & Moon Guardians Rising Sylveon GX 92/145 – Ultra Rare Holo NM",
-      "quantity": 1,
-      "soldAt": "2025-09-23T12:00:00.000Z"
-    },
-    {
-      "id": "edb6ec78d74eb7",
-      "source": "eBay",
-      "title": "📖👓 N – 105a/124 – Full Art Trainer – Pokémon TCG XY Promo Collection",
-      "quantity": 1,
-      "soldAt": "2025-09-22T12:00:00.000Z"
-    },
-    {
-      "id": "4a5f06b77ce6f4",
-      "source": "eBay",
-      "title": "💖🌸 Gardevoir & Sylveon GX – 130/214 – Tag Team – Pokémon TCG SM Unbroken Bonds",
-      "quantity": 1,
-      "soldAt": "2025-09-21T12:00:00.000Z"
-    },
-    {
-      "id": "01c2f13dfe64fd",
-      "source": "eBay",
-      "title": "⚡✨ Raikou V GG41/GG70 Shiny Vault ✨⚡ Pokémon TCG",
-      "quantity": 1,
-      "soldAt": "2025-09-13T12:00:00.000Z"
-    },
-    {
-      "id": "1739f14cd3d077",
-      "source": "eBay",
-      "title": "⭐ Pokémon TCG Mew VMAX – Fusion Strike 114/264 – Holo Ultra Rare 🔥",
-      "quantity": 3,
-      "soldAt": "2025-09-12T12:00:00.000Z"
+      "soldAt": "2026-06-06T00:55:38.000Z"
     }
   ],
   "daily": [
     {
-      "date": "2025-01-21",
-      "sales": 1,
+      "date": "2026-06-06",
       "orders": 1,
       "items": 1
     },
     {
-      "date": "2025-08-11",
-      "sales": 1,
-      "orders": 1,
-      "items": 2
-    },
-    {
-      "date": "2025-08-15",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-16",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-18",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-19",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-20",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
-    },
-    {
-      "date": "2025-08-21",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-22",
-      "sales": 5,
-      "orders": 5,
-      "items": 5
-    },
-    {
-      "date": "2025-08-23",
-      "sales": 5,
-      "orders": 5,
-      "items": 5
-    },
-    {
-      "date": "2025-08-24",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-08-25",
-      "sales": 4,
-      "orders": 4,
-      "items": 4
-    },
-    {
-      "date": "2025-08-26",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
-    },
-    {
-      "date": "2025-08-28",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
-    },
-    {
-      "date": "2025-09-02",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-09-05",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-09-06",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-09-08",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-09-12",
-      "sales": 1,
-      "orders": 1,
-      "items": 3
-    },
-    {
-      "date": "2025-09-13",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-09-21",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-09-22",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-09-23",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-09-25",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-09-26",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-10-13",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-10-19",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-11-17",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-12-10",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "date": "2025-12-20",
-      "sales": 1,
+      "date": "2026-08-07",
       "orders": 1,
       "items": 1
     }
   ],
   "weekly": [
     {
-      "week": "2025-W04",
-      "sales": 1,
+      "week": "2026-W23",
       "orders": 1,
       "items": 1
     },
     {
-      "week": "2025-W33",
-      "sales": 3,
-      "orders": 3,
-      "items": 4
-    },
-    {
-      "week": "2025-W34",
-      "sales": 16,
-      "orders": 16,
-      "items": 16
-    },
-    {
-      "week": "2025-W35",
-      "sales": 8,
-      "orders": 8,
-      "items": 8
-    },
-    {
-      "week": "2025-W36",
-      "sales": 3,
-      "orders": 3,
-      "items": 3
-    },
-    {
-      "week": "2025-W37",
-      "sales": 3,
-      "orders": 3,
-      "items": 5
-    },
-    {
-      "week": "2025-W38",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "week": "2025-W39",
-      "sales": 4,
-      "orders": 4,
-      "items": 4
-    },
-    {
-      "week": "2025-W42",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
-    },
-    {
-      "week": "2025-W47",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "week": "2025-W50",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "week": "2025-W51",
-      "sales": 1,
+      "week": "2026-W32",
       "orders": 1,
       "items": 1
     }
   ],
   "monthly": [
     {
-      "month": "2025-01",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "month": "2025-02",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2025-03",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2025-04",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2025-05",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2025-06",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2025-07",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2025-08",
-      "sales": 27,
-      "orders": 27,
-      "items": 28
-    },
-    {
-      "month": "2025-09",
-      "sales": 11,
-      "orders": 11,
-      "items": 13
-    },
-    {
-      "month": "2025-10",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
-    },
-    {
-      "month": "2025-11",
-      "sales": 1,
-      "orders": 1,
-      "items": 1
-    },
-    {
-      "month": "2025-12",
-      "sales": 2,
-      "orders": 2,
-      "items": 2
-    },
-    {
-      "month": "2026-01",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2026-02",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2026-03",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2026-04",
-      "orders": 0,
-      "items": 0
-    },
-    {
-      "month": "2026-05",
-      "orders": 0,
-      "items": 0
-    },
-    {
       "month": "2026-06",
-      "orders": 0,
-      "items": 0
+      "orders": 1,
+      "items": 1
     },
     {
       "month": "2026-07",
@@ -461,8 +67,8 @@
     },
     {
       "month": "2026-08",
-      "orders": 0,
-      "items": 0
+      "orders": 1,
+      "items": 1
     }
   ]
 }

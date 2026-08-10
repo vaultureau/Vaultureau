@@ -46,15 +46,6 @@ python3 tools/exchange-ebay-code.py
 
 The helper prompts for the Production App ID, Production Cert ID, RuName and full OAuth redirect URL. It prints the refresh token but does not save secrets.
 
-To import an eBay orders report CSV as an anonymised historical backfill, run:
-
-```bash
-python3 tools/import-ebay-orders-report.py /path/to/eBay-orders-report.csv
-EBAY_ACTIVITY_SKIP_API=1 node tools/fetch-ebay-sales-feed.mjs
-```
-
-Only item titles, quantities and sale dates are written to `data/sales-backfill.json`; buyer, address, order, price, payment and tracking fields are discarded. The hourly workflow merges this backfill with new API orders.
-
 ## Project Structure
 
 ```text
@@ -65,12 +56,10 @@ Only item titles, quantities and sale dates are written to `data/sales-backfill.
 ├── privacy.html
 ├── 404.html
 ├── data/sales-feed.json
-├── data/sales-backfill.json
 ├── styles/main.css
 ├── scripts/main.js
 ├── tools/fetch-ebay-sales-feed.mjs
 ├── tools/exchange-ebay-code.py
-├── tools/import-ebay-orders-report.py
 ├── .github/workflows/ebay-sales-feed.yml
 ├── assets/images/
 ├── assets/icons/

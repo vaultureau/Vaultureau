@@ -3,7 +3,6 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const OUTPUT_PATH = process.env.EBAY_ACTIVITY_OUTPUT || "data/sales-feed.json";
-const BACKFILL_PATH = process.env.EBAY_ACTIVITY_BACKFILL || "data/sales-backfill.json";
 const MARKETPLACE_ID = process.env.EBAY_MARKETPLACE_ID || "EBAY_AU";
 const DAYS_BACK = Number.parseInt(process.env.EBAY_DAYS_BACK || "730", 10);
 const PAGE_LIMIT = Math.min(Number.parseInt(process.env.EBAY_PAGE_LIMIT || "100", 10), 100);
@@ -53,14 +52,6 @@ function anonymisedId(parts) {
   return createHash("sha256").update(parts.filter(Boolean).join("|")).digest("hex").slice(0, 14);
 }
 
-function saleDedupeKey(title, quantity, soldAt) {
-  return [
-    toIsoDate(new Date(soldAt)),
-    clampTitle(title).toLowerCase().replace(/\s+/g, " "),
-    String(quantity || 1)
-  ].join("|");
-}
-
 function isVisibleSale(order) {
   const cancelState = String(order.cancelStatus?.cancelState || "").toUpperCase();
   const paymentStatus = String(order.orderPaymentStatus || "").toUpperCase();
@@ -89,61 +80,10 @@ function buildMonthRange(startDate, endDate, monthMap) {
   return months.slice(-24);
 }
 
-function orderToSales(order) {
-  const soldAt = new Date(order.creationDate || order.createdAt || order.updatedAt || Date.now());
-  const lineItems = Array.isArray(order.lineItems) && order.lineItems.length > 0 ? order.lineItems : [{}];
-
-  return lineItems.map((lineItem) => {
-    const quantity = lineItemQuantity(lineItem);
-    const title = clampTitle(lineItem.title);
-
-    return {
-      id: anonymisedId([order.orderId, lineItem.lineItemId, lineItem.legacyItemId, soldAt.toISOString()]),
-      source: "eBay",
-      title,
-      quantity,
-      soldAt: soldAt.toISOString(),
-      dedupeKey: saleDedupeKey(title, quantity, soldAt)
-    };
-  });
-}
-
-function mergeSales(sales) {
-  const merged = new Map();
-
-  for (const sale of sales) {
-    const soldAt = new Date(sale.soldAt);
-    if (!sale.title || Number.isNaN(soldAt.getTime())) continue;
-
-    const quantity = lineItemQuantity(sale);
-    const title = clampTitle(sale.title);
-    const dedupeKey = sale.dedupeKey || saleDedupeKey(title, quantity, soldAt);
-    const normalized = {
-      id: sale.id || anonymisedId([dedupeKey]),
-      source: sale.source || "eBay",
-      title,
-      quantity,
-      soldAt: soldAt.toISOString(),
-      dedupeKey
-    };
-
-    if (!merged.has(dedupeKey)) {
-      merged.set(dedupeKey, normalized);
-      continue;
-    }
-
-    const existing = merged.get(dedupeKey);
-    if (new Date(normalized.soldAt) > new Date(existing.soldAt)) {
-      merged.set(dedupeKey, normalized);
-    }
-  }
-
-  return Array.from(merged.values());
-}
-
-function normaliseSales(sales) {
-  const visibleSales = mergeSales(sales)
-    .sort((a, b) => new Date(b.soldAt || 0) - new Date(a.soldAt || 0));
+function normaliseOrders(orders) {
+  const visibleOrders = orders
+    .filter(isVisibleSale)
+    .sort((a, b) => new Date(b.creationDate || b.createdAt || 0) - new Date(a.creationDate || a.createdAt || 0));
 
   const recent = [];
   const dayMap = new Map();
@@ -159,44 +99,45 @@ function normaliseSales(sales) {
   let last7Days = 0;
   let last30Days = 0;
 
-  for (const sale of visibleSales) {
-    const soldAt = new Date(sale.soldAt || Date.now());
+  for (const order of visibleOrders) {
+    const soldAt = new Date(order.creationDate || order.createdAt || order.updatedAt || Date.now());
     const dateKey = toIsoDate(soldAt);
     const weekKey = getWeekKey(soldAt);
     const monthKey = getMonthKey(soldAt);
-    const saleItems = lineItemQuantity(sale);
+    const lineItems = Array.isArray(order.lineItems) && order.lineItems.length > 0 ? order.lineItems : [{}];
+    const orderItems = lineItems.reduce((total, lineItem) => total + lineItemQuantity(lineItem), 0);
 
     if (!earliestOrderDate || soldAt < earliestOrderDate) earliestOrderDate = soldAt;
     if (!latestOrderDate || soldAt > latestOrderDate) latestOrderDate = soldAt;
 
-    totalItems += saleItems;
+    totalItems += orderItems;
     if (soldAt >= last7Cutoff) last7Days += 1;
     if (soldAt >= last30Cutoff) last30Days += 1;
 
-    const dayEntry = dayMap.get(dateKey) || { date: dateKey, sales: 0, orders: 0, items: 0 };
-    dayEntry.sales += 1;
+    const dayEntry = dayMap.get(dateKey) || { date: dateKey, orders: 0, items: 0 };
     dayEntry.orders += 1;
-    dayEntry.items += saleItems;
+    dayEntry.items += orderItems;
     dayMap.set(dateKey, dayEntry);
 
-    const weekEntry = weekMap.get(weekKey) || { week: weekKey, sales: 0, orders: 0, items: 0 };
-    weekEntry.sales += 1;
+    const weekEntry = weekMap.get(weekKey) || { week: weekKey, orders: 0, items: 0 };
     weekEntry.orders += 1;
-    weekEntry.items += saleItems;
+    weekEntry.items += orderItems;
     weekMap.set(weekKey, weekEntry);
 
-    const monthEntry = monthMap.get(monthKey) || { month: monthKey, sales: 0, orders: 0, items: 0 };
-    monthEntry.sales += 1;
+    const monthEntry = monthMap.get(monthKey) || { month: monthKey, orders: 0, items: 0 };
     monthEntry.orders += 1;
-    monthEntry.items += saleItems;
+    monthEntry.items += orderItems;
     monthMap.set(monthKey, monthEntry);
 
-    if (recent.length < RECENT_LIMIT) {
+    for (const lineItem of lineItems) {
+      if (recent.length >= RECENT_LIMIT) break;
+
+      const quantity = lineItemQuantity(lineItem);
       recent.push({
-        id: sale.id,
-        source: sale.source || "eBay",
-        title: clampTitle(sale.title),
-        quantity: saleItems,
+        id: anonymisedId([order.orderId, lineItem.lineItemId, lineItem.legacyItemId, soldAt.toISOString()]),
+        source: "eBay",
+        title: clampTitle(lineItem.title),
+        quantity,
         soldAt: soldAt.toISOString()
       });
     }
@@ -213,8 +154,7 @@ function normaliseSales(sales) {
       latestOrderDate: latestOrderDate ? toIsoDate(latestOrderDate) : null
     },
     summary: {
-      totalOrders: visibleSales.length,
-      totalSales: visibleSales.length,
+      totalOrders: visibleOrders.length,
       totalItems,
       last7Days,
       last30Days
@@ -299,16 +239,6 @@ async function loadFixtureOrders() {
   return Array.isArray(fixture.orders) ? fixture.orders : fixture;
 }
 
-async function loadBackfillSales() {
-  try {
-    const backfill = JSON.parse(await readFile(BACKFILL_PATH, "utf8"));
-    return Array.isArray(backfill.sales) ? backfill.sales : [];
-  } catch (error) {
-    if (error.code === "ENOENT") return [];
-    throw error;
-  }
-}
-
 async function writeFeed(feed) {
   await mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(feed, null, 2)}\n`);
@@ -316,14 +246,8 @@ async function writeFeed(feed) {
 
 async function main() {
   const fixtureOrders = await loadFixtureOrders();
-  const backfillSales = await loadBackfillSales();
-  const skipApi = process.env.EBAY_ACTIVITY_SKIP_API === "1";
-  const orders = skipApi
-    ? []
-    : fixtureOrders || await fetchOrders(await refreshAccessToken());
-  const apiSales = orders.filter(isVisibleSale).flatMap(orderToSales);
-
-  await writeFeed(normaliseSales([...backfillSales, ...apiSales]));
+  const orders = fixtureOrders || await fetchOrders(await refreshAccessToken());
+  await writeFeed(normaliseOrders(orders));
   console.log(`Wrote anonymised eBay sales feed to ${OUTPUT_PATH}`);
 }
 
