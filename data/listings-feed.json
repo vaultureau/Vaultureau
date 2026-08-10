@@ -1,0 +1,13 @@
+{
+  "updatedAt": "2026-08-11T00:00:00.000Z",
+  "source": "eBay Browse API",
+  "status": "pending",
+  "marketplace": "EBAY_AU",
+  "seller": "vaultureau",
+  "privacy": "Only public eBay listing details are published. No buyer data, order data, private seller data or API tokens are included.",
+  "summary": {
+    "totalMatched": 0,
+    "totalSynced": 0
+  },
+  "listings": []
+}

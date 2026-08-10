@@ -79,6 +79,23 @@ The workflow can be run manually from GitHub Actions and also runs every six hou
 
 The live workflow intentionally requests `EBAY_FEEDBACK_COMMENT_TYPES=POSITIVE` so the homepage stays trust-focused. The front end can display neutral or negative badges if those feedback types are ever enabled later.
 
+## eBay Current Listings
+
+The homepage Available Now section reads from `data/listings-feed.json`. A separate GitHub Action updates that file from eBay's Buy Browse API using public seller search results:
+
+- public listing title
+- public listing image
+- public listing URL
+- public price
+- public condition and buying option labels
+
+This workflow does not publish buyer data, order data, private seller data or API tokens. It uses an eBay application access token, so it only needs these existing repository secrets:
+
+- `EBAY_CLIENT_ID`
+- `EBAY_CLIENT_SECRET`
+
+The workflow can be run manually from GitHub Actions and also runs every six hours. If Vaulture starts listing non-Pokémon products later, update `EBAY_LISTINGS_QUERY` in `.github/workflows/ebay-listings-feed.yml`.
+
 To import an eBay orders report CSV as an anonymised historical backfill, run:
 
 ```bash
@@ -107,14 +124,17 @@ Only item titles, quantities, sale timestamps and marketplace source labels are 
 ├── data/sales-feed.json
 ├── data/sales-backfill.json
 ├── data/testimonials.json
+├── data/listings-feed.json
 ├── styles/main.css
 ├── scripts/main.js
 ├── tools/fetch-ebay-sales-feed.mjs
 ├── tools/fetch-ebay-feedback-feed.mjs
+├── tools/fetch-ebay-listings-feed.mjs
 ├── tools/exchange-ebay-code.py
 ├── tools/import-ebay-orders-report.py
 ├── .github/workflows/ebay-sales-feed.yml
 ├── .github/workflows/ebay-feedback-feed.yml
+├── .github/workflows/ebay-listings-feed.yml
 ├── assets/images/
 ├── assets/icons/
 ├── assets/branding/

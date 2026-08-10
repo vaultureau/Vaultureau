@@ -6,8 +6,10 @@ const sellForm = document.querySelector(".sell-form");
 const sellingGroup = document.querySelector("[data-selling-group]");
 const sellingCheckboxes = Array.from(document.querySelectorAll('input[name="selling[]"]'));
 const salesActivity = document.querySelector("[data-sales-activity]");
+const listingsSection = document.querySelector("[data-listings-section]");
 const testimonialCarousel = document.querySelector("[data-testimonial-carousel]");
 const testimonialsSection = document.querySelector("[data-testimonials-section]");
+const LISTINGS_VISIBLE_LIMIT = 6;
 const RECENT_ACTIVITY_VISIBLE_LIMIT = 8;
 const TESTIMONIAL_VISIBLE_LIMIT = 8;
 const TESTIMONIAL_AUTOPLAY_MS = 4000;
@@ -208,6 +210,23 @@ function validateSellingGroup(showMessage) {
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-AU").format(Number(value || 0));
+}
+
+function formatCurrency(price) {
+  const value = Number(price?.value);
+  const currency = typeof price?.currency === "string" ? price.currency : "AUD";
+
+  if (!Number.isFinite(value) || value <= 0) return "Price on eBay";
+
+  try {
+    return new Intl.NumberFormat("en-AU", {
+      style: "currency",
+      currency,
+      maximumFractionDigits: value % 1 === 0 ? 0 : 2,
+    }).format(value);
+  } catch {
+    return `$${value.toFixed(value % 1 === 0 ? 0 : 2)}`;
+  }
 }
 
 function escapeHtml(value) {
@@ -469,6 +488,109 @@ function renderTestimonialCarousel(testimonials) {
   startTestimonialCarouselAutoplay();
 }
 
+function getListingCardMarkup(listing) {
+  const title = listing.title || "Vaulture eBay listing";
+  const imageMarkup = listing.image
+    ? `
+      <img
+        src="${escapeHtml(listing.image)}"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        referrerpolicy="no-referrer"
+      >
+    `
+    : `<span class="listing-image-fallback">Vaulture</span>`;
+  const condition = listing.condition || listing.buyingOption || "eBay listing";
+  const buyingOption = listing.buyingOption || "View listing";
+
+  return `
+    <article class="listing-card">
+      <a
+        class="listing-card-link"
+        href="${escapeHtml(listing.url)}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View ${escapeHtml(title)} on eBay"
+      >
+        <span class="listing-card-media">${imageMarkup}</span>
+        <span class="listing-card-source">${escapeHtml(listing.source || "eBay")}</span>
+        <h3>${escapeHtml(title)}</h3>
+        <span class="listing-card-meta">${escapeHtml(condition)} · ${escapeHtml(buyingOption)}</span>
+        <strong>${formatCurrency(listing.price)}</strong>
+        <span class="listing-card-action">View on eBay</span>
+      </a>
+    </article>
+  `;
+}
+
+function renderListings(feed) {
+  if (!listingsSection) return;
+
+  const feedNode = listingsSection.querySelector("[data-listings-feed]");
+  const summaryNode = listingsSection.querySelector("[data-listings-summary]");
+  const updatedNode = listingsSection.querySelector("[data-listings-updated]");
+  const listings = Array.isArray(feed?.listings)
+    ? feed.listings
+      .filter((listing) => listing?.url && listing?.title)
+      .slice(0, LISTINGS_VISIBLE_LIMIT)
+    : [];
+
+  if (!feedNode) return;
+
+  if (listings.length === 0) {
+    listingsSection.classList.add("is-empty");
+    if (summaryNode) {
+      summaryNode.textContent = "Live listing cards will appear here after the eBay feed syncs. Checkout stays on eBay.";
+    }
+    if (updatedNode) {
+      updatedNode.textContent = "Only public eBay listing details are shown.";
+    }
+    feedNode.innerHTML = `
+      <article class="listing-empty-card">
+        <span>Sync ready</span>
+        <h3>Vaulture eBay listings are connected.</h3>
+        <p>The first API sync will publish current public listings here.</p>
+        <a
+          class="text-link"
+          href="https://www.ebay.com.au/usr/vaultureau"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open eBay store
+        </a>
+      </article>
+    `;
+    return;
+  }
+
+  listingsSection.classList.remove("is-empty");
+
+  if (summaryNode) {
+    const totalMatched = Number(feed?.summary?.totalMatched || listings.length);
+    summaryNode.textContent = `${formatNumber(totalMatched)} current eBay listing${totalMatched === 1 ? "" : "s"} found for Vaulture. Checkout stays on eBay.`;
+  }
+
+  if (updatedNode) {
+    updatedNode.textContent = "Synced from public eBay listing data. Buyer and order details are never shown.";
+  }
+
+  feedNode.innerHTML = listings.map((listing) => getListingCardMarkup(listing)).join("");
+}
+
+async function loadListings() {
+  if (!listingsSection) return;
+
+  try {
+    const response = await fetch("data/listings-feed.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Listings feed unavailable.");
+
+    renderListings(await response.json());
+  } catch {
+    renderListings({ listings: [], summary: {} });
+  }
+}
+
 function renderRecentSales(recent) {
   const feed = document.querySelector("[data-sales-feed]");
   if (!feed) return;
@@ -666,6 +788,7 @@ anchorLinks.forEach((link) => {
   link.addEventListener("click", handleAnchorClick);
 });
 
+loadListings();
 loadSalesActivity();
 loadTestimonials();
 

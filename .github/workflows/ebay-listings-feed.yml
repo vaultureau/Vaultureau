@@ -1,0 +1,57 @@
+name: Update eBay listings feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 */6 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/ebay-listings-feed.yml"
+      - "tools/fetch-ebay-listings-feed.mjs"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ebay-listings-feed
+  cancel-in-progress: false
+
+jobs:
+  update-listings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Fetch public eBay listings feed
+        run: node tools/fetch-ebay-listings-feed.mjs
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EBAY_SELLER_USERNAME: vaultureau
+          EBAY_MARKETPLACE_ID: EBAY_AU
+          EBAY_LISTINGS_QUERY: Pokemon
+          EBAY_LISTINGS_LIMIT: "12"
+          EBAY_LISTINGS_PUBLIC_LIMIT: "8"
+
+      - name: Commit updated listings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/listings-feed.json
+          if git diff --cached --quiet; then
+            echo "No listing changes to commit."
+          else
+            git commit -m "Update eBay listings feed"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
