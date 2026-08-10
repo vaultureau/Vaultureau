@@ -398,6 +398,47 @@ h3 {
   font-weight: 750;
 }
 
+.hero-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 840px;
+  margin-top: 26px;
+}
+
+.hero-proof-grid article {
+  min-height: 106px;
+  border: 1px solid rgba(16, 24, 19, 0.13);
+  border-radius: var(--radius-md);
+  background: rgba(255, 250, 240, 0.72);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  padding: 16px;
+  box-shadow: 0 14px 34px rgba(16, 24, 19, 0.08);
+}
+
+.hero-proof-grid span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.hero-proof-grid strong {
+  display: block;
+  color: var(--color-forest-deep);
+  font-size: clamp(1.02rem, 1.6vw, 1.28rem);
+  line-height: 1.1;
+}
+
+.hero-proof-grid b {
+  color: #d8a41d;
+  font-size: 0.86rem;
+  letter-spacing: 0.5px;
+}
+
 .testimonial-carousel-section {
   position: relative;
   z-index: 2;
@@ -648,6 +689,83 @@ h3 {
 .category-card p,
 .marketplace-card p {
   color: var(--color-muted);
+}
+
+.guide-hub-section {
+  border-top: 1px solid rgba(16, 24, 19, 0.08);
+  border-bottom: 1px solid rgba(16, 24, 19, 0.08);
+}
+
+.guide-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.guide-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  min-height: 250px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 24, 19, 0.12);
+  border-radius: var(--radius-md);
+  background: var(--color-cream);
+  padding: 24px;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.guide-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-lime), rgba(166, 110, 63, 0.7));
+}
+
+.guide-card:hover {
+  border-color: rgba(24, 53, 39, 0.28);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+.guide-card span {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 30px;
+  border: 1px solid rgba(16, 24, 19, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.76);
+  color: var(--color-clay);
+  padding: 6px 10px;
+  font-size: 0.76rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.guide-card h3 {
+  color: var(--color-forest);
+}
+
+.guide-card p {
+  color: var(--color-muted);
+}
+
+.guide-card-featured {
+  grid-column: span 2;
+  background:
+    linear-gradient(135deg, rgba(220, 248, 106, 0.22), rgba(255, 250, 240, 0.9)),
+    var(--color-cream);
+}
+
+.guide-card-featured h3 {
+  max-width: 580px;
+  font-size: 1.85rem;
+}
+
+.guide-card-featured p {
+  max-width: 700px;
+  font-size: 1.04rem;
 }
 
 .sell-section {
@@ -1961,6 +2079,97 @@ input[type="checkbox"] {
   color: var(--color-muted);
 }
 
+.guide-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.34fr);
+  gap: 54px;
+  align-items: start;
+}
+
+.guide-main {
+  display: grid;
+  gap: 22px;
+}
+
+.guide-panel,
+.guide-sidebar-card,
+.guide-callout {
+  border: 1px solid rgba(16, 24, 19, 0.12);
+  border-radius: var(--radius-md);
+  background: var(--color-paper);
+  padding: 26px;
+}
+
+.guide-panel h2,
+.guide-panel h3 {
+  color: var(--color-forest);
+}
+
+.guide-panel p,
+.guide-panel li,
+.guide-callout p,
+.guide-sidebar-card p,
+.guide-sidebar-card li {
+  color: var(--color-ink-soft);
+}
+
+.guide-panel ul,
+.guide-sidebar-card ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.guide-panel + .guide-panel {
+  margin-top: 0;
+}
+
+.guide-callout {
+  background:
+    linear-gradient(135deg, rgba(220, 248, 106, 0.16), rgba(255, 250, 240, 0.94)),
+    var(--color-cream);
+}
+
+.guide-callout h2,
+.guide-callout h3 {
+  color: var(--color-forest);
+}
+
+.guide-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 28px);
+  display: grid;
+  gap: 14px;
+}
+
+.guide-sidebar-card {
+  background: var(--color-cream);
+}
+
+.guide-sidebar-card h2,
+.guide-sidebar-card h3 {
+  color: var(--color-forest);
+  font-size: 1.12rem;
+}
+
+.guide-sidebar-card .text-link {
+  margin-top: 0;
+}
+
+.guide-link-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.guide-link-list a {
+  color: var(--color-forest);
+  font-weight: 780;
+}
+
 .trust-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2127,6 +2336,7 @@ input[type="checkbox"] {
   .activity-layout,
   .testimonials-layout,
   .support-detail-layout,
+  .guide-layout,
   .seller-prep-layout,
   .trust-section-grid {
     grid-template-columns: 1fr;
@@ -2136,6 +2346,7 @@ input[type="checkbox"] {
   .sell-intro,
   .activity-copy,
   .testimonials-copy,
+  .guide-sidebar,
   .seller-prep-copy,
   .faq-layout-premium .section-heading {
     position: static;
@@ -2147,6 +2358,8 @@ input[type="checkbox"] {
 
   .sell-proof-grid,
   .buy-grid,
+  .guide-card-grid,
+  .hero-proof-grid,
   .support-channel-grid,
   .sell-timeline {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2157,6 +2370,10 @@ input[type="checkbox"] {
   }
 
   .buy-card-featured {
+    grid-column: span 2;
+  }
+
+  .guide-card-featured {
     grid-column: span 2;
   }
 
@@ -2335,6 +2552,8 @@ input[type="checkbox"] {
 
   .category-grid,
   .marketplace-grid,
+  .guide-card-grid,
+  .hero-proof-grid,
   .activity-summary,
   .testimonial-stats,
   .testimonial-grid,
@@ -2355,6 +2574,10 @@ input[type="checkbox"] {
 
   .category-card,
   .marketplace-card,
+  .guide-card,
+  .guide-panel,
+  .guide-sidebar-card,
+  .guide-callout,
   .buy-card,
   .support-card,
   .support-checklist article,
@@ -2383,11 +2606,24 @@ input[type="checkbox"] {
     grid-column: auto;
   }
 
+  .guide-card-featured {
+    grid-column: auto;
+  }
+
   .support-card-featured {
     grid-column: auto;
   }
 
+  .hero-proof-grid article,
+  .guide-card {
+    min-height: auto;
+  }
+
   .buy-card-featured h3 {
+    font-size: 1.35rem;
+  }
+
+  .guide-card-featured h3 {
     font-size: 1.35rem;
   }
 
