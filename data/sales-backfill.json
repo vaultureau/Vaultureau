@@ -1,0 +1,359 @@
+{
+  "source": "ebay-orders-report",
+  "importedAt": "2026-08-10T06:36:25.377654Z",
+  "privacy": "Imported from an eBay orders report with buyer names, usernames, addresses, emails, order IDs, prices and tracking data removed.",
+  "sales": [
+    {
+      "id": "b7d2cd0b2c1408",
+      "source": "eBay",
+      "title": "Pokemon - Phantasmal Flames - Oricorio Ex 024 - Black Star Promo - NM/M",
+      "quantity": 1,
+      "soldAt": "2025-12-20T12:00:00Z",
+      "dedupeKey": "orders-report|b7d2cd0b2c1408"
+    },
+    {
+      "id": "61752efb3f21ba",
+      "source": "eBay",
+      "title": "Pokemon Phantasmal Flames - Mega Charizard X ex MEP 023 Black Star Promo",
+      "quantity": 1,
+      "soldAt": "2025-12-10T12:00:00Z",
+      "dedupeKey": "orders-report|61752efb3f21ba"
+    },
+    {
+      "id": "535350dda729a0",
+      "source": "eBay",
+      "title": "Pokemon Phantasmal Flames English Mega Charizard ex SIR 125/094",
+      "quantity": 1,
+      "soldAt": "2025-11-17T12:00:00Z",
+      "dedupeKey": "orders-report|535350dda729a0"
+    },
+    {
+      "id": "0d809342644e30",
+      "source": "eBay",
+      "title": "🍃🦊 Leafeon GX – 157/156 – Rainbow Rare – Pokémon TCG SM Ultra Prism",
+      "quantity": 1,
+      "soldAt": "2025-10-19T12:00:00Z",
+      "dedupeKey": "orders-report|0d809342644e30"
+    },
+    {
+      "id": "bfda595164a282",
+      "source": "eBay",
+      "title": "🌊🐺 Greninja & Zoroark GX – 107/214 – Pokémon TCG SM Unbroken Bonds",
+      "quantity": 1,
+      "soldAt": "2025-10-13T12:00:00Z",
+      "dedupeKey": "orders-report|bfda595164a282"
+    },
+    {
+      "id": "2afa7d4fe52873",
+      "source": "eBay",
+      "title": "⚡🎀 Elesa’s Sparkle – 147/159 – Full Art Trainer – Pokémon TCG Fusion Strike",
+      "quantity": 1,
+      "soldAt": "2025-09-26T12:00:00Z",
+      "dedupeKey": "orders-report|2afa7d4fe52873"
+    },
+    {
+      "id": "038b82848a8ca9",
+      "source": "eBay",
+      "title": "🌊🐺 Greninja & Zoroark GX – 107/214 – Pokémon TCG SM Unbroken Bonds",
+      "quantity": 1,
+      "soldAt": "2025-09-25T12:00:00Z",
+      "dedupeKey": "orders-report|038b82848a8ca9"
+    },
+    {
+      "id": "84aa38c587bb8e",
+      "source": "eBay",
+      "title": "Pokemon TCG Sun & Moon Guardians Rising Sylveon GX 92/145 – Ultra Rare Holo NM",
+      "quantity": 1,
+      "soldAt": "2025-09-23T12:00:00Z",
+      "dedupeKey": "orders-report|84aa38c587bb8e"
+    },
+    {
+      "id": "edb6ec78d74eb7",
+      "source": "eBay",
+      "title": "📖👓 N – 105a/124 – Full Art Trainer – Pokémon TCG XY Promo Collection",
+      "quantity": 1,
+      "soldAt": "2025-09-22T12:00:00Z",
+      "dedupeKey": "orders-report|edb6ec78d74eb7"
+    },
+    {
+      "id": "4a5f06b77ce6f4",
+      "source": "eBay",
+      "title": "💖🌸 Gardevoir & Sylveon GX – 130/214 – Tag Team – Pokémon TCG SM Unbroken Bonds",
+      "quantity": 1,
+      "soldAt": "2025-09-21T12:00:00Z",
+      "dedupeKey": "orders-report|4a5f06b77ce6f4"
+    },
+    {
+      "id": "01c2f13dfe64fd",
+      "source": "eBay",
+      "title": "⚡✨ Raikou V GG41/GG70 Shiny Vault ✨⚡ Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-09-13T12:00:00Z",
+      "dedupeKey": "orders-report|01c2f13dfe64fd"
+    },
+    {
+      "id": "1739f14cd3d077",
+      "source": "eBay",
+      "title": "⭐ Pokémon TCG Mew VMAX – Fusion Strike 114/264 – Holo Ultra Rare 🔥",
+      "quantity": 3,
+      "soldAt": "2025-09-12T12:00:00Z",
+      "dedupeKey": "orders-report|1739f14cd3d077"
+    },
+    {
+      "id": "4af0509d39d3b8",
+      "source": "eBay",
+      "title": "🌸 Sylveon GX 92/145 – SM Guardians Rising – Ultra Rare Holo Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-09-08T12:00:00Z",
+      "dedupeKey": "orders-report|4af0509d39d3b8"
+    },
+    {
+      "id": "6117d16c0ff107",
+      "source": "eBay",
+      "title": "⭐🐭 Pikachu SWSH020 Black Star Promo ⭐🐭 Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-09-06T12:00:00Z",
+      "dedupeKey": "orders-report|6117d16c0ff107"
+    },
+    {
+      "id": "8d589adcc48422",
+      "source": "eBay",
+      "title": "⚡ Pikachu & Zekrom GX 162/181 SM Team Up Ultra Rare Pokémon TCG 🃏✨",
+      "quantity": 1,
+      "soldAt": "2025-09-05T12:00:00Z",
+      "dedupeKey": "orders-report|8d589adcc48422"
+    },
+    {
+      "id": "82a8fdcb9d555f",
+      "source": "eBay",
+      "title": "⭐ Pokémon TCG Mew VMAX – Fusion Strike 114/264 – Holo Ultra Rare 🔥",
+      "quantity": 1,
+      "soldAt": "2025-09-02T12:00:00Z",
+      "dedupeKey": "orders-report|82a8fdcb9d555f"
+    },
+    {
+      "id": "9ce4f286264608",
+      "source": "eBay",
+      "title": "🐟 Magikarp & Wailord GX 183/181 Rainbow Rare Tag Team Pokémon TCG 🌈✨",
+      "quantity": 1,
+      "soldAt": "2025-08-28T12:00:00Z",
+      "dedupeKey": "orders-report|9ce4f286264608"
+    },
+    {
+      "id": "e91cabc353e1e3",
+      "source": "eBay",
+      "title": "⚡✨ Zekrom XY76 Promo – Pokémon TCG XY Black Star (NM) Full Art",
+      "quantity": 1,
+      "soldAt": "2025-08-28T12:00:00Z",
+      "dedupeKey": "orders-report|e91cabc353e1e3"
+    },
+    {
+      "id": "4bd8c295cd8cec",
+      "source": "eBay",
+      "title": "🔥 Reshiram & Charizard GX 20/214 SM Unbroken Bonds Ultra Rare Holo",
+      "quantity": 1,
+      "soldAt": "2025-08-26T12:00:00Z",
+      "dedupeKey": "orders-report|4bd8c295cd8cec"
+    },
+    {
+      "id": "0583c6b78cfc46",
+      "source": "eBay",
+      "title": "✨🌸 Gardevoir & Sylveon GX 130/214 TAG TEAM 🌸✨ Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-08-26T12:00:00Z",
+      "dedupeKey": "orders-report|0583c6b78cfc46"
+    },
+    {
+      "id": "3e138392648485",
+      "source": "eBay",
+      "title": "🥊 Marshadow & Machamp GX 82/214 – SM Unbroken Bonds – Holo Tag Team Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-08-25T12:00:00Z",
+      "dedupeKey": "orders-report|3e138392648485"
+    },
+    {
+      "id": "be165df7d1a11f",
+      "source": "eBay",
+      "title": "✨ M Gardevoir EX 112/114 🌸 Full Art | Pokémon TCG XY (NM)",
+      "quantity": 1,
+      "soldAt": "2025-08-25T12:00:00Z",
+      "dedupeKey": "orders-report|be165df7d1a11f"
+    },
+    {
+      "id": "e350eb88e28874",
+      "source": "eBay",
+      "title": "⚡🐭 Pikachu RC29/RC32 – XY Generations – Full Art Holo Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-08-25T12:00:00Z",
+      "dedupeKey": "orders-report|e350eb88e28874"
+    },
+    {
+      "id": "bf4609e0c216f6",
+      "source": "eBay",
+      "title": "🌟⚡ Pikachu 160/159 Secret Rare 🌟⚡ Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-08-25T12:00:00Z",
+      "dedupeKey": "orders-report|bf4609e0c216f6"
+    },
+    {
+      "id": "4f2c9141807b5d",
+      "source": "eBay",
+      "title": "🦇 Pokémon TCG Yveltal – Paradox Rift 205/182 – Holo Illustration Rare ✨",
+      "quantity": 1,
+      "soldAt": "2025-08-24T12:00:00Z",
+      "dedupeKey": "orders-report|4f2c9141807b5d"
+    },
+    {
+      "id": "ba6bc8d1ed4f21",
+      "source": "eBay",
+      "title": "✨ Gardevoir ex 245/198 Scarlet & Violet Base Set Lightly Played Holo 🃏🌟",
+      "quantity": 1,
+      "soldAt": "2025-08-23T12:00:00Z",
+      "dedupeKey": "orders-report|ba6bc8d1ed4f21"
+    },
+    {
+      "id": "fa40abe784b228",
+      "source": "eBay",
+      "title": "✨🌸 Gardevoir & Sylveon GX 130/214 TAG TEAM 🌸✨ Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-08-23T12:00:00Z",
+      "dedupeKey": "orders-report|fa40abe784b228"
+    },
+    {
+      "id": "b367cb7b96874b",
+      "source": "eBay",
+      "title": "🌸 Mew Full Art XY110 – Mythical Collection Promo – Ultra Rare Holo Foil",
+      "quantity": 1,
+      "soldAt": "2025-08-23T12:00:00Z",
+      "dedupeKey": "orders-report|b367cb7b96874b"
+    },
+    {
+      "id": "10456df3b0166f",
+      "source": "eBay",
+      "title": "✨ M Gardevoir EX 112/114 🌸 Full Art | Pokémon TCG XY (NM)",
+      "quantity": 1,
+      "soldAt": "2025-08-23T12:00:00Z",
+      "dedupeKey": "orders-report|10456df3b0166f"
+    },
+    {
+      "id": "3b67175d7548c9",
+      "source": "eBay",
+      "title": "✨ Gardevoir ex 245/198 Scarlet & Violet Base Set Lightly Played Holo 🃏🌟",
+      "quantity": 1,
+      "soldAt": "2025-08-23T12:00:00Z",
+      "dedupeKey": "orders-report|3b67175d7548c9"
+    },
+    {
+      "id": "ea3a1f1bba9aed",
+      "source": "eBay",
+      "title": "🌊 Magikarp & Wailord GX SM166 Tag Team Sun & Moon Holo Promo Pokémon 🃏✨",
+      "quantity": 1,
+      "soldAt": "2025-08-22T12:00:00Z",
+      "dedupeKey": "orders-report|ea3a1f1bba9aed"
+    },
+    {
+      "id": "74d0e9f3c46a9f",
+      "source": "eBay",
+      "title": "🌊 Magikarp & Wailord GX SM166 Tag Team Sun & Moon Holo Promo Pokémon 🃏✨",
+      "quantity": 1,
+      "soldAt": "2025-08-22T12:00:00Z",
+      "dedupeKey": "orders-report|74d0e9f3c46a9f"
+    },
+    {
+      "id": "08e4ffcc04ce64",
+      "source": "eBay",
+      "title": "⚡🐭 Pikachu RC29/RC32 – XY Generations – Full Art Holo Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-08-22T12:00:00Z",
+      "dedupeKey": "orders-report|08e4ffcc04ce64"
+    },
+    {
+      "id": "bc31e484a436aa",
+      "source": "eBay",
+      "title": "🌸 Mew Full Art XY110 – Mythical Collection Promo – Ultra Rare Holo Foil",
+      "quantity": 1,
+      "soldAt": "2025-08-22T12:00:00Z",
+      "dedupeKey": "orders-report|bc31e484a436aa"
+    },
+    {
+      "id": "35a480b0ae6ed8",
+      "source": "eBay",
+      "title": "✨ Hex Maniac 75a/98 Alternate Art Promo Pokémon TCG NM 🃏🌙",
+      "quantity": 1,
+      "soldAt": "2025-08-22T12:00:00Z",
+      "dedupeKey": "orders-report|35a480b0ae6ed8"
+    },
+    {
+      "id": "a560662333d9e3",
+      "source": "eBay",
+      "title": "🌟 Lugia GX Secret Rare 227/214 SM Lost Thunder Holo Pokémon ⚡🃏",
+      "quantity": 1,
+      "soldAt": "2025-08-21T12:00:00Z",
+      "dedupeKey": "orders-report|a560662333d9e3"
+    },
+    {
+      "id": "a4fd560231c109",
+      "source": "eBay",
+      "title": "🦅 Pokémon TCG Braviary – Surging Sparks 214/191 – Illustration Rare 🎯",
+      "quantity": 1,
+      "soldAt": "2025-08-20T12:00:00Z",
+      "dedupeKey": "orders-report|a4fd560231c109"
+    },
+    {
+      "id": "479338a00c0bb8",
+      "source": "eBay",
+      "title": "✨🌸 Gardevoir & Sylveon GX 130/214 TAG TEAM 🌸✨ Pokémon TCG",
+      "quantity": 1,
+      "soldAt": "2025-08-20T12:00:00Z",
+      "dedupeKey": "orders-report|479338a00c0bb8"
+    },
+    {
+      "id": "ff50141c550192",
+      "source": "eBay",
+      "title": "Pokémon TCG Sylveon V Evolving Skies 074/203 Holo Ultra Rare",
+      "quantity": 1,
+      "soldAt": "2025-08-19T12:00:00Z",
+      "dedupeKey": "orders-report|ff50141c550192"
+    },
+    {
+      "id": "9811b67574d53d",
+      "source": "eBay",
+      "title": "Iono's Bellibolt Ex 188/159 | Journey Together | Hyper Rare | Pokemon TCG",
+      "quantity": 1,
+      "soldAt": "2025-08-18T12:00:00Z",
+      "dedupeKey": "orders-report|9811b67574d53d"
+    },
+    {
+      "id": "b9ec1344f11779",
+      "source": "eBay",
+      "title": "🎴 Pokémon TCG Cleffa – Obsidian Flames SV03 202/197 – Holo Illustration Rare ✨",
+      "quantity": 1,
+      "soldAt": "2025-08-16T12:00:00Z",
+      "dedupeKey": "orders-report|b9ec1344f11779"
+    },
+    {
+      "id": "56494018ac0fb3",
+      "source": "eBay",
+      "title": "Pokémon TCG Scizor Sv03: Obsidian Flames 205/197 Holo Illustration Rare",
+      "quantity": 1,
+      "soldAt": "2025-08-15T12:00:00Z",
+      "dedupeKey": "orders-report|56494018ac0fb3"
+    },
+    {
+      "id": "2245d43688991b",
+      "source": "eBay",
+      "title": "Pokémon TCG Ninetales Sv03: Obsidian Flames 199/197 Holo Illustration Rare",
+      "quantity": 2,
+      "soldAt": "2025-08-11T12:00:00Z",
+      "dedupeKey": "orders-report|2245d43688991b"
+    },
+    {
+      "id": "12889a2209d09f",
+      "source": "eBay",
+      "title": "Obsidian Flames Near Master Sets Mutiple Charizards",
+      "quantity": 1,
+      "soldAt": "2025-01-21T12:00:00Z",
+      "dedupeKey": "orders-report|12889a2209d09f"
+    }
+  ]
+}
