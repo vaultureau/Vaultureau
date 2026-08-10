@@ -17,7 +17,26 @@ Current public email addresses:
 ```text
 hello@vaulture.com.au
 sell@vaulture.com.au
+support@vaulture.com.au
 ```
+
+## eBay Sales Activity
+
+The homepage activity widget reads from `data/sales-feed.json`. A GitHub Action updates that file from eBay's Fulfillment API and only publishes anonymised activity:
+
+- no buyer names
+- no buyer usernames
+- no addresses
+- no order IDs
+- no prices
+
+Add these repository secrets in GitHub before running the workflow:
+
+- `EBAY_CLIENT_ID`
+- `EBAY_CLIENT_SECRET`
+- `EBAY_REFRESH_TOKEN`
+
+The refresh token must be a user token consented with the `sell.fulfillment.readonly` scope. The workflow can be run manually from GitHub Actions and also runs hourly.
 
 ## Project Structure
 
@@ -25,10 +44,14 @@ sell@vaulture.com.au
 /
 ├── index.html
 ├── sell-pokemon-cards.html
+├── support.html
 ├── privacy.html
 ├── 404.html
+├── data/sales-feed.json
 ├── styles/main.css
 ├── scripts/main.js
+├── tools/fetch-ebay-sales-feed.mjs
+├── .github/workflows/ebay-sales-feed.yml
 ├── assets/images/
 ├── assets/icons/
 ├── assets/branding/
@@ -83,7 +106,7 @@ orders@vaulture.com.au
 support@vaulture.com.au
 ```
 
-The website currently publishes only `hello@vaulture.com.au` and `sell@vaulture.com.au`.
+The website currently publishes `hello@vaulture.com.au`, `sell@vaulture.com.au` and `support@vaulture.com.au`.
 
 ## Form Setup
 

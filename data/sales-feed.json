@@ -1,0 +1,15 @@
+{
+  "updatedAt": null,
+  "source": "ebay",
+  "status": "pending",
+  "privacy": "Buyer names, addresses, usernames, order IDs, prices and private order notes are never published in this feed.",
+  "summary": {
+    "totalOrders": 0,
+    "totalItems": 0,
+    "last7Days": 0,
+    "last30Days": 0
+  },
+  "recent": [],
+  "daily": [],
+  "weekly": []
+}

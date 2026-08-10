@@ -41,7 +41,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-solid.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="preload" as="image" href="assets/images/collection-hero.jpg" fetchpriority="high">
-    <link rel="stylesheet" href="styles/main.css?v=20260809">
+    <link rel="stylesheet" href="styles/main.css?v=20260810">
 
     <script type="application/ld+json">
       {
@@ -425,6 +425,53 @@
         </div>
       </section>
 
+      <section class="section section-light activity-section" id="activity" aria-labelledby="activity-title" data-sales-activity>
+        <div class="container activity-layout">
+          <div class="activity-copy">
+            <p class="eyebrow">Purchase History</p>
+            <h2 id="activity-title">Recent Vaulture marketplace activity.</h2>
+            <p>
+              An anonymised eBay activity feed shows recent purchases and simple sales momentum without publishing
+              buyer names, order IDs, addresses or prices.
+            </p>
+            <div class="activity-summary" aria-label="Vaulture sales summary">
+              <article>
+                <span data-sales-total-orders>0</span>
+                <p>Total orders synced</p>
+              </article>
+              <article>
+                <span data-sales-last-30>0</span>
+                <p>Orders in 30 days</p>
+              </article>
+              <article>
+                <span data-sales-total-items>0</span>
+                <p>Items sold</p>
+              </article>
+            </div>
+            <p class="activity-updated" data-sales-updated>eBay sync is ready. Activity appears after the first feed update.</p>
+          </div>
+
+          <div class="activity-panel" aria-live="polite">
+            <div class="activity-panel-header">
+              <div>
+                <p class="eyebrow">Sales Graph</p>
+                <h3>Last 12 weeks</h3>
+              </div>
+              <span>eBay</span>
+            </div>
+            <div class="sales-chart" data-sales-chart aria-label="Weekly sales chart">
+              <p class="activity-empty">Waiting for the first eBay sync.</p>
+            </div>
+            <div class="recent-sales" data-sales-feed aria-label="Recent anonymised purchases">
+              <article class="activity-empty-card">
+                <span>Sync ready</span>
+                <p>Anonymous purchase updates will appear here after GitHub Actions pulls your eBay orders.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="section contact-section" id="contact" aria-labelledby="contact-title">
         <div class="container contact-panel">
           <div>
@@ -469,6 +516,7 @@
         <nav class="footer-nav" aria-label="Footer navigation">
           <a href="sell-pokemon-cards.html">Sell Your Collection</a>
           <a href="#shop">Shop</a>
+          <a href="#activity">Activity</a>
           <a href="#contact">Contact</a>
           <a href="support.html">Support</a>
           <a href="privacy.html">Privacy</a>

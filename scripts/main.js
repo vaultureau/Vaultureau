@@ -5,6 +5,7 @@ const yearNodes = document.querySelectorAll("[data-current-year]");
 const sellForm = document.querySelector(".sell-form");
 const sellingGroup = document.querySelector("[data-selling-group]");
 const sellingCheckboxes = Array.from(document.querySelectorAll('input[name="selling[]"]'));
+const salesActivity = document.querySelector("[data-sales-activity]");
 const sectionLinks = primaryNav
   ? Array.from(primaryNav.querySelectorAll('a[href^="#"]'))
   : [];
@@ -148,6 +149,137 @@ function validateSellingGroup(showMessage) {
   return hasSelection;
 }
 
+function formatNumber(value) {
+  return new Intl.NumberFormat("en-AU").format(Number(value || 0));
+}
+
+function escapeHtml(value) {
+  return String(value || "").replace(/[&<>"']/g, (character) => {
+    const entities = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+
+    return entities[character];
+  });
+}
+
+function formatRelativeTime(dateValue) {
+  const date = new Date(dateValue);
+  const diffMs = date.getTime() - Date.now();
+  const units = [
+    ["year", 31536000000],
+    ["month", 2592000000],
+    ["week", 604800000],
+    ["day", 86400000],
+    ["hour", 3600000],
+    ["minute", 60000],
+  ];
+
+  if (Number.isNaN(date.getTime())) return "recently";
+
+  for (const [unit, ms] of units) {
+    if (Math.abs(diffMs) >= ms || unit === "minute") {
+      return new Intl.RelativeTimeFormat("en-AU", { numeric: "auto" }).format(Math.round(diffMs / ms), unit);
+    }
+  }
+
+  return "recently";
+}
+
+function renderSalesChart(weekly) {
+  const chart = document.querySelector("[data-sales-chart]");
+  if (!chart) return;
+
+  const weeks = Array.isArray(weekly) ? weekly.slice(-12) : [];
+
+  if (weeks.length === 0) {
+    chart.innerHTML = '<p class="activity-empty">Waiting for the first eBay sync.</p>';
+    return;
+  }
+
+  const maxOrders = Math.max(...weeks.map((week) => Number(week.orders || 0)), 1);
+  chart.innerHTML = weeks
+    .map((week) => {
+      const orders = Number(week.orders || 0);
+      const height = Math.max(orders / maxOrders * 100, orders > 0 ? 8 : 0);
+      const weekLabel = String(week.week || "week");
+      const label = weekLabel.replace(/^\d{4}-/, "");
+
+      return `
+        <div class="sales-chart-bar" style="--bar-height: ${height.toFixed(2)}" aria-label="${orders} orders in ${escapeHtml(weekLabel)}">
+          <span></span>
+          <small>${escapeHtml(label)}</small>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderRecentSales(recent) {
+  const feed = document.querySelector("[data-sales-feed]");
+  if (!feed) return;
+
+  const sales = Array.isArray(recent) ? recent.slice(0, 6) : [];
+
+  if (sales.length === 0) {
+    feed.innerHTML = `
+      <article class="activity-empty-card">
+        <span>Sync ready</span>
+        <p>Anonymous purchase updates will appear here after GitHub Actions pulls your eBay orders.</p>
+      </article>
+    `;
+    return;
+  }
+
+  feed.innerHTML = sales
+    .map((sale) => {
+      const quantityLabel = Number(sale.quantity || 1) > 1 ? `${sale.quantity} items` : "1 item";
+
+      return `
+        <article class="recent-sale-card">
+          <span>Anonymous buyer - ${formatRelativeTime(sale.soldAt)}</span>
+          <strong>${escapeHtml(sale.title || "a Vaulture eBay item")}</strong>
+          <p>${quantityLabel} purchased through ${escapeHtml(sale.source || "eBay")}.</p>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+async function loadSalesActivity() {
+  if (!salesActivity) return;
+
+  try {
+    const response = await fetch("data/sales-feed.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Sales feed unavailable.");
+
+    const feed = await response.json();
+    const summary = feed.summary || {};
+    const totalOrdersNode = document.querySelector("[data-sales-total-orders]");
+    const last30Node = document.querySelector("[data-sales-last-30]");
+    const totalItemsNode = document.querySelector("[data-sales-total-items]");
+    const updatedNode = document.querySelector("[data-sales-updated]");
+
+    if (totalOrdersNode) totalOrdersNode.textContent = formatNumber(summary.totalOrders);
+    if (last30Node) last30Node.textContent = formatNumber(summary.last30Days);
+    if (totalItemsNode) totalItemsNode.textContent = formatNumber(summary.totalItems);
+
+    if (updatedNode && feed.updatedAt) {
+      updatedNode.textContent = `Updated ${formatRelativeTime(feed.updatedAt)}. Buyer details and order information stay private.`;
+    }
+
+    renderSalesChart(feed.weekly);
+    renderRecentSales(feed.recent);
+  } catch {
+    renderSalesChart([]);
+    renderRecentSales([]);
+  }
+}
+
 if (navToggle && primaryNav) {
   navToggle.addEventListener("click", () => {
     setNavOpen(!primaryNav.classList.contains("is-open"));
@@ -212,6 +344,8 @@ function handleAnchorClick(event) {
 anchorLinks.forEach((link) => {
   link.addEventListener("click", handleAnchorClick);
 });
+
+loadSalesActivity();
 
 if (sectionLinks.length > 0 && "IntersectionObserver" in window) {
   const sectionMap = new Map(

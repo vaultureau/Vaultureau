@@ -419,6 +419,8 @@ h3 {
 .marketplace-card p:last-child,
 .support-card p:last-child,
 .support-checklist p:last-child,
+.activity-panel p:last-child,
+.activity-summary p:last-child,
 .contact-panel p:last-child {
   margin-bottom: 0;
 }
@@ -754,6 +756,185 @@ input[type="checkbox"] {
   gap: 10px;
   min-height: 230px;
   padding: 30px;
+}
+
+.activity-section {
+  overflow: hidden;
+}
+
+.activity-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(500px, 1fr);
+  gap: 44px;
+  align-items: start;
+}
+
+.activity-copy {
+  position: sticky;
+  top: calc(var(--header-height) + 28px);
+}
+
+.activity-copy > p:not(.eyebrow),
+.activity-updated {
+  color: var(--color-ink-soft);
+  font-size: 1.06rem;
+}
+
+.activity-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.activity-summary article {
+  min-height: 128px;
+  border: 1px solid rgba(16, 24, 19, 0.12);
+  border-radius: var(--radius-md);
+  background: var(--color-cream);
+  padding: 18px;
+}
+
+.activity-summary span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--color-forest);
+  font-size: 2.05rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.activity-summary p {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  font-weight: 760;
+  line-height: 1.3;
+}
+
+.activity-updated {
+  margin: 18px 0 0;
+  font-size: 0.92rem;
+}
+
+.activity-panel {
+  border: 1px solid rgba(16, 24, 19, 0.12);
+  border-radius: var(--radius-md);
+  background: var(--color-forest-deep);
+  color: rgba(255, 250, 240, 0.78);
+  padding: 24px;
+  box-shadow: 0 24px 70px rgba(16, 24, 19, 0.16);
+}
+
+.activity-panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 26px;
+}
+
+.activity-panel-header h3 {
+  margin-bottom: 0;
+  color: var(--color-paper);
+  font-size: 1.35rem;
+}
+
+.activity-panel-header span {
+  border: 1px solid rgba(220, 248, 106, 0.36);
+  border-radius: 999px;
+  background: rgba(220, 248, 106, 0.1);
+  color: var(--color-lime);
+  padding: 7px 10px;
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.sales-chart {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 8px;
+  align-items: end;
+  min-height: 190px;
+  border: 1px solid rgba(255, 250, 240, 0.12);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.08) 1px, transparent 1px) 0 0 / 100% 25%,
+    rgba(255, 250, 240, 0.045);
+  padding: 18px;
+}
+
+.sales-chart-bar {
+  display: grid;
+  align-content: end;
+  gap: 8px;
+  min-width: 0;
+  height: 150px;
+}
+
+.sales-chart-bar span {
+  display: block;
+  min-height: 6px;
+  height: max(6px, calc(var(--bar-height, 0) * 1%));
+  border-radius: 999px 999px 3px 3px;
+  background: linear-gradient(180deg, var(--color-lime), rgba(186, 223, 72, 0.46));
+  box-shadow: 0 0 18px rgba(220, 248, 106, 0.16);
+}
+
+.sales-chart-bar small {
+  display: block;
+  overflow: hidden;
+  color: rgba(255, 250, 240, 0.55);
+  font-size: 0.68rem;
+  font-weight: 780;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-sales {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.recent-sale-card,
+.activity-empty-card {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(255, 250, 240, 0.12);
+  border-radius: var(--radius-md);
+  background: rgba(255, 250, 240, 0.055);
+  padding: 16px;
+}
+
+.recent-sale-card span,
+.activity-empty-card span {
+  color: var(--color-lime);
+  font-size: 0.74rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.recent-sale-card strong {
+  color: var(--color-paper);
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.recent-sale-card p,
+.activity-empty-card p,
+.activity-empty {
+  color: rgba(255, 250, 240, 0.68);
+  font-size: 0.92rem;
+}
+
+.activity-empty {
+  grid-column: 1 / -1;
+  align-self: center;
+  justify-self: center;
+  margin: 0;
+  text-align: center;
 }
 
 .text-link {
@@ -1609,6 +1790,7 @@ input[type="checkbox"] {
   .split-layout,
   .sell-layout,
   .contact-panel,
+  .activity-layout,
   .support-detail-layout,
   .seller-prep-layout,
   .trust-section-grid {
@@ -1617,6 +1799,7 @@ input[type="checkbox"] {
   }
 
   .sell-intro,
+  .activity-copy,
   .seller-prep-copy,
   .faq-layout-premium .section-heading {
     position: static;
@@ -1785,6 +1968,7 @@ input[type="checkbox"] {
 
   .category-grid,
   .marketplace-grid,
+  .activity-summary,
   .sell-proof-grid,
   .buy-grid,
   .support-channel-grid,
