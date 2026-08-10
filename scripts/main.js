@@ -9,7 +9,57 @@ const salesActivity = document.querySelector("[data-sales-activity]");
 const testimonialCarousel = document.querySelector("[data-testimonial-carousel]");
 const testimonialsSection = document.querySelector("[data-testimonials-section]");
 const RECENT_ACTIVITY_VISIBLE_LIMIT = 8;
-const TESTIMONIAL_VISIBLE_LIMIT = 6;
+const TESTIMONIAL_VISIBLE_LIMIT = 8;
+const TESTIMONIAL_AUTOPLAY_MS = 4000;
+const WHATNOT_PROFILE = Object.freeze({
+  rating: 5,
+  reviewCount: 64,
+  soldCount: 652,
+});
+const WHATNOT_TESTIMONIALS = Object.freeze([
+  {
+    id: "whatnot-awesome-community",
+    source: "Whatnot",
+    label: "Verified Whatnot buyer",
+    comment: "Awesome community, fun rips, and awesome singles.",
+    rating: 5,
+  },
+  {
+    id: "whatnot-fast-delivery",
+    source: "Whatnot",
+    label: "Verified Whatnot buyer",
+    comment: "Fast delivery, packaged perfectly and accurately.",
+    rating: 5,
+  },
+  {
+    id: "whatnot-packaged-well",
+    source: "Whatnot",
+    label: "Verified Whatnot buyer",
+    comment: "Great card and well packaged.",
+    rating: 5,
+  },
+  {
+    id: "whatnot-streams",
+    source: "Whatnot",
+    label: "Verified Whatnot buyer",
+    comment: "Cards came really quick and streams are always a good time. Would highly recommend tuning in.",
+    rating: 5,
+  },
+  {
+    id: "whatnot-kind-seller",
+    source: "Whatnot",
+    label: "Verified Whatnot buyer",
+    comment: "The seller was so kind and even included a really nice note. Packaging was excellent and everything arrived safely.",
+    rating: 5,
+  },
+  {
+    id: "whatnot-super-quick",
+    source: "Whatnot",
+    label: "Verified Whatnot buyer",
+    comment: "Super quick shipping, great packaging - too easy!",
+    rating: 5,
+  },
+]);
 const sectionLinks = primaryNav
   ? Array.from(primaryNav.querySelectorAll('a[href^="#"]'))
   : [];
@@ -18,6 +68,7 @@ let activeScrollAnimation = 0;
 let restoreScrollBehavior = null;
 let testimonialCarouselIndex = 0;
 let testimonialCarouselCount = 0;
+let testimonialCarouselTimer = 0;
 
 yearNodes.forEach((node) => {
   node.textContent = String(new Date().getFullYear());
@@ -173,29 +224,61 @@ function escapeHtml(value) {
   });
 }
 
-function getRatingMeta(commentType) {
-  const rating = String(commentType || "positive").toLowerCase();
+function getStarsMarkup(value) {
+  const rating = Math.max(0, Math.min(5, Number(value) || 0));
+  const roundedStars = Math.round(rating);
+  const stars = Array.from({ length: 5 }, (_, index) => (index < roundedStars ? "★" : "☆")).join("");
+
+  return `
+    <span class="testimonial-stars" aria-hidden="true">${stars}</span>
+    <span class="testimonial-score">${rating.toFixed(1)}</span>
+  `;
+}
+
+function getRatingMeta(testimonial) {
+  const numericRating = Number(testimonial?.rating);
+
+  if (Number.isFinite(numericRating) && numericRating > 0) {
+    const className = numericRating >= 4 ? "positive" : numericRating >= 3 ? "neutral" : "negative";
+    const formattedRating = numericRating.toFixed(1);
+
+    return {
+      className,
+      label: `${formattedRating} star`,
+      ariaLabel: `${formattedRating} out of 5 ${testimonial?.source || "marketplace"} review`,
+      markup: getStarsMarkup(numericRating),
+      summary: `${formattedRating} star review`,
+    };
+  }
+
+  const rating = String(testimonial?.commentType || "positive").toLowerCase();
 
   if (rating === "negative") {
     return {
       className: "negative",
-      icon: "-",
-      label: "Negative"
+      label: "Negative",
+      ariaLabel: "Negative marketplace feedback",
+      markup: '<b aria-hidden="true">-</b>Negative',
+      summary: "negative seller feedback",
     };
   }
 
   if (rating === "neutral") {
     return {
       className: "neutral",
-      icon: "•",
-      label: "Neutral"
+      label: "Neutral",
+      ariaLabel: "Neutral marketplace feedback",
+      markup: '<b aria-hidden="true">•</b>Neutral',
+      summary: "neutral seller feedback",
     };
   }
 
   return {
     className: "positive",
-    icon: "+",
-    label: "Positive"
+    label: "Positive",
+    ariaLabel: "Positive marketplace feedback",
+    markup: '<b aria-hidden="true">+</b>Positive',
+    summary: "positive seller feedback",
   };
 }
 
@@ -216,11 +299,12 @@ function getSafeImageUrls(images) {
 }
 
 function getTestimonialCardMarkup(testimonial, extraClassName = "") {
-  const rating = getRatingMeta(testimonial.commentType);
+  const rating = getRatingMeta(testimonial);
   const images = getSafeImageUrls(testimonial.images);
+  const source = escapeHtml(testimonial.source || "eBay");
   const imagesMarkup = images.length > 0
     ? `
-      <div class="testimonial-images" aria-label="Public eBay feedback images">
+      <div class="testimonial-images" aria-label="Public marketplace feedback images">
         ${images
           .map((imageUrl) => `
             <img
@@ -240,16 +324,24 @@ function getTestimonialCardMarkup(testimonial, extraClassName = "") {
     <article class="testimonial-card${extraClassName ? ` ${extraClassName}` : ""}">
       <div class="testimonial-card-header">
         <span>${escapeHtml(testimonial.label || "Verified eBay buyer")}</span>
-        <strong class="testimonial-rating testimonial-rating-${rating.className}" aria-label="${rating.label} eBay feedback">
-          <b aria-hidden="true">${rating.icon}</b>
-          ${rating.label}
+        <strong class="testimonial-rating testimonial-rating-${rating.className}" aria-label="${escapeHtml(rating.ariaLabel)}">
+          ${rating.markup}
         </strong>
       </div>
       ${imagesMarkup}
       <blockquote>${escapeHtml(testimonial.comment)}</blockquote>
-      <p>Public ${rating.label.toLowerCase()} seller feedback through ${escapeHtml(testimonial.source || "eBay")}.</p>
+      <p>Public ${rating.summary} through ${source}.</p>
     </article>
   `;
+}
+
+function getMergedTestimonials(ebayTestimonials) {
+  const verifiedEbayTestimonials = Array.isArray(ebayTestimonials) ? ebayTestimonials : [];
+  const featuredWhatnot = WHATNOT_TESTIMONIALS.slice(0, 4);
+  const featuredEbay = verifiedEbayTestimonials.slice(0, 4);
+  const fallbackWhatnot = WHATNOT_TESTIMONIALS.slice(featuredWhatnot.length);
+
+  return [...featuredWhatnot, ...featuredEbay, ...fallbackWhatnot].slice(0, TESTIMONIAL_VISIBLE_LIMIT);
 }
 
 function updateTestimonialCarousel() {
@@ -272,6 +364,33 @@ function updateTestimonialCarousel() {
 
   if (prevButton) prevButton.disabled = testimonialCarouselCount < 2;
   if (nextButton) nextButton.disabled = testimonialCarouselCount < 2;
+}
+
+function stopTestimonialCarouselAutoplay() {
+  if (!testimonialCarouselTimer) return;
+
+  clearInterval(testimonialCarouselTimer);
+  testimonialCarouselTimer = 0;
+}
+
+function shouldAutoAdvanceTestimonials() {
+  return Boolean(
+    testimonialCarousel &&
+    testimonialCarouselCount > 1 &&
+    !document.hidden
+  );
+}
+
+function startTestimonialCarouselAutoplay() {
+  stopTestimonialCarouselAutoplay();
+
+  if (!shouldAutoAdvanceTestimonials()) return;
+
+  testimonialCarouselTimer = window.setInterval(() => {
+    if (shouldAutoAdvanceTestimonials()) {
+      moveTestimonialCarousel(1);
+    }
+  }, TESTIMONIAL_AUTOPLAY_MS);
 }
 
 function moveTestimonialCarousel(direction) {
@@ -317,12 +436,18 @@ function renderTestimonialCarousel(testimonials) {
   }
 
   if (prevButton && !prevButton.dataset.carouselBound) {
-    prevButton.addEventListener("click", () => moveTestimonialCarousel(-1));
+    prevButton.addEventListener("click", () => {
+      moveTestimonialCarousel(-1);
+      startTestimonialCarouselAutoplay();
+    });
     prevButton.dataset.carouselBound = "true";
   }
 
   if (nextButton && !nextButton.dataset.carouselBound) {
-    nextButton.addEventListener("click", () => moveTestimonialCarousel(1));
+    nextButton.addEventListener("click", () => {
+      moveTestimonialCarousel(1);
+      startTestimonialCarouselAutoplay();
+    });
     nextButton.dataset.carouselBound = "true";
   }
 
@@ -335,55 +460,13 @@ function renderTestimonialCarousel(testimonials) {
 
       testimonialCarouselIndex = Number(dot.dataset.testimonialIndex || 0);
       updateTestimonialCarousel();
+      startTestimonialCarouselAutoplay();
     });
     dots.dataset.carouselBound = "true";
   }
 
   updateTestimonialCarousel();
-}
-
-function renderSalesChart(monthly) {
-  const chart = document.querySelector("[data-sales-chart]");
-  if (!chart) return;
-
-  const activePeriods = Array.isArray(monthly)
-    ? monthly
-      .map((period) => Number(period.sales || period.orders || 0))
-      .filter((sales) => sales > 0)
-      .slice(-8)
-    : [];
-
-  if (activePeriods.length === 0) {
-    chart.innerHTML = '<p class="activity-empty">Waiting for the marketplace feed.</p>';
-    return;
-  }
-
-  const maxSales = Math.max(...activePeriods, 1);
-  const bars = activePeriods
-    .map((sales) => {
-      const height = Math.max(Math.sqrt(sales / maxSales) * 100, 14);
-
-      return `
-        <div class="sales-chart-bar" style="--bar-height: ${height.toFixed(2)}" aria-label="${sales} sales recorded">
-          <strong>${escapeHtml(formatNumber(sales))}</strong>
-          <span></span>
-          <small>sold</small>
-        </div>
-      `;
-    })
-    .join("");
-
-  chart.style.setProperty("--chart-columns", String(Math.max(activePeriods.length, 4)));
-  chart.innerHTML = `
-    <div class="sales-chart-feature">
-      <span>Peak activity</span>
-      <strong>${escapeHtml(formatNumber(maxSales))}</strong>
-      <p>sales in one active period</p>
-    </div>
-    <div class="sales-chart-bars">
-      ${bars}
-    </div>
-  `;
+  startTestimonialCarouselAutoplay();
 }
 
 function renderRecentSales(recent) {
@@ -422,13 +505,12 @@ function renderTestimonials(feed) {
 
   const testimonialsList = testimonialsSection.querySelector("[data-testimonials-list]");
   const totalNode = testimonialsSection.querySelector("[data-testimonials-total]");
-  const scoreNode = testimonialsSection.querySelector("[data-testimonials-score]");
   const sourceNode = testimonialsSection.querySelector("[data-testimonials-source]");
-  const testimonials = Array.isArray(feed?.testimonials)
+  const ebayTestimonials = Array.isArray(feed?.testimonials)
     ? feed.testimonials
       .filter((testimonial) => testimonial && testimonial.comment)
-      .slice(0, TESTIMONIAL_VISIBLE_LIMIT)
     : [];
+  const testimonials = getMergedTestimonials(ebayTestimonials);
 
   if (testimonials.length === 0) {
     testimonialsSection.hidden = true;
@@ -437,18 +519,13 @@ function renderTestimonials(feed) {
   }
 
   const summary = feed.summary || {};
-  const totalSynced = Number(summary.availableFeedback || summary.totalSynced || testimonials.length);
-  const feedbackScore = Number(summary.feedbackScore);
+  const ebayFeedbackCount = Number(summary.availableFeedback || summary.totalSynced || ebayTestimonials.length);
+  const totalPublicReviews = ebayFeedbackCount + WHATNOT_PROFILE.reviewCount;
 
   testimonialsSection.hidden = false;
 
-  if (totalNode) totalNode.textContent = formatNumber(totalSynced);
-  if (scoreNode) {
-    scoreNode.textContent = Number.isFinite(feedbackScore)
-      ? formatNumber(feedbackScore)
-      : "Positive";
-  }
-  if (sourceNode) sourceNode.textContent = "eBay";
+  if (totalNode) totalNode.textContent = formatNumber(totalPublicReviews);
+  if (sourceNode) sourceNode.textContent = "eBay + Whatnot";
 
   renderTestimonialCarousel(testimonials);
 
@@ -468,8 +545,7 @@ async function loadTestimonials() {
 
     renderTestimonials(await response.json());
   } catch {
-    testimonialsSection.hidden = true;
-    if (testimonialCarousel) testimonialCarousel.hidden = true;
+    renderTestimonials({ testimonials: [], summary: {} });
   }
 }
 
@@ -498,10 +574,8 @@ async function loadSalesActivity() {
       updatedNode.textContent = "Buyer details and order information stay private.";
     }
 
-    renderSalesChart(feed.monthly || feed.weekly);
     renderRecentSales(feed.recent);
   } catch {
-    renderSalesChart([]);
     renderRecentSales([]);
   }
 }
@@ -541,6 +615,27 @@ if (sellForm) {
     if (!validateSellingGroup(true)) {
       event.preventDefault();
       sellingCheckboxes[0].reportValidity();
+    }
+  });
+}
+
+if (testimonialCarousel) {
+  testimonialCarousel.addEventListener("mouseenter", stopTestimonialCarouselAutoplay);
+  testimonialCarousel.addEventListener("mouseleave", startTestimonialCarouselAutoplay);
+  testimonialCarousel.addEventListener("focusin", stopTestimonialCarouselAutoplay);
+  testimonialCarousel.addEventListener("focusout", () => {
+    window.setTimeout(() => {
+      if (!testimonialCarousel.contains(document.activeElement)) {
+        startTestimonialCarouselAutoplay();
+      }
+    }, 0);
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      stopTestimonialCarouselAutoplay();
+    } else {
+      startTestimonialCarouselAutoplay();
     }
   });
 }

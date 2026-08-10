@@ -41,7 +41,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-solid.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="preload" as="image" href="assets/images/collection-hero.jpg" fetchpriority="high">
-    <link rel="stylesheet" href="styles/main.css?v=20260810-testimonial-carousel">
+    <link rel="stylesheet" href="styles/main.css?v=20260811-whatnot-stars">
 
     <script type="application/ld+json">
       {
@@ -170,7 +170,15 @@
         <div class="container testimonial-carousel-panel">
           <div class="testimonial-carousel-copy">
             <p class="eyebrow">Marketplace Proof</p>
-            <h2 id="testimonial-carousel-title">Recent buyer feedback from eBay.</h2>
+            <h2 id="testimonial-carousel-title">Recent buyer feedback from eBay and Whatnot.</h2>
+            <div class="carousel-proof" aria-label="Whatnot marketplace rating">
+              <span>
+                <b aria-hidden="true">★★★★★</b>
+                Whatnot 5.0
+              </span>
+              <span>64 reviews</span>
+              <span>652 sold</span>
+            </div>
           </div>
 
           <div class="testimonial-carousel" aria-roledescription="carousel">
@@ -494,13 +502,10 @@
           <div class="activity-panel" aria-live="polite">
             <div class="activity-panel-header">
               <div>
-                <p class="eyebrow">Sales Graph</p>
-                <h3>Sales activity</h3>
+                <p class="eyebrow">Recent Purchases</p>
+                <h3>Latest anonymised activity</h3>
               </div>
               <span>Marketplaces</span>
-            </div>
-            <div class="sales-chart" data-sales-chart aria-label="Monthly sales chart">
-              <p class="activity-empty">Waiting for the first eBay sync.</p>
             </div>
             <div class="recent-sales" data-sales-feed aria-label="Recent anonymised purchases">
               <article class="activity-empty-card">
@@ -524,21 +529,28 @@
             <p class="eyebrow">Buyer Feedback</p>
             <h2 id="feedback-title">Real marketplace feedback, shown without buyer details.</h2>
             <p>
-              Vaulture can publish positive public seller feedback from eBay while keeping buyer usernames,
+              Vaulture shares selected public seller feedback from eBay and Whatnot while keeping buyer usernames,
               transaction details and private account information off the website.
             </p>
-            <div class="testimonial-stats" aria-label="Vaulture eBay feedback summary">
+            <div class="testimonial-stats" aria-label="Vaulture marketplace feedback summary">
               <article>
                 <span data-testimonials-total>0</span>
-                <p>Feedback comments available</p>
+                <p>Public reviews counted</p>
               </article>
               <article>
-                <span data-testimonials-score>Positive</span>
-                <p>Public seller feedback</p>
+                <span class="stat-stars" aria-label="Whatnot rating 5.0 out of 5">
+                  <b aria-hidden="true">★★★★★</b>
+                  5.0
+                </span>
+                <p>Whatnot rating</p>
               </article>
               <article>
-                <span data-testimonials-source>eBay</span>
-                <p>Marketplace source</p>
+                <span>652</span>
+                <p>Whatnot sales</p>
+              </article>
+              <article>
+                <span data-testimonials-source>eBay + Whatnot</span>
+                <p>Marketplace sources</p>
               </article>
             </div>
           </div>
@@ -602,6 +614,6 @@
       </div>
     </footer>
 
-    <script src="scripts/main.js?v=20260810-testimonial-carousel" defer></script>
+    <script src="scripts/main.js?v=20260811-whatnot-stars" defer></script>
   </body>
 </html>
