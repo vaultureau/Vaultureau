@@ -39,6 +39,7 @@ jobs:
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           EBAY_REFRESH_TOKEN: ${{ secrets.EBAY_REFRESH_TOKEN }}
           EBAY_FEEDBACK_REFRESH_TOKEN: ${{ secrets.EBAY_FEEDBACK_REFRESH_TOKEN }}
+          EBAY_FEEDBACK_SCOPE: https://api.ebay.com/oauth/api_scope/commerce.feedback
           EBAY_FEEDBACK_USER_ID: vaultureau
           EBAY_MARKETPLACE_ID: EBAY_AU
           EBAY_FEEDBACK_PAGE_LIMIT: "25"

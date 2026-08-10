@@ -70,10 +70,10 @@ Add this optional repository secret if the existing order token was not consente
 If this secret is not set, the testimonials workflow falls back to `EBAY_REFRESH_TOKEN`. The refresh token used by the testimonials workflow must be consented with:
 
 ```text
-https://api.ebay.com/oauth/api_scope/commerce.feedback.readonly
+https://api.ebay.com/oauth/api_scope/commerce.feedback
 ```
 
-The workflow can be run manually from GitHub Actions and also runs every six hours. If the workflow fails with an OAuth permission error, generate a fresh Production user token with the feedback readonly scope and save it as `EBAY_FEEDBACK_REFRESH_TOKEN`.
+The workflow can be run manually from GitHub Actions and also runs every six hours. If the workflow fails with an OAuth permission error, generate a fresh Production user token with the feedback scope and save it as `EBAY_FEEDBACK_REFRESH_TOKEN`.
 
 To import an eBay orders report CSV as an anonymised historical backfill, run:
 

@@ -8,7 +8,7 @@ const USER_ID = process.env.EBAY_FEEDBACK_USER_ID || "vaultureau";
 const PAGE_LIMIT = Math.min(Number.parseInt(process.env.EBAY_FEEDBACK_PAGE_LIMIT || "25", 10), 200);
 const MAX_PAGES = Math.max(Number.parseInt(process.env.EBAY_FEEDBACK_MAX_PAGES || "4", 10), 1);
 const TESTIMONIAL_LIMIT = Math.max(Number.parseInt(process.env.EBAY_TESTIMONIAL_LIMIT || "12", 10), 1);
-const SCOPE = process.env.EBAY_FEEDBACK_SCOPE || "https://api.ebay.com/oauth/api_scope/commerce.feedback.readonly";
+const SCOPE = process.env.EBAY_FEEDBACK_SCOPE || "https://api.ebay.com/oauth/api_scope/commerce.feedback";
 const TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token";
 const FEEDBACK_URL = "https://api.ebay.com/commerce/feedback/v1/feedback";
 
