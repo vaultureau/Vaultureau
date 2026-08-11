@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-08-10T23:53:22.689Z",
+  "updatedAt": "2026-08-11T01:55:54.081Z",
   "source": "eBay Browse API",
   "status": "live",
   "marketplace": "EBAY_AU",
   "seller": "vaultureau",
   "privacy": "Only public eBay listing details are published. No buyer data, order data, private seller data or API tokens are included.",
   "summary": {
-    "totalMatched": 1,
-    "totalSynced": 1
+    "totalMatched": 2,
+    "totalSynced": 2
   },
   "listings": [
     {
@@ -22,6 +22,19 @@
       },
       "condition": "Ungraded",
       "buyingOption": "Buy it now"
+    },
+    {
+      "id": "v1|398272121311|0",
+      "source": "eBay",
+      "title": "Hilda - 173/086 - White Flare - Special Art Rare - JAP",
+      "url": "https://www.ebay.com.au/itm/398272121311?_skw=Pokemon&hash=item5cbade49df:g:c-0AAeSwa2dqenII",
+      "image": "https://i.ebayimg.com/images/g/c-0AAeSwa2dqenII/s-l1600.jpg",
+      "price": {
+        "value": 79.99,
+        "currency": "AUD"
+      },
+      "condition": "Ungraded",
+      "buyingOption": "Best offer"
     }
   ]
 }
