@@ -27,6 +27,21 @@ function firstString(...values) {
   return "";
 }
 
+function upgradeEbayImageUrl(imageUrl) {
+  try {
+    const url = new URL(imageUrl);
+    const isEbayImage = /(^|\.)ebayimg\.com$/i.test(url.hostname);
+
+    if (isEbayImage) {
+      url.pathname = url.pathname.replace(/\/s-l\d+(?=\.|\/)/gi, "/s-l1600");
+    }
+
+    return url.toString();
+  } catch {
+    return imageUrl;
+  }
+}
+
 function normaliseImageUrl(value) {
   const imageUrl = typeof value === "string"
     ? value
@@ -36,7 +51,7 @@ function normaliseImageUrl(value) {
 
   try {
     const url = new URL(imageUrl);
-    return ["http:", "https:"].includes(url.protocol) ? url.toString() : "";
+    return ["http:", "https:"].includes(url.protocol) ? upgradeEbayImageUrl(url.toString()) : "";
   } catch {
     return "";
   }

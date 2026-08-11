@@ -317,6 +317,25 @@ function getSafeImageUrls(images) {
     .slice(0, 3);
 }
 
+function getBestListingImageUrl(imageUrl) {
+  if (!imageUrl) return "";
+
+  try {
+    const url = new URL(String(imageUrl), window.location.href);
+    const isEbayImage = /(^|\.)ebayimg\.com$/i.test(url.hostname);
+
+    if (!["http:", "https:"].includes(url.protocol)) return "";
+
+    if (isEbayImage) {
+      url.pathname = url.pathname.replace(/\/s-l\d+(?=\.|\/)/gi, "/s-l1600");
+    }
+
+    return url.toString();
+  } catch {
+    return "";
+  }
+}
+
 function getTestimonialCardMarkup(testimonial, extraClassName = "") {
   const rating = getRatingMeta(testimonial);
   const images = getSafeImageUrls(testimonial.images);
@@ -490,10 +509,11 @@ function renderTestimonialCarousel(testimonials) {
 
 function getListingCardMarkup(listing) {
   const title = listing.title || "Vaulture eBay listing";
-  const imageMarkup = listing.image
+  const imageUrl = getBestListingImageUrl(listing.image);
+  const imageMarkup = imageUrl
     ? `
       <img
-        src="${escapeHtml(listing.image)}"
+        src="${escapeHtml(imageUrl)}"
         alt=""
         loading="lazy"
         decoding="async"
@@ -572,7 +592,7 @@ function renderListings(feed) {
   }
 
   if (updatedNode) {
-    updatedNode.textContent = "Synced from public eBay listing data. Buyer and order details are never shown.";
+    updatedNode.textContent = "Only public eBay listing details are shown. Checkout stays on eBay.";
   }
 
   feedNode.innerHTML = listings.map((listing) => getListingCardMarkup(listing)).join("");
