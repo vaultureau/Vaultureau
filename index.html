@@ -41,7 +41,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon-solid.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="preload" as="image" href="assets/images/collection-hero.jpg" fetchpriority="high">
-    <link rel="stylesheet" href="styles/main.css?v=20260811-ebay-listings">
+    <link rel="stylesheet" href="styles/main.css?v=20260811-remodel">
 
     <script type="application/ld+json">
       {
@@ -129,12 +129,12 @@
         </button>
 
         <nav class="primary-nav" id="primary-navigation" aria-label="Primary navigation" data-primary-nav>
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
+          <a href="#sell">Sell</a>
+          <a href="#available-now">Listings</a>
+          <a href="#feedback">Reviews</a>
           <a href="#guides">Guides</a>
-          <a class="nav-cta" href="sell-pokemon-cards.html">Sell Your Collection</a>
-          <a href="#shop">Shop</a>
           <a href="#contact">Contact</a>
+          <a class="nav-cta" href="sell-pokemon-cards.html">Start Enquiry</a>
           <a href="support.html">Support</a>
         </nav>
       </div>
@@ -143,21 +143,21 @@
     <main id="main">
       <section class="hero" id="home" aria-labelledby="hero-title">
         <div class="container hero-content">
-          <p class="eyebrow">Australian TCG business</p>
-          <h1 id="hero-title">Buy. Sell. Collect. Without the runaround.</h1>
+          <p class="eyebrow">Australian Pokémon TCG buying desk</p>
+          <h1 id="hero-title">Vaulture Pokémon TCG.</h1>
           <p class="hero-lede">
-            Vaulture buys Pokémon singles, graded cards, sealed products and complete collections across Australia,
-            while selling through established online marketplaces.
+            Buy, sell and follow an Australian card business focused on authentic Pokémon singles, slabs,
+            sealed product and complete collections.
           </p>
           <div class="hero-actions" aria-label="Primary actions">
-            <a class="button button-primary" href="sell-pokemon-cards.html">Sell Your Collection</a>
-            <a class="button button-secondary" href="#shop">Shop Vaulture</a>
+            <a class="button button-primary" href="#sell">Sell Your Collection</a>
+            <a class="button button-secondary" href="#available-now">View Current Listings</a>
           </div>
           <ul class="trust-list" aria-label="Vaulture trust indicators">
-            <li>Australian operated</li>
-            <li>Pokémon TCG focused</li>
-            <li>Online nationwide</li>
-            <li>No obligation enquiries</li>
+            <li>Raw singles</li>
+            <li>Graded cards</li>
+            <li>Sealed products</li>
+            <li>Collections and bulk</li>
           </ul>
           <div class="hero-proof-grid" aria-label="Vaulture marketplace proof">
             <article>
@@ -169,11 +169,11 @@
               <strong>652 sold</strong>
             </article>
             <article>
-              <span>Buyer feedback</span>
+              <span>Sales channels</span>
               <strong>eBay + Whatnot</strong>
             </article>
             <article>
-              <span>Selling enquiries</span>
+              <span>Collection reviews</span>
               <strong>Australia-wide</strong>
             </article>
           </div>
@@ -188,8 +188,8 @@
       >
         <div class="container testimonial-carousel-panel">
           <div class="testimonial-carousel-copy">
-            <p class="eyebrow">Marketplace Proof</p>
-            <h2 id="testimonial-carousel-title">Recent buyer feedback from eBay and Whatnot.</h2>
+            <p class="eyebrow">Collector proof</p>
+            <h2 id="testimonial-carousel-title">Real feedback from public marketplaces.</h2>
             <div class="carousel-proof" aria-label="Whatnot marketplace rating">
               <span>
                 <b aria-hidden="true">★★★★★</b>
@@ -228,30 +228,96 @@
         </div>
       </section>
 
+      <section class="section listings-section" id="available-now" aria-labelledby="available-now-title" data-listings-section>
+        <div class="container">
+          <div class="market-header">
+            <div class="section-heading section-heading-wide">
+              <p class="eyebrow">Shop Vaulture</p>
+              <h2 id="available-now-title">Current listings and live marketplace channels.</h2>
+              <p data-listings-summary>
+                Current public eBay listings appear below. Checkout stays on eBay.
+              </p>
+            </div>
+
+            <div class="marketplace-grid marketplace-grid-compact" aria-label="Vaulture marketplace links">
+              <article class="marketplace-card">
+                <h3>Whatnot</h3>
+                <p>Live shows, singles, sealed product and buyer reviews.</p>
+                <a
+                  class="text-link"
+                  href="https://www.whatnot.com/en-AU/user/vaulture"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open Vaulture on Whatnot in a new tab"
+                >
+                  Open Whatnot
+                </a>
+              </article>
+              <article class="marketplace-card">
+                <h3>eBay</h3>
+                <p>Current listings and Pokémon TCG products ready to browse.</p>
+                <a
+                  class="text-link"
+                  href="https://www.ebay.com.au/usr/vaultureau"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open Vaulture on eBay in a new tab"
+                >
+                  Open eBay
+                </a>
+              </article>
+            </div>
+          </div>
+
+          <div class="listing-grid" data-listings-feed aria-live="polite">
+            <article class="listing-empty-card">
+              <span>eBay store</span>
+              <h3>Current listings are loading.</h3>
+              <p>You can still browse the full Vaulture eBay store.</p>
+              <a
+                class="text-link"
+                href="https://www.ebay.com.au/usr/vaultureau"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open eBay store
+              </a>
+            </article>
+          </div>
+
+          <p class="listings-updated" data-listings-updated>Only public eBay listing details are shown.</p>
+        </div>
+      </section>
+
       <section class="section section-light" id="about" aria-labelledby="about-title">
         <div class="container split-layout">
           <div>
-            <p class="eyebrow">About Vaulture</p>
-            <h2 id="about-title">A specialist home for serious Pokémon TCG collections.</h2>
+            <p class="eyebrow">The Vaulture desk</p>
+            <h2 id="about-title">A cleaner way to move Pokémon collections.</h2>
           </div>
           <div class="content-stack">
             <p>
-              Vaulture is an Australian Pokémon TCG business built for collectors who want clear communication,
-              a professional process and a central place to buy, sell and follow marketplace activity.
+              Vaulture is built for collectors who want straight answers, careful handling and a visible track record.
+              The website connects collection enquiries, live listings, recent sales activity and public buyer feedback
+              in one place.
             </p>
             <p>
-              The business works with raw singles, slabs, sealed products, binders, bulk and larger holdings,
-              with selling activity currently directed through recognised marketplaces.
+              Selling is handled through recognised marketplaces while collection enquiries stay direct, private and
+              no obligation.
             </p>
           </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="categories-title">
+      <section class="section collection-desk-section" aria-labelledby="categories-title">
         <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">What Vaulture Buys</p>
-            <h2 id="categories-title">Cards, sealed product and collections at every scale.</h2>
+          <div class="section-heading section-heading-wide">
+            <p class="eyebrow">What Vaulture handles</p>
+            <h2 id="categories-title">From one standout card to a full binder clean-out.</h2>
+            <p>
+              Send photos, counts and condition notes. Vaulture can review single cards, slabs, sealed product,
+              binders, mixed lots and larger collections.
+            </p>
           </div>
 
           <div class="category-grid">
@@ -286,11 +352,11 @@
       <section class="section section-light guide-hub-section" id="guides" aria-labelledby="guides-title">
         <div class="container">
           <div class="section-heading section-heading-wide">
-            <p class="eyebrow">Selling Guides</p>
-            <h2 id="guides-title">Clear guides for every kind of Pokémon collection.</h2>
+            <p class="eyebrow">Seller guides</p>
+            <h2 id="guides-title">Know what details matter before you send an enquiry.</h2>
             <p>
-              These pages help sellers understand what details matter before submitting a collection enquiry,
-              and give Google stronger pages for the searches people actually make.
+              Use these quick guides to prepare photos, describe condition and understand what Vaulture looks for
+              across different kinds of Pokémon TCG holdings.
             </p>
           </div>
 
@@ -481,91 +547,18 @@
         </div>
       </section>
 
-      <section class="section" id="shop" aria-labelledby="shop-title">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Shop Vaulture</p>
-            <h2 id="shop-title">Browse live marketplace activity.</h2>
-            <p>
-              Vaulture is not running checkout on this website yet. Current buying options are directed through
-              established online marketplaces.
-            </p>
-          </div>
-
-          <div class="marketplace-grid">
-            <article class="marketplace-card">
-              <h3>Whatnot</h3>
-              <p>Find live shows, singles, sealed products and Vaulture marketplace activity.</p>
-              <a
-                class="text-link"
-                href="https://www.whatnot.com/en-AU/user/vaulture"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open Vaulture on Whatnot in a new tab"
-              >
-                Open Whatnot
-              </a>
-            </article>
-            <article class="marketplace-card">
-              <h3>eBay</h3>
-              <p>Browse current Vaulture listings and available Pokémon TCG products.</p>
-              <a
-                class="text-link"
-                href="https://www.ebay.com.au/usr/vaultureau"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open Vaulture on eBay in a new tab"
-              >
-                Open eBay
-              </a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section listings-section" id="available-now" aria-labelledby="available-now-title" data-listings-section>
-        <div class="container">
-          <div class="section-heading section-heading-wide">
-            <p class="eyebrow">Available Now</p>
-            <h2 id="available-now-title">Current Vaulture eBay listings.</h2>
-            <p data-listings-summary>
-              Live listing cards will appear here after the eBay feed syncs. Checkout stays on eBay.
-            </p>
-          </div>
-
-          <div class="listing-grid" data-listings-feed aria-live="polite">
-            <article class="listing-empty-card">
-              <span>Sync ready</span>
-              <h3>Vaulture eBay listings are connected.</h3>
-              <p>The first API sync will publish current public listings here.</p>
-              <a
-                class="text-link"
-                href="https://www.ebay.com.au/usr/vaultureau"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open eBay store
-              </a>
-            </article>
-          </div>
-
-          <p class="listings-updated" data-listings-updated>Only public eBay listing details are shown.</p>
-        </div>
-      </section>
-
       <section class="section section-light activity-section" id="activity" aria-labelledby="activity-title" data-sales-activity>
         <div class="container activity-layout">
           <div class="activity-copy">
             <p class="eyebrow">Purchase History</p>
             <h2 id="activity-title">Recent Vaulture marketplace activity.</h2>
             <p>
-              Privacy-safe marketplace activity highlights recent Vaulture sales without publishing buyer names, order IDs,
-              addresses or prices.
+              A public-safe activity feed shows momentum without publishing buyer names, order IDs, addresses or prices.
             </p>
             <div class="activity-summary" aria-label="Vaulture sales summary">
               <article>
                 <span data-sales-total-orders>0</span>
-                <p>Sales synced</p>
+                <p>Sales shown</p>
               </article>
               <article>
                 <span data-sales-month-count>0</span>
@@ -589,8 +582,8 @@
             </div>
             <div class="recent-sales" data-sales-feed aria-label="Recent anonymised purchases">
               <article class="activity-empty-card">
-                <span>Sync ready</span>
-                <p>Anonymous purchase updates will appear here after the marketplace feed refreshes.</p>
+                <span>Activity</span>
+                <p>Anonymous purchase updates will appear here when available.</p>
               </article>
             </div>
           </div>
@@ -683,7 +676,7 @@
         <nav class="footer-nav" aria-label="Footer navigation">
           <a href="sell-pokemon-cards.html">Sell Your Collection</a>
           <a href="#guides">Guides</a>
-          <a href="#shop">Shop</a>
+          <a href="#available-now">Listings</a>
           <a href="#activity">Activity</a>
           <a href="#contact">Contact</a>
           <a href="support.html">Support</a>
@@ -695,6 +688,6 @@
       </div>
     </footer>
 
-    <script src="scripts/main.js?v=20260811-ebay-listings" defer></script>
+    <script src="scripts/main.js?v=20260811-remodel" defer></script>
   </body>
 </html>

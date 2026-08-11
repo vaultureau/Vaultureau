@@ -541,16 +541,16 @@ function renderListings(feed) {
   if (listings.length === 0) {
     listingsSection.classList.add("is-empty");
     if (summaryNode) {
-      summaryNode.textContent = "Live listing cards will appear here after the eBay feed syncs. Checkout stays on eBay.";
+      summaryNode.textContent = "Current public eBay listings appear below when available. Checkout stays on eBay.";
     }
     if (updatedNode) {
       updatedNode.textContent = "Only public eBay listing details are shown.";
     }
     feedNode.innerHTML = `
       <article class="listing-empty-card">
-        <span>Sync ready</span>
-        <h3>Vaulture eBay listings are connected.</h3>
-        <p>The first API sync will publish current public listings here.</p>
+        <span>eBay store</span>
+        <h3>Current listings are loading.</h3>
+        <p>You can still browse the full Vaulture eBay store.</p>
         <a
           class="text-link"
           href="https://www.ebay.com.au/usr/vaultureau"
@@ -600,8 +600,8 @@ function renderRecentSales(recent) {
   if (sales.length === 0) {
     feed.innerHTML = `
       <article class="activity-empty-card">
-        <span>Sync ready</span>
-        <p>Anonymous purchase updates will appear here after the marketplace feed refreshes.</p>
+        <span>Activity</span>
+        <p>Anonymous purchase updates will appear here when available.</p>
       </article>
     `;
     return;
