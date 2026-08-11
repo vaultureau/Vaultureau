@@ -1,13 +1,27 @@
 {
-  "updatedAt": "2026-08-11T00:00:00.000Z",
+  "updatedAt": "2026-08-10T23:53:22.689Z",
   "source": "eBay Browse API",
-  "status": "pending",
+  "status": "live",
   "marketplace": "EBAY_AU",
   "seller": "vaultureau",
   "privacy": "Only public eBay listing details are published. No buyer data, order data, private seller data or API tokens are included.",
   "summary": {
-    "totalMatched": 0,
-    "totalSynced": 0
+    "totalMatched": 1,
+    "totalSynced": 1
   },
-  "listings": []
+  "listings": [
+    {
+      "id": "v1|398262436475|666529862962",
+      "source": "eBay",
+      "title": "11x Pokemon TCG Card Bulk Lot - 1x Holo + 2x Trainers - Choose Your Lot",
+      "url": "https://www.ebay.com.au/itm/398262436475?_skw=Pokemon&hash=item5cba4a827b:g:S0wAAeSwG~VqeHWS",
+      "image": "https://i.ebayimg.com/images/g/S0wAAeSwG~VqeHWS/s-l225.jpg",
+      "price": {
+        "value": 2.99,
+        "currency": "AUD"
+      },
+      "condition": "Ungraded",
+      "buyingOption": "Buy it now"
+    }
+  ]
 }
