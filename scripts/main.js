@@ -2,9 +2,7 @@ const navToggle = document.querySelector("[data-nav-toggle]");
 const primaryNav = document.querySelector("[data-primary-nav]");
 const siteHeader = document.querySelector("[data-site-header]");
 const yearNodes = document.querySelectorAll("[data-current-year]");
-const sellForm = document.querySelector(".sell-form");
-const sellingGroup = document.querySelector("[data-selling-group]");
-const sellingCheckboxes = Array.from(document.querySelectorAll('input[name="selling[]"]'));
+const sellForms = Array.from(document.querySelectorAll(".sell-form"));
 const salesActivity = document.querySelector("[data-sales-activity]");
 const listingsSection = document.querySelector("[data-listings-section]");
 const testimonialCarousel = document.querySelector("[data-testimonial-carousel]");
@@ -71,6 +69,8 @@ let restoreScrollBehavior = null;
 let testimonialCarouselIndex = 0;
 let testimonialCarouselCount = 0;
 let testimonialCarouselTimer = 0;
+let listingsFeedCache = null;
+let listingsFilter = "all";
 
 yearNodes.forEach((node) => {
   node.textContent = String(new Date().getFullYear());
@@ -196,7 +196,14 @@ function getSamePageAnchorTarget(link) {
   return targetId ? document.getElementById(targetId) : null;
 }
 
-function validateSellingGroup(showMessage) {
+function getSellingCheckboxes(form) {
+  return Array.from(form.querySelectorAll('input[name="selling[]"]'));
+}
+
+function validateSellingGroup(form, showMessage) {
+  const sellingGroup = form.querySelector("[data-selling-group]");
+  const sellingCheckboxes = getSellingCheckboxes(form);
+
   if (!sellingGroup || sellingCheckboxes.length === 0) return true;
 
   const hasSelection = sellingCheckboxes.some((checkbox) => checkbox.checked);
@@ -206,6 +213,130 @@ function validateSellingGroup(showMessage) {
   sellingGroup.classList.toggle("is-invalid", showMessage && !hasSelection);
 
   return hasSelection;
+}
+
+function getFormWizardSteps(form) {
+  return Array.from(form.children).filter((child) => child instanceof HTMLFieldSetElement);
+}
+
+function getWizardStepName(fieldset, index) {
+  const fallbackNames = ["Seller", "Items", "Collection"];
+  const legendText = fieldset.querySelector("legend")?.textContent || fallbackNames[index] || `Step ${index + 1}`;
+
+  return legendText
+    .replace("Choose at least one", "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function validateWizardStep(form, fieldset) {
+  const controls = Array.from(fieldset.querySelectorAll("input, textarea, select"));
+
+  if (fieldset.matches("[data-selling-group]") && !validateSellingGroup(form, true)) {
+    getSellingCheckboxes(form)[0]?.reportValidity();
+    return false;
+  }
+
+  const invalidControl = controls.find((control) => !control.checkValidity());
+
+  if (invalidControl) {
+    invalidControl.reportValidity();
+    return false;
+  }
+
+  return true;
+}
+
+function initSellForm(form) {
+  const steps = getFormWizardSteps(form);
+  const submitButton = form.querySelector(".form-submit");
+  const submitNote = form.querySelector(".submit-note");
+  const consentRow = form.querySelector(".consent-row");
+
+  getSellingCheckboxes(form).forEach((checkbox) => {
+    checkbox.addEventListener("change", () => {
+      validateSellingGroup(form, false);
+    });
+  });
+
+  form.addEventListener("submit", (event) => {
+    if (!validateSellingGroup(form, true)) {
+      event.preventDefault();
+      getSellingCheckboxes(form)[0]?.reportValidity();
+    }
+  });
+
+  if (steps.length < 2 || !submitButton || form.dataset.wizardReady === "true") return;
+
+  form.dataset.wizardReady = "true";
+  form.classList.add("is-wizard");
+
+  const stepper = document.createElement("div");
+  stepper.className = "form-wizard-stepper";
+  stepper.setAttribute("aria-label", "Collection enquiry steps");
+  stepper.innerHTML = steps
+    .map(
+      (step, index) => `
+        <button type="button" data-wizard-step-button="${index}">
+          <span>${index + 1}</span>
+          ${escapeHtml(getWizardStepName(step, index))}
+        </button>
+      `
+    )
+    .join("");
+
+  const formSummary = form.querySelector(".form-summary");
+  const formNote = form.querySelector(".form-note");
+  (formSummary || formNote || form).insertAdjacentElement("afterend", stepper);
+
+  const wizardActions = document.createElement("div");
+  wizardActions.className = "form-wizard-actions";
+  wizardActions.innerHTML = `
+    <button class="button button-secondary" type="button" data-wizard-back>Back</button>
+    <button class="button button-primary" type="button" data-wizard-next>Continue</button>
+  `;
+  submitButton.insertAdjacentElement("beforebegin", wizardActions);
+
+  const backButton = wizardActions.querySelector("[data-wizard-back]");
+  const nextButton = wizardActions.querySelector("[data-wizard-next]");
+  const stepButtons = Array.from(stepper.querySelectorAll("[data-wizard-step-button]"));
+  let currentStep = 0;
+
+  function updateWizard() {
+    steps.forEach((step, index) => {
+      step.hidden = index !== currentStep;
+    });
+
+    stepButtons.forEach((button, index) => {
+      const isActive = index === currentStep;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-current", isActive ? "step" : "false");
+      button.disabled = index > currentStep + 1;
+    });
+
+    if (backButton) backButton.hidden = currentStep === 0;
+    if (nextButton) nextButton.hidden = currentStep === steps.length - 1;
+    submitButton.hidden = currentStep !== steps.length - 1;
+    if (submitNote) submitNote.hidden = currentStep !== steps.length - 1;
+    if (consentRow) consentRow.hidden = currentStep !== steps.length - 1;
+  }
+
+  function goToStep(nextStep) {
+    const requestedStep = Math.max(0, Math.min(steps.length - 1, nextStep));
+
+    if (requestedStep > currentStep && !validateWizardStep(form, steps[currentStep])) return;
+
+    currentStep = requestedStep;
+    updateWizard();
+  }
+
+  backButton?.addEventListener("click", () => goToStep(currentStep - 1));
+  nextButton?.addEventListener("click", () => goToStep(currentStep + 1));
+  stepButtons.forEach((button, index) => {
+    button.addEventListener("click", () => goToStep(index));
+  });
+
+  updateWizard();
 }
 
 function formatNumber(value) {
@@ -333,6 +464,45 @@ function getBestListingImageUrl(imageUrl) {
     return url.toString();
   } catch {
     return "";
+  }
+}
+
+function getListingsLimit() {
+  const limit = Number(listingsSection?.dataset.listingsLimit || LISTINGS_VISIBLE_LIMIT);
+
+  return Number.isFinite(limit) && limit > 0 ? limit : LISTINGS_VISIBLE_LIMIT;
+}
+
+function getListingCategory(listing) {
+  const text = `${listing?.title || ""} ${listing?.condition || ""} ${listing?.buyingOption || ""}`.toLowerCase();
+
+  if (/\b(psa|cgc|bgs|graded|slab)\b/.test(text)) return "graded";
+  if (/\b(sealed|booster box|elite trainer|etb|tin|blister|collection box)\b/.test(text)) return "sealed";
+  if (/\b(bulk|lot|bundle|choose your lot|cards bulk)\b/.test(text)) return "bulk";
+
+  return "singles";
+}
+
+function getFilteredListings(listings) {
+  if (listingsFilter === "all") return listings;
+
+  return listings.filter((listing) => getListingCategory(listing) === listingsFilter);
+}
+
+function updateListingFilterState(totalVisible, totalFiltered) {
+  if (!listingsSection) return;
+
+  const buttons = Array.from(listingsSection.querySelectorAll("[data-listings-filter]"));
+  const countNode = listingsSection.querySelector("[data-listings-filter-count]");
+
+  buttons.forEach((button) => {
+    const isActive = button.getAttribute("data-listings-filter") === listingsFilter;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
+  });
+
+  if (countNode) {
+    countNode.textContent = `${formatNumber(totalVisible)} shown from ${formatNumber(totalFiltered)} matching listing${totalFiltered === 1 ? "" : "s"}.`;
   }
 }
 
@@ -550,11 +720,14 @@ function renderListings(feed) {
   const feedNode = listingsSection.querySelector("[data-listings-feed]");
   const summaryNode = listingsSection.querySelector("[data-listings-summary]");
   const updatedNode = listingsSection.querySelector("[data-listings-updated]");
-  const listings = Array.isArray(feed?.listings)
+  listingsFeedCache = feed;
+
+  const allListings = Array.isArray(feed?.listings)
     ? feed.listings
       .filter((listing) => listing?.url && listing?.title)
-      .slice(0, LISTINGS_VISIBLE_LIMIT)
     : [];
+  const filteredListings = getFilteredListings(allListings);
+  const listings = filteredListings.slice(0, getListingsLimit());
 
   if (!feedNode) return;
 
@@ -569,7 +742,7 @@ function renderListings(feed) {
     feedNode.innerHTML = `
       <article class="listing-empty-card">
         <span>eBay store</span>
-        <h3>Current listings are loading.</h3>
+        <h3>${allListings.length > 0 ? "No listings match this filter." : "Current listings are loading."}</h3>
         <p>You can still browse the full Vaulture eBay store.</p>
         <a
           class="text-link"
@@ -581,6 +754,7 @@ function renderListings(feed) {
         </a>
       </article>
     `;
+    updateListingFilterState(0, filteredListings.length);
     return;
   }
 
@@ -596,6 +770,7 @@ function renderListings(feed) {
   }
 
   feedNode.innerHTML = listings.map((listing) => getListingCardMarkup(listing)).join("");
+  updateListingFilterState(listings.length, filteredListings.length);
 }
 
 async function loadListings() {
@@ -746,18 +921,17 @@ if (navToggle && primaryNav) {
   });
 }
 
-sellingCheckboxes.forEach((checkbox) => {
-  checkbox.addEventListener("change", () => {
-    validateSellingGroup(false);
-  });
-});
+sellForms.forEach((form) => initSellForm(form));
 
-if (sellForm) {
-  sellForm.addEventListener("submit", (event) => {
-    if (!validateSellingGroup(true)) {
-      event.preventDefault();
-      sellingCheckboxes[0].reportValidity();
-    }
+if (listingsSection) {
+  listingsSection.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const filterButton = event.target.closest("[data-listings-filter]");
+    if (!filterButton) return;
+
+    listingsFilter = filterButton.getAttribute("data-listings-filter") || "all";
+    renderListings(listingsFeedCache || { listings: [], summary: {} });
   });
 }
 

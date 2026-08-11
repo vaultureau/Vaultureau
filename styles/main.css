@@ -1119,6 +1119,69 @@ input[type="checkbox"] {
   margin-top: 18px;
 }
 
+.form-wizard-stepper {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 22px 0 8px;
+}
+
+.form-wizard-stepper button {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 8px;
+  align-items: center;
+  min-height: 52px;
+  border: 1px solid rgba(16, 24, 19, 0.14);
+  border-radius: var(--radius-sm);
+  background: rgba(247, 242, 232, 0.58);
+  color: var(--color-muted);
+  padding: 9px;
+  font-size: 0.8rem;
+  font-weight: 850;
+  line-height: 1.15;
+  text-align: left;
+}
+
+.form-wizard-stepper button span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(16, 24, 19, 0.1);
+  color: var(--color-forest);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.form-wizard-stepper button.is-active {
+  border-color: rgba(24, 53, 39, 0.42);
+  background: rgba(220, 248, 106, 0.2);
+  color: var(--color-forest-deep);
+}
+
+.form-wizard-stepper button.is-active span {
+  background: var(--color-forest-deep);
+  color: var(--color-lime);
+}
+
+.form-wizard-stepper button:disabled {
+  cursor: default;
+  opacity: 0.68;
+}
+
+.form-wizard-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.form-wizard-actions .button {
+  width: 100%;
+}
+
 .submit-note {
   margin: 14px 0 0;
 }
@@ -1333,6 +1396,193 @@ input[type="checkbox"] {
   margin: 18px 0 0;
   font-size: 0.92rem;
   text-align: right;
+}
+
+.listing-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.listing-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  min-height: 38px;
+  border: 1px solid rgba(16, 24, 19, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.72);
+  color: var(--color-ink-soft);
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 850;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.filter-chip:hover {
+  border-color: rgba(24, 53, 39, 0.32);
+  transform: translateY(-1px);
+}
+
+.filter-chip.is-active {
+  border-color: rgba(24, 53, 39, 0.48);
+  background: var(--color-forest-deep);
+  color: var(--color-paper);
+}
+
+.listing-filter-count {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 720;
+}
+
+.shop-proof-grid,
+.value-factor-grid,
+.value-step-grid,
+.faq-topic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.shop-proof-card,
+.value-factor-card,
+.value-step-card,
+.faq-topic-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 210px;
+  border: 1px solid rgba(16, 24, 19, 0.12);
+  border-radius: var(--radius-md);
+  background: var(--color-paper);
+  padding: 24px;
+  box-shadow: 0 16px 42px rgba(16, 24, 19, 0.06);
+}
+
+.shop-proof-card::before,
+.value-factor-card::before,
+.value-step-card::before,
+.faq-topic-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-lime), rgba(166, 110, 63, 0.58), transparent);
+}
+
+.shop-proof-card span,
+.value-factor-card span,
+.value-step-card span,
+.faq-topic-card span {
+  display: inline-flex;
+  margin-bottom: 30px;
+  color: var(--color-clay);
+  font-size: 0.76rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.shop-proof-card h3,
+.value-factor-card h3,
+.value-step-card h3,
+.faq-topic-card h3 {
+  color: var(--color-forest);
+}
+
+.shop-proof-card p,
+.value-factor-card p,
+.value-step-card p,
+.faq-topic-card p {
+  margin-bottom: 0;
+  color: var(--color-muted);
+}
+
+.shop-proof-card-featured,
+.value-factor-card-featured {
+  grid-column: span 2;
+  background:
+    linear-gradient(135deg, rgba(220, 248, 106, 0.2), rgba(49, 95, 114, 0.08), rgba(255, 250, 240, 0.94)),
+    var(--color-cream);
+}
+
+.shop-proof-card-featured h3,
+.value-factor-card-featured h3 {
+  font-size: 1.75rem;
+}
+
+.value-signal-panel,
+.faq-contact-panel {
+  border: 1px solid rgba(255, 250, 240, 0.14);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(135deg, rgba(24, 53, 39, 0.96), rgba(3, 16, 12, 0.99)),
+    var(--color-forest-deep);
+  color: rgba(255, 250, 240, 0.78);
+  padding: clamp(24px, 4vw, 36px);
+  box-shadow: var(--shadow-deep);
+}
+
+.value-signal-panel h2,
+.faq-contact-panel h2 {
+  color: var(--color-paper);
+}
+
+.value-signal-panel p,
+.faq-contact-panel p {
+  color: rgba(255, 250, 240, 0.72);
+}
+
+.signal-list {
+  display: grid;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.signal-list li {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 10px;
+  align-items: start;
+  color: rgba(255, 250, 240, 0.82);
+  font-weight: 760;
+}
+
+.signal-list li::before {
+  content: "";
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background:
+    linear-gradient(135deg, var(--color-lime), rgba(220, 248, 106, 0.58)),
+    var(--color-lime);
+  box-shadow: inset 0 0 0 8px rgba(3, 16, 12, 0.3);
+}
+
+.faq-page-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.38fr) minmax(0, 1fr);
+  gap: 52px;
+  align-items: start;
+}
+
+.faq-page-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 28px);
+  display: grid;
+  gap: 14px;
+}
+
+.faq-page-sidebar .guide-sidebar-card {
+  background: var(--color-cream);
 }
 
 .activity-section {
@@ -2591,6 +2841,10 @@ input[type="checkbox"] {
   gap: 10px;
 }
 
+.faq-list + .faq-list {
+  margin-top: 28px;
+}
+
 .faq-list details {
   border: 1px solid rgba(16, 24, 19, 0.12);
   border-radius: var(--radius-md);
@@ -2737,6 +2991,7 @@ input[type="checkbox"] {
   .testimonials-layout,
   .support-detail-layout,
   .guide-layout,
+  .faq-page-layout,
   .seller-prep-layout,
   .trust-section-grid {
     grid-template-columns: 1fr;
@@ -2747,6 +3002,7 @@ input[type="checkbox"] {
   .activity-copy,
   .testimonials-copy,
   .guide-sidebar,
+  .faq-page-sidebar,
   .seller-prep-copy,
   .faq-layout-premium .section-heading {
     position: static;
@@ -2760,6 +3016,10 @@ input[type="checkbox"] {
   .buy-grid,
   .guide-card-grid,
   .listing-grid,
+  .shop-proof-grid,
+  .value-factor-grid,
+  .value-step-grid,
+  .faq-topic-grid,
   .hero-proof-grid,
   .support-channel-grid,
   .sell-timeline {
@@ -2775,6 +3035,11 @@ input[type="checkbox"] {
   }
 
   .guide-card-featured {
+    grid-column: span 2;
+  }
+
+  .shop-proof-card-featured,
+  .value-factor-card-featured {
     grid-column: span 2;
   }
 
@@ -2970,6 +3235,10 @@ input[type="checkbox"] {
   .marketplace-grid,
   .guide-card-grid,
   .listing-grid,
+  .shop-proof-grid,
+  .value-factor-grid,
+  .value-step-grid,
+  .faq-topic-grid,
   .hero-proof-grid,
   .activity-summary,
   .testimonial-stats,
@@ -2996,6 +3265,10 @@ input[type="checkbox"] {
   .guide-sidebar-card,
   .guide-callout,
   .buy-card,
+  .shop-proof-card,
+  .value-factor-card,
+  .value-step-card,
+  .faq-topic-card,
   .support-card,
   .support-checklist article,
   .prep-checklist article,
@@ -3028,6 +3301,11 @@ input[type="checkbox"] {
   }
 
   .support-card-featured {
+    grid-column: auto;
+  }
+
+  .shop-proof-card-featured,
+  .value-factor-card-featured {
     grid-column: auto;
   }
 
@@ -3109,6 +3387,16 @@ input[type="checkbox"] {
 
   .listings-updated {
     text-align: left;
+  }
+
+  .listing-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .form-wizard-stepper,
+  .form-wizard-actions {
+    grid-template-columns: 1fr;
   }
 }
 
