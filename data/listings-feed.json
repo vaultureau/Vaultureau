@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-12T20:25:29.930Z",
+  "updatedAt": "2026-08-13T05:53:13.419Z",
   "source": "eBay Browse API",
   "status": "live",
   "marketplace": "EBAY_AU",
@@ -10,19 +10,6 @@
     "totalSynced": 4
   },
   "listings": [
-    {
-      "id": "v1|398276731157|0",
-      "source": "eBay",
-      "title": "11x Pokemon TCG Card Bulk Lot - 1x Holo + 2x Trainers - LOT011",
-      "url": "https://www.ebay.com.au/itm/398276731157?_skw=Pokemon&hash=item5cbb24a115:g:3~EAAeSwXRhqesq8",
-      "image": "https://i.ebayimg.com/images/g/3~EAAeSwXRhqesq8/s-l1600.jpg",
-      "price": {
-        "value": 3.99,
-        "currency": "AUD"
-      },
-      "condition": "Ungraded",
-      "buyingOption": "Auction"
-    },
     {
       "id": "v1|398262436475|666529862962",
       "source": "eBay",
@@ -35,6 +22,19 @@
       },
       "condition": "Ungraded",
       "buyingOption": "Buy it now"
+    },
+    {
+      "id": "v1|398276731157|0",
+      "source": "eBay",
+      "title": "11x Pokemon TCG Card Bulk Lot - 1x Holo + 2x Trainers - LOT011",
+      "url": "https://www.ebay.com.au/itm/398276731157?_skw=Pokemon&hash=item5cbb24a115:g:3~EAAeSwXRhqesq8",
+      "image": "https://i.ebayimg.com/images/g/3~EAAeSwXRhqesq8/s-l1600.jpg",
+      "price": {
+        "value": 3.99,
+        "currency": "AUD"
+      },
+      "condition": "Ungraded",
+      "buyingOption": "Auction"
     },
     {
       "id": "v1|398276706468|0",
