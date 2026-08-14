@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-14T12:31:20.996Z",
+  "updatedAt": "2026-08-14T16:09:12.839Z",
   "source": "marketplaces",
   "status": "live",
   "privacy": "Buyer names, addresses, usernames, seller IDs, order IDs, shipment IDs, prices, fees and private order notes are never published in this feed.",
@@ -13,7 +13,7 @@
     "totalOrders": 816,
     "totalSales": 816,
     "totalItems": 819,
-    "last7Days": 1,
+    "last7Days": 0,
     "last30Days": 1
   },
   "recent": [
