@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-15T03:08:45.885Z",
+  "updatedAt": "2026-08-15T07:47:27.305Z",
   "source": "eBay Browse API",
   "status": "live",
   "marketplace": "EBAY_AU",
@@ -11,17 +11,17 @@
   },
   "listings": [
     {
-      "id": "v1|398262436475|666529862963",
+      "id": "v1|398276731157|0",
       "source": "eBay",
-      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo Trainers Choose Lot",
-      "url": "https://www.ebay.com.au/itm/398262436475?_skw=Pokemon&hash=item5cba4a827b:g:S0wAAeSwG~VqeHWS",
-      "image": "https://i.ebayimg.com/images/g/S0wAAeSwG~VqeHWS/s-l1600.jpg",
+      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT011",
+      "url": "https://www.ebay.com.au/itm/398276731157?_skw=Pokemon&hash=item5cbb24a115:g:3~EAAeSwXRhqesq8",
+      "image": "https://i.ebayimg.com/images/g/3~EAAeSwXRhqesq8/s-l1600.jpg",
       "price": {
-        "value": 4.99,
+        "value": 3.99,
         "currency": "AUD"
       },
       "condition": "Ungraded",
-      "buyingOption": "Buy it now"
+      "buyingOption": "Auction"
     },
     {
       "id": "v1|398276706468|0",
@@ -37,17 +37,17 @@
       "buyingOption": "Auction"
     },
     {
-      "id": "v1|398276731157|0",
+      "id": "v1|398262436475|666529862963",
       "source": "eBay",
-      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT011",
-      "url": "https://www.ebay.com.au/itm/398276731157?_skw=Pokemon&hash=item5cbb24a115:g:3~EAAeSwXRhqesq8",
-      "image": "https://i.ebayimg.com/images/g/3~EAAeSwXRhqesq8/s-l1600.jpg",
+      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo Trainers Choose Lot",
+      "url": "https://www.ebay.com.au/itm/398262436475?_skw=Pokemon&hash=item5cba4a827b:g:S0wAAeSwG~VqeHWS",
+      "image": "https://i.ebayimg.com/images/g/S0wAAeSwG~VqeHWS/s-l1600.jpg",
       "price": {
-        "value": 3.99,
+        "value": 4.99,
         "currency": "AUD"
       },
       "condition": "Ungraded",
-      "buyingOption": "Auction"
+      "buyingOption": "Buy it now"
     },
     {
       "id": "v1|398272121311|0",
