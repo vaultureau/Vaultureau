@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-08-16T07:49:28.690Z",
+  "updatedAt": "2026-08-16T13:47:46.717Z",
   "source": "eBay Browse API",
   "status": "live",
   "marketplace": "EBAY_AU",
   "seller": "vaultureau",
   "privacy": "Only public eBay listing details are published. No buyer data, order data, private seller data or API tokens are included.",
   "summary": {
-    "totalMatched": 4,
-    "totalSynced": 4
+    "totalMatched": 3,
+    "totalSynced": 3
   },
   "listings": [
     {
@@ -24,19 +24,6 @@
       "buyingOption": "Buy it now"
     },
     {
-      "id": "v1|398276706468|0",
-      "source": "eBay",
-      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT010",
-      "url": "https://www.ebay.com.au/itm/398276706468?_skw=Pokemon&hash=item5cbb2440a4:g:VAIAAeSw3lhqesnh",
-      "image": "https://i.ebayimg.com/images/g/VAIAAeSw3lhqesnh/s-l1600.jpg",
-      "price": {
-        "value": 3.99,
-        "currency": "AUD"
-      },
-      "condition": "Ungraded",
-      "buyingOption": "Auction"
-    },
-    {
       "id": "v1|398276731157|0",
       "source": "eBay",
       "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT011",
@@ -50,17 +37,17 @@
       "buyingOption": "Auction"
     },
     {
-      "id": "v1|398272121311|0",
+      "id": "v1|398276706468|0",
       "source": "eBay",
-      "title": "Pokemon TCG Hilda 173/086 SAR Special Art Rare Japanese White Flare sv11W NM",
-      "url": "https://www.ebay.com.au/itm/398272121311?_skw=Pokemon&hash=item5cbade49df:g:c-0AAeSwa2dqenII",
-      "image": "https://i.ebayimg.com/images/g/c-0AAeSwa2dqenII/s-l1600.jpg",
+      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT010",
+      "url": "https://www.ebay.com.au/itm/398276706468?_skw=Pokemon&hash=item5cbb2440a4:g:VAIAAeSw3lhqesnh",
+      "image": "https://i.ebayimg.com/images/g/VAIAAeSw3lhqesnh/s-l1600.jpg",
       "price": {
-        "value": 79.99,
+        "value": 3.99,
         "currency": "AUD"
       },
       "condition": "Ungraded",
-      "buyingOption": "Best offer"
+      "buyingOption": "Auction"
     }
   ]
 }
