@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-22T07:50:23.014Z",
+  "updatedAt": "2026-08-22T13:47:19.250Z",
   "source": "eBay Browse API",
   "status": "live",
   "marketplace": "EBAY_AU",
@@ -24,11 +24,11 @@
       "buyingOption": "Buy it now"
     },
     {
-      "id": "v1|398302820844|0",
+      "id": "v1|398302835484|0",
       "source": "eBay",
-      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT010",
-      "url": "https://www.ebay.com.au/itm/398302820844?_skw=Pokemon&hash=item5cbcb2b9ec:g:VAIAAeSw3lhqesnh",
-      "image": "https://i.ebayimg.com/images/g/VAIAAeSw3lhqesnh/s-l1600.jpg",
+      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT011",
+      "url": "https://www.ebay.com.au/itm/398302835484?_skw=Pokemon&hash=item5cbcb2f31c:g:3~EAAeSwXRhqesq8",
+      "image": "https://i.ebayimg.com/images/g/3~EAAeSwXRhqesq8/s-l1600.jpg",
       "price": {
         "value": 3.99,
         "currency": "AUD"
@@ -37,11 +37,11 @@
       "buyingOption": "Auction"
     },
     {
-      "id": "v1|398302835484|0",
+      "id": "v1|398302820844|0",
       "source": "eBay",
-      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT011",
-      "url": "https://www.ebay.com.au/itm/398302835484?_skw=Pokemon&hash=item5cbcb2f31c:g:3~EAAeSwXRhqesq8",
-      "image": "https://i.ebayimg.com/images/g/3~EAAeSwXRhqesq8/s-l1600.jpg",
+      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT010",
+      "url": "https://www.ebay.com.au/itm/398302820844?_skw=Pokemon&hash=item5cbcb2b9ec:g:VAIAAeSw3lhqesnh",
+      "image": "https://i.ebayimg.com/images/g/VAIAAeSw3lhqesnh/s-l1600.jpg",
       "price": {
         "value": 3.99,
         "currency": "AUD"
