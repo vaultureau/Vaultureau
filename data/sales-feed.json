@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-10T00:16:22.290Z",
+  "updatedAt": "2026-09-10T04:52:55.825Z",
   "source": "marketplaces",
   "status": "live",
   "privacy": "Buyer names, addresses, usernames, seller IDs, order IDs, shipment IDs, prices, fees and private order notes are never published in this feed.",
@@ -7,16 +7,23 @@
     "requestedDays": 730,
     "apiSyncedDays": 90,
     "firstOrderDate": "2025-01-21",
-    "latestOrderDate": "2026-08-07"
+    "latestOrderDate": "2026-09-10"
   },
   "summary": {
-    "totalOrders": 816,
-    "totalSales": 816,
-    "totalItems": 819,
-    "last7Days": 0,
-    "last30Days": 0
+    "totalOrders": 817,
+    "totalSales": 817,
+    "totalItems": 820,
+    "last7Days": 1,
+    "last30Days": 1
   },
   "recent": [
+    {
+      "id": "155d8b2470694a",
+      "source": "eBay",
+      "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo + Trainers LOT010",
+      "quantity": 1,
+      "soldAt": "2026-09-10T02:47:46.000Z"
+    },
     {
       "id": "79aec728f4f169",
       "source": "eBay",
@@ -93,22 +100,9 @@
       "title": "Card on Screen #18",
       "quantity": 1,
       "soldAt": "2025-11-02T10:39:27.000Z"
-    },
-    {
-      "id": "05c1c2d5615f61",
-      "source": "Whatnot",
-      "title": "Reshiram V 172/195",
-      "quantity": 1,
-      "soldAt": "2025-11-02T10:20:33.000Z"
     }
   ],
   "daily": [
-    {
-      "date": "2025-08-30",
-      "sales": 53,
-      "orders": 53,
-      "items": 53
-    },
     {
       "date": "2025-08-31",
       "sales": 15,
@@ -282,15 +276,15 @@
       "sales": 1,
       "orders": 1,
       "items": 1
+    },
+    {
+      "date": "2026-09-10",
+      "sales": 1,
+      "orders": 1,
+      "items": 1
     }
   ],
   "weekly": [
-    {
-      "week": "2025-W36",
-      "sales": 107,
-      "orders": 107,
-      "items": 107
-    },
     {
       "week": "2025-W37",
       "sales": 32,
@@ -353,6 +347,12 @@
     },
     {
       "week": "2026-W32",
+      "sales": 1,
+      "orders": 1,
+      "items": 1
+    },
+    {
+      "week": "2026-W37",
       "sales": 1,
       "orders": 1,
       "items": 1
@@ -469,8 +469,9 @@
     },
     {
       "month": "2026-09",
-      "orders": 0,
-      "items": 0
+      "sales": 1,
+      "orders": 1,
+      "items": 1
     }
   ]
 }
