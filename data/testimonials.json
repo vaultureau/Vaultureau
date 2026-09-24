@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T05:26:36.926Z",
+  "updatedAt": "2026-09-24T12:12:24.022Z",
   "source": "eBay Feedback API",
   "status": "live",
   "privacy": "Only selected public seller feedback comments and public feedback images are published. Buyer usernames, user IDs, feedback IDs, listing IDs, order line item IDs, transaction IDs, prices and private account data are removed.",
@@ -7,10 +7,18 @@
     "totalSynced": 12,
     "positiveSynced": 12,
     "negativeSynced": 0,
-    "availableFeedback": 23,
-    "feedbackScore": 30
+    "availableFeedback": 24,
+    "feedbackScore": 31
   },
   "testimonials": [
+    {
+      "id": "707f69ffcc56f2",
+      "source": "eBay",
+      "label": "Verified eBay buyer",
+      "comment": "Great quality. Well packaged. Excellent seller",
+      "commentType": "positive",
+      "images": []
+    },
     {
       "id": "1c7a1b0ea363ca",
       "source": "eBay",
@@ -98,14 +106,6 @@
       "source": "eBay",
       "label": "Verified eBay buyer",
       "comment": "Arrived in good time and as described:)",
-      "commentType": "positive",
-      "images": []
-    },
-    {
-      "id": "64bc19269bc7ab",
-      "source": "eBay",
-      "label": "Verified eBay buyer",
-      "comment": "Great product, excellent seller",
       "commentType": "positive",
       "images": []
     }
