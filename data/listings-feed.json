@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-01T13:29:42.438Z",
+  "updatedAt": "2026-10-01T22:45:50.515Z",
   "source": "eBay Browse API",
   "status": "live",
   "marketplace": "EBAY_AU",
@@ -11,7 +11,7 @@
   },
   "listings": [
     {
-      "id": "v1|398262436475|666529862962",
+      "id": "v1|398262436475|666529862964",
       "source": "eBay",
       "title": "11x Pokemon TCG Bulk Card Lot English Mixed Bundle Holo Trainers Choose Lot",
       "url": "https://www.ebay.com.au/itm/398262436475?_skw=Pokemon&hash=item5cba4a827b:g:S0wAAeSwG~VqeHWS",
