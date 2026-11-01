@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-31T21:37:03.519Z",
+  "updatedAt": "2026-11-01T01:12:13.721Z",
   "source": "marketplaces",
   "status": "live",
   "privacy": "Buyer names, addresses, usernames, seller IDs, order IDs, shipment IDs, prices, fees and private order notes are never published in this feed.",
@@ -475,6 +475,11 @@
     },
     {
       "month": "2026-10",
+      "orders": 0,
+      "items": 0
+    },
+    {
+      "month": "2026-11",
       "orders": 0,
       "items": 0
     }
